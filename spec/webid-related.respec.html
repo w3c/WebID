@@ -1,0 +1,510 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebID in relation to other technologies</title>
+    <meta http-equiv='Content-Type' content='text/html;charset=utf-8'/>
+    <!-- 
+      === NOTA BENE ===
+      For the three scripts below, if your spec resides on dev.w3 you can check them
+      out in the same tree and use relative links so that they'll work offline,
+     -->
+<style type='text/css'>
+code           { font-family: monospace; }
+
+span.hilite { color: red; /* font-weight: bold */ }
+
+li p           { margin-top: 0.3em;
+                 margin-bottom: 0.3em; }
+
+div.explanation { background-color: #ADD8E6;
+                   width: 80%;
+                   margin: 12px; padding: 8px; }
+div.explanation li { margin-top: 8px; }
+div.explanation dd { margin: 4px; }
+
+.adef { 
+	font-family: monospace; 
+	font-weight: bold; 
+    color: #ff4500 !important;
+}
+
+.aref { 
+	font-family: monospace; 
+	font-weight: bold; 
+    color: #ff4500 !important;
+}
+
+span.entity { color: red; }
+
+span.element { color: green; }
+</style>
+
+    <script src='http://dev.w3.org/2009/dap/ReSpec.js/js/respec.js' class='remove'></script> 
+<!--    <script src='/ReSpec.js/js/respec.js' class='remove'></script> -->
+    <script class='remove'>
+      var preProc = {
+          apply:  function(c) {
+                    // process the document before anything else is done
+                    var refs = document.querySelectorAll('adef') ;
+                    for (var i = 0; i < refs.length; i++) {
+                        var item = refs[i];
+                        var p = item.parentNode ;
+                        var con = item.innerHTML ;
+                        var sp = document.createElement( 'dfn' ) ;
+                        var tit = item.getAttribute('title') ;
+                        if (!tit) {
+                            tit = con;
+                        }
+                        sp.className = 'adef' ;
+                        sp.title=tit ;
+                        sp.innerHTML = con ;
+                        p.replaceChild(sp, item) ;
+                    }
+                    refs = document.querySelectorAll('aref') ;
+                    for (var i = 0; i < refs.length; i++) {
+                        var item = refs[i];
+                        var p = item.parentNode ;
+                        var con = item.innerHTML ;
+                        var sp = document.createElement( 'a' ) ;
+                        sp.className = 'aref' ;
+                        sp.setAttribute('title', con);
+                        sp.innerHTML = '@'+con ;
+                        p.replaceChild(sp, item) ;
+                    }
+                    // local datatype references
+                    refs = document.querySelectorAll('ldtref') ;
+                    for (var i = 0; i < refs.length; i++) {
+                        var item = refs[i];
+                        if (!item) continue ;
+                        var p = item.parentNode ;
+                        var con = item.innerHTML ;
+                        var ref = item.getAttribute('title') ;
+                        if (!ref) {
+                            ref = item.textContent ;
+                        }
+                        if (ref) {
+                            ref = ref.replace(/\n/g, '_') ;
+                            ref = ref.replace(/\s+/g, '_') ;
+                        }
+                        var sp = document.createElement( 'a' ) ;
+                        sp.className = 'datatype';
+                        sp.title = ref ;
+                        sp.innerHTML = con ;
+                        p.replaceChild(sp, item) ;
+                    }
+                    // external datatype references
+                    refs = document.querySelectorAll('dtref') ;
+                    for (var i = 0; i < refs.length; i++) {
+                        var item = refs[i];
+                        if (!item) continue ;
+                        var p = item.parentNode ;
+                        var con = item.innerHTML ;
+                        var ref = item.getAttribute('title') ;
+                        if (!ref) {
+                            ref = item.textContent ;
+                        }
+                        if (ref) {
+                            ref = ref.replace(/\n/g, '_') ;
+                            ref = ref.replace(/\s+/g, '_') ;
+                        }
+                        var sp = document.createElement( 'a' ) ;
+                        sp.className = 'externalDFN';
+                        sp.title = ref ;
+                        sp.innerHTML = con ;
+                        p.replaceChild(sp, item) ;
+                    }
+                    // now do terms
+                    refs = document.querySelectorAll('tdef') ;
+                    for (var i = 0; i < refs.length; i++) {
+                        var item = refs[i];
+                        if (!item) continue ;
+                        var p = item.parentNode ;
+                        var con = item.innerHTML ;
+                        var ref = item.getAttribute('title') ;
+                        if (!ref) {
+                            ref = item.textContent ;
+                        }
+                        if (ref) {
+                            ref = ref.replace(/\n/g, '_') ;
+                            ref = ref.replace(/\s+/g, '_') ;
+                        }
+                        var sp = document.createElement( 'dfn' ) ;
+                        sp.title = ref ;
+                        sp.innerHTML = con ;
+                        p.replaceChild(sp, item) ;
+                    }
+                    // now term references
+                    refs = document.querySelectorAll('tref') ;
+                    for (var i = 0; i < refs.length; i++) {
+                        var item = refs[i];
+                        if (!item) continue ;
+                        var p = item.parentNode ;
+                        var con = item.innerHTML ;
+                        var ref = item.getAttribute('title') ;
+                        if (!ref) {
+                            ref = item.textContent ;
+                        }
+                        if (ref) {
+                            ref = ref.replace(/\n/g, '_') ;
+                            ref = ref.replace(/\s+/g, '_') ;
+                        }
+
+                        var sp = document.createElement( 'a' ) ;
+                        var id = item.textContent ;
+                        sp.className = 'tref' ;
+                        sp.title = ref ;
+                        sp.innerHTML = con ;
+                        p.replaceChild(sp, item) ;
+                    }
+                }
+        } ;
+
+
+      var respecConfig = {
+          // specification status (e.g. WD, LCWD, NOTE, etc.). If in doubt use ED.
+          // embed RDFa data in the output
+          doRDFa: true,
+          specStatus:           "unofficial",
+          //publishDate:          "2010-07-05",
+          diffTool:             "http://www3.aptest.com/standards/htmldiff/htmldiff.pl",
+          
+          // the specifications short name, as in http://www.w3.org/TR/short-name/
+          shortName:            "webid-related",
+          subtitle: "How WebID relates and compares to other technologies",
+
+          // if you wish the publication date to be other than today, set this
+          // publishDate:  "2009-08-06",
+          copyrightStart:  "2010",
+
+          // if there is a previously published draft, uncomment this and set its YYYY-MM-DD date
+          // and its maturity status
+          previousPublishDate:  "2010-07-11",
+          previousMaturity:  "ED",
+          previousURI:       "http://payswarm.com/webid/drafts/ED-webid-20100711/",
+
+
+          // if there a publicly available Editors Draft, this is the link
+          edDraftURI:           "http://payswarm.com/webid/",
+
+          // if this is a LCWD, uncomment and set the end of its review period
+          // lcEnd: "2009-08-05",
+
+          // if you want to have extra CSS, append them to this list
+          // it is recommended that the respec.css stylesheet be kept
+          extraCSS:             ['http://dev.w3.org/2009/dap/ReSpec.js/css/respec.css'],
+
+          // editors, add as many as you like
+          // only "name" is required
+          editors:  [
+              { name: "Manu Sporny", mailto:"msporny@digitalbazaar.com",
+                  company: "Digital Bazaar, Inc.", companyURL: "http://blog.digitalbazaar.com/" }
+              ],
+
+          // authors, add as many as you like. 
+          // This is optional, uncomment if you have authors as well as editors.
+          // only "name" is required. Same format as editors.
+
+          authors:  [
+              { name: "Toby Inkster", url: "http://tobyinkster.co.uk/" },
+              { name: "Henry Story", url: "http://bblfish.net/" },
+              { name: "Bruno Harbulot", url: "http://blog.distributedmatter.net/" },
+              { name: "Reto Bachmann-Gmür", url: "http://trialox.org/" }
+          ],
+
+//          errata: 'http://www.w3.org/MarkUp/2008/REC-rdfa-syntax-20081014-errata',
+          
+          // name of the WG
+          wg:           "Social Web XG",
+          
+          // URI of the public WG page
+          wgURI:        "http://esw.w3.org/Foaf%2Bssl",
+          
+          // name (with the @w3c.org) of the public mailing to which comments are due
+          wgPublicList: "socialweb-xg",
+          
+          // alternate formats for this document
+          alternateFormats: [
+              { uri: 'diff-20100711.html', 
+                  label: "Diff from previous Editors Draft" }],
+
+          // URI of the patent status for this WG, for Rec-track documents
+          // !!!! IMPORTANT !!!!
+          // This is important for Rec-track documents, do not copy a patent URI from a random
+          // document unless you know what you're doing. If in doubt ask your friendly neighbourhood
+          // Team Contact.
+          wgPatentURI:  "http://www.w3.org/2004/01/pp-impl/44350/status",
+          maxTocLevel: 4,
+          preProcess: [ preProc ] 
+      };
+
+
+      function updateExample(doc, content) {
+        // perform transformations to make it render and prettier
+        content = content.replace(/<!--/, '');
+        content = content.replace(/-->/, '');
+        content = doc._esc(content);
+        content = content.replace(/\*\*\*\*([^*]*)\*\*\*\*/g, '<span class="hilite">$1</span>') ;
+        return content ;
+      }
+
+      function updateDTD(doc, content) {
+        // perform transformations to 
+        // make it render and prettier
+        content = '<pre class="dtd">' + doc._esc(content) + '</pre>';
+        content = content.replace(/!ENTITY % ([^ \t\r\n]*)/g, '!ENTITY <span class="entity">% $1</span>');
+        content = content.replace(/!ELEMENT ([^ \t$]*)/mg, '!ELEMENT <span class="element">$1</span>');
+        return content;
+      }
+
+      function updateSchema(doc, content) {
+        // perform transformations to 
+        // make it render and prettier
+        content = '<pre class="dtd">' + doc._esc(content) + '</pre>';
+        content = content.replace(/&lt;xs:element\s+name=&quot;([^&]*)&quot;/g, '&lt;xs:element name="<span class="element" id="schema_element_$1">$1</span>"') ;
+        return content;
+      }
+
+      function updateTTL(doc, content) {
+        // perform transformations to 
+        // make it render and prettier
+        content = '<pre class="sh_sourceCode">' + doc._esc(content) + '</pre>';
+        content = content.replace(/@prefix/g, '<span class="sh_keyword">@prefix</span>');
+        return content;
+      }
+    </script>
+  </head>
+  <body>
+    <section id='abstract'>
+
+<p>Social networking, identity and privacy have been at the center of how we 
+interact with the Web in the last decade. The explosion of social networking 
+sites has brought the world closer together as well as created new points of
+pain regarding ease of use and the Web. Remembering login details, passwords,
+and sharing private information across the many websites and social groups
+that we are a part of has become more difficult and complicated than necessary. 
+The Social Web is designed to ensure that control of identity and privacy 
+settings is always simple and under one's control. WebID is a key enabler of the 
+Social Web. This specification outlines a simple universal identification 
+mechanism that is distributed, openly extensible, improves privacy, security 
+and control over how one can identify themselves and control access to their 
+information on the Web.
+</p>
+  
+<section>
+<h2>How to Read this Document</h2>
+  
+<p>There are a number of concepts that are covered in this document that the
+reader may want to be aware of before continuing. General knowledge of
+<a href="http://en.wikipedia.org/wiki/Public_key_cryptography">public key cryptography</a> 
+and RDF [[!RDF-PRIMER]] and RDFa [[!RDFA-CORE]] is necessary to understand how 
+to implement this specification. WebID uses a number of specific technologies 
+like HTTP over TLS [[!HTTP-TLS]], X.509 certificates [[!X509V3]], 
+RDF/XML [[!RDF-SYNTAX-GRAMMAR]] and XHTML+RDFa [[!XHTML-RDFA]].</p>
+
+<p>A general <a href="#introduction">Introduction</a> is provided for all that
+would like to understand why this specification is necessary to simplify usage
+of the Web.</p>
+
+<p>The terms used throughout this specification are listed in the section
+titled <a href="#terminology">Terminology</a>.</p>
+
+<p>Developers that are interested in implementing this specification will be
+most interested in the sections titled 
+<a href="#authentication-sequence">Authentication Sequence</a> and 
+<a href="#authentication-sequence-details">Authentication Sequence Details</a>.
+  
+</section>
+</section>
+
+<section id='sotd'>
+<!-- <p>This document has been reviewed by W3C Members, by software
+developers, and by other W3C groups and interested parties, and is
+endorsed by the Director as a W3C Recommendation. It is a stable
+document and may be used as reference material or cited from another
+document. W3C's role in making the Recommendation is to draw attention
+to the specification and to promote its widespread deployment. This
+enhances the functionality and interoperability of the Web.</p> -->
+
+The source code for this document is available via Github at the following
+URI: <a href="https://github.com/webid-community/webid-spec">https://github.com/webid-community/webid-spec</a>
+
+</section>
+
+<section class='informative'>
+<h1>Introduction</h1>
+
+<p>
+The WebID specification is designed to help alleviate the difficultly that
+remembering different logins, passwords and settings for websites has created. 
+It is also designed to provide a universal and extensible mechanism to express 
+public and private information about yourself. This section outlines the 
+motivation behind the specification and the relationship to other similar 
+specifications that are in active use today.
+</p>
+
+<section class='informative'>
+<h1>Motivation</h1>
+
+<p class='issue'>TODO</p>
+
+</section>
+
+</section>
+
+<section class='informative'>
+<h1>Relation to OpenID</h1>
+
+<p class='issue'>This section needs to be re-written. The flow and grammar
+leaves much to be desired. -- manu</p>
+
+<p>WebID is compatible with OpenID. Both protocols use a URI that dereferences
+to a Personal Profile Document. This Personal Profile Document is where further
+information about an identity can be discovered. This mechanism is compatible
+with both WebID and OpenID. Therefore, WebID does not intend to replace OpenID, 
+but can work beside OpenID by sharing the content in the Personal Profile
+Document.</p>
+
+<p>That said, there are a number of benefits that WebID achieves over OpenID:
+</p>
+
+<p>WebID gives people and other agents a WebID URI for identification. OpenID
+also provides a URI to a Personal Profile Document. However, in the case of
+WebID, one does not need to remember the URI since the User Agent remembers
+the URI on behalf of the person browsing. To log in on a WebID web site there
+is no need to enter any identifier like one has to do for OpenID. Just one click 
+tells the browser to send the WebID URI. The person that is browsing does
+not need to remember either their WebID URI or the website password, and because
+no password or other secret credential is exchanged with the website, WebID is
+immune from phishing attacks.
+</p>
+
+<p>
+While WebID works well in a browser environment, it is also very useful outside
+of the browser environment. WebID can also operate without requiring the use
+of any passwords. This is useful to developers that may 
+want to use WebID to perform server-to-server or peer-to-peer verification of 
+identity. WebID works for automated agents such as Search Agents, API Agents,
+and other automated mechanisms that are often found outside of the browser
+environment.
+</p>
+
+<p>The WebID protocol requires just one direct network connection to establish
+identity via the client. The server requires one connection to the client and
+one connection to retrieve the WebID Profile if it does not have the credential
+information cached. Compare this to the much more complex OpenID sequence, which
+requires six connections by the client to establish a login. In a world of 
+distributed data where each site can point to data on any other site, multiple 
+connections become costly to manage.</p>
+
+<p>WebID builds on a number of well established Internet and Web standards;
+<a href="http://en.wikipedia.org/wiki/REST">REST</a>, 
+RDF [[RDF-PRIMER]], RDFa [[!RDFA-CORE]], RDF/XML [[!RDF-SYNTAX-GRAMMAR]], 
+TLS [[!HTTP-TLS]], and X.509 [[!X509V3]]. By building on proven technologies
+which have been integrated into Web browsers for many years,
+it makes both explaining and implementing WebID easier on developers.
+As a matter of fact, there were already three interoperable implementations
+of WebID before this specification was written.</p>
+
+<p>Since WebID is RESTful, you can perform basic HTTP operations to 
+<code>GET</code> your WebID, and if you needed update it, you can use
+HTTP <code>PUT</code> semantics. You can also create a WebID via 
+<code>POST</code>. This is improved from the OpenID specification, which
+requires a new set of operations described in the OpenID Attribute Exchange
+specification.</p>
+
+<p>WebID is built on RDF and thus enables all of the advanced semantic web
+concepts that RDF enables. For example, a developer may perform machine
+reasoning with a WebID. One can construct machine-executable statements like
+"If this WebID claims to be a friend of one of our partner WebIDs that is
+trusted and the relationship is bi-directional, trust the WebID." 
+While OpenID attempts to support this use case by mapping OpenID to RDF, it's
+far easier to do with WebID because WebID is natively built on RDF. This also
+allows to include WebID profiles into HTML documents with RDFa.</p>
+
+<p>It is easy to extend a WebID with new attributes via RDF. The power of
+RDF allows developers to add extensions to WebID by defining new
+vocabularies that they publish. There is no authorization process necessary
+and thus WebID allows for distributed innovation. Every WebID property is
+a URI, which when clicked, can give you yet more information about what the
+property means. A developer can create new usage classes by extending their
+vocabulary at will. A developer can add relationships to a WebID by simply
+adding more HTML to the developer's page. OpenID does not provide any type of
+distributed innovation akin to RDF.</p>
+
+<p>WebID is truly decentralized - with WebID you get a web of trust. 
+OpenID only supports the Web of Trust model if you indirectly trust the
+OpenID provider. In other words - OpenID is not truly decentralized. In OpenID
+you must trust OpenID providers. With WebID you only have to trust the people
+and the organizations with which you are communicating. In other words, you
+don't have to ask anyone whether or not you can trust your friends. You can
+query people that you trust directly to see if someone is trustworthy or not.
+There is no need for a central WebID authority.
+</p>
+
+<p>WebID is fully distributed. Anyone can setup a WebID by placing a single
+file on a web server of their choosing, for example on their own domain name.
+There is no need for a special OpenID-like provider service.
+You can also use a WebID hosting provider, but it's not necessary for
+WebID to work. While it is possible to run an OpenID server, other
+OpenID applications may not trust you and thus you won't be able to fully
+utilize your private OpenID credentials. The reason that there are a few
+large OpenID providers and very few small OpenID providers is because of this
+trust design issue related to OpenID.</p>
+
+<p>WebID does not require HTTP redirects. Redirects are problematic on many
+cell phones because telecommunication companies rely heavily on proxy servers which may selectively block
+redirects.</p>
+
+<p>A WebID provider is 100% compatible with an OpenID provider and thus can 
+inter-operate with OpenID-powered networks.</p>
+
+<p class='issue'>This last claim needs to be backed up by some bug reports or
+documentation on the actual problems.</p>
+
+</section>
+
+<section class='informative'>
+<h1>Relation to OAuth</h1>
+
+<p>
+OAuth and WebID are mutually beneficial when used together. WebID can be
+used to provide RSA parameters to the RSA-SHA1 signature method required by
+OAuth 1.0. WebID can also be used to establish the consumer_key and HTTPS 
+connection that will be used to transmit OAuth Tokens in OAuth 2.0.
+</p>
+
+</section>
+
+
+<section id="appendix">
+
+<section class='informative' id="history">
+<h1>Change History</h1>
+<p><a href="">2010-07-31</a> Initial version split from the core WebID specification.</p>
+</section>
+
+<section class='informative' id="acknowledgements">
+<h1>Acknowledgments</h1>
+
+<p>The following people have been instrumental in providing thoughts, feedback,
+reviews, criticism and input in the creation of this specification:</p>
+
+<ul>
+<li>Melvin Carvalho</li>
+<li>Bruno Harbulot</li>
+<li>Toby Inkster</li>
+<li>Ian Jacobi</li>
+<li>Jeff Sayre</li>
+<li>Henry Story</li>
+<li>Kingsley Idehen, OpenLink Software</li>
+<li>Seth Russell</li>
+<li>Sarven Capadisli</li>
+<li>Nathan Rixham</li>
+</ul>
+
+</section>
+</section>
+  </body>
+</html>
+

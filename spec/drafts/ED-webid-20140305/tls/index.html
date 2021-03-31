@@ -1,0 +1,1191 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML+RDFa 1.0//EN' 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd'>
+<html lang="en" dir="ltr" typeof="bibo:Document " about="" property="dcterms:language" content="en" version="XHTML+RDFa 1.0" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54# dcterms: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ xsd: http://www.w3.org/2001/XMLSchema#" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>WebID-TLS</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+
+<!--
+      === NOTA BENE ===
+      For the three scripts below, if your spec resides on dev.w3 you can check them
+      out in the same tree and use relative links so that they'll work offline,
+     -->
+
+<style type="text/css">
+code           { font-family: monospace; }
+
+span.hilite { color: red; /* font-weight: bold */ }
+
+li p           { margin-top: 0.3em;
+                 margin-bottom: 0.3em; }
+
+div.explanation { background-color: #ADD8E6;
+                   width: 80%;
+                   margin: 12px; padding: 8px; }
+div.explanation li { margin-top: 8px; }
+div.explanation dd { margin: 4px; }
+
+.adef {
+	font-family: monospace;
+	font-weight: bold;
+    color: #ff4500 !important;
+}
+
+.aref {
+	font-family: monospace;
+	font-weight: bold;
+    color: #ff4500 !important;
+}
+
+span.entity { color: red; }
+
+span.element { color: green; }
+</style>
+
+
+
+  <style type="text/css">/*****************************************************************
+ * ReSpec 3 CSS
+ * Robin Berjon - http://berjon.com/
+ *****************************************************************/
+
+/* --- INLINES --- */
+em.rfc2119 {
+    text-transform:     lowercase;
+    font-variant:       small-caps;
+    font-style:         normal;
+    color:              #900;
+}
+
+h1 acronym, h2 acronym, h3 acronym, h4 acronym, h5 acronym, h6 acronym, a acronym,
+h1 abbr, h2 abbr, h3 abbr, h4 abbr, h5 abbr, h6 abbr, a abbr {
+    border: none;
+}
+
+dfn {
+    font-weight:    bold;
+}
+
+a.internalDFN {
+    color:  inherit;
+    border-bottom:  1px solid #99c;
+    text-decoration:    none;
+}
+
+a.externalDFN {
+    color:  inherit;
+    border-bottom:  1px dotted #ccc;
+    text-decoration:    none;
+}
+
+a.bibref {
+    text-decoration:    none;
+}
+
+cite .bibref {
+    font-style: normal;
+}
+
+code {
+    color:  #ff4500;
+}
+
+/* --- TOC --- */
+.toc a, .tof a {
+    text-decoration:    none;
+}
+
+a .secno, a .figno {
+    color:  #000;
+}
+
+ul.tof, ol.tof {
+    list-style: none outside none;
+}
+
+.caption {
+    margin-top: 0.5em;
+    font-style:   italic;
+}
+
+/* --- TABLE --- */
+table.simple {
+    border-spacing: 0;
+    border-collapse:    collapse;
+    border-bottom:  3px solid #005a9c;
+}
+
+.simple th {
+    background: #005a9c;
+    color:  #fff;
+    padding:    3px 5px;
+    text-align: left;
+}
+
+.simple th[scope="row"] {
+    background: inherit;
+    color:  inherit;
+    border-top: 1px solid #ddd;
+}
+
+.simple td {
+    padding:    3px 10px;
+    border-top: 1px solid #ddd;
+}
+
+.simple tr:nth-child(even) {
+    background: #f0f6ff;
+}
+
+/* --- DL --- */
+.section dd > p:first-child {
+    margin-top: 0;
+}
+
+.section dd > p:last-child {
+    margin-bottom: 0;
+}
+
+.section dd {
+    margin-bottom:  1em;
+}
+
+.section dl.attrs dd, .section dl.eldef dd {
+    margin-bottom:  0;
+}
+
+@media print {
+    .removeOnSave {
+        display: none;
+    }
+}
+</style><style type="text/css">/* --- EXAMPLES --- */
+div.example-title {
+    min-width: 7.5em;
+    color: #b9ab2d;
+}
+div.example-title span {
+    text-transform: uppercase;
+}
+aside.example, div.example, div.illegal-example {
+    padding: 0.5em;
+    margin: 1em 0;
+    position: relative;
+    clear: both;
+}
+div.illegal-example { color: red }
+div.illegal-example p { color: black }
+aside.example, div.example {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+    border-color: #e0cb52;
+    background: #fcfaee;
+}
+
+aside.example div.example {
+    border-left-width: .1em;
+    border-color: #999;
+    background: #fff;
+}
+aside.example div.example div.example-title {
+    color: #999;
+}
+</style><style type="text/css">/* --- ISSUES/NOTES --- */
+div.issue-title, div.note-title {
+    padding-right:  1em;
+    min-width: 7.5em;
+    color: #b9ab2d;
+}
+div.issue-title { color: #e05252; }
+div.note-title { color: #2b2; }
+div.issue-title span, div.note-title span {
+    text-transform: uppercase;
+}
+div.note, div.issue {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.note > p:first-child, .issue > p:first-child { margin-top: 0 }
+.issue, .note {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+}
+div.issue, div.note {
+    padding: 1em 1.2em 0.5em;
+    margin: 1em 0;
+    position: relative;
+    clear: both;
+}
+span.note, span.issue { padding: .1em .5em .15em; }
+
+.issue {
+    border-color: #e05252;
+    background: #fbe9e9;
+}
+.note {
+    border-color: #52e052;
+    background: #e9fbe9;
+}
+
+
+</style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-ED" />
+<!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
+</head>
+  <body class="h-entry" id="respecDocument"><div class="head" id="respecHeader">
+  <p>
+
+      <a href="http://www.w3.org/"><img width="72" height="48" alt="W3C" src="https://www.w3.org/Icons/w3c_home" /></a>
+
+  </p>
+  <h1 property="dcterms:title" id="title" class="title p-name">WebID-TLS</h1>
+
+    <h2 id="subtitle" property="bibo:subtitle">WebID Authentication over TLS</h2>
+
+  <h2 content="2014-03-05T16:46:57.000Z" datatype="xsd:dateTime" property="dcterms:issued" id="w3c-editor-s-draft-05-march-2014"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <span class="dt-published time">05 March 2014</span></h2>
+  <dl>
+
+      <dt>This version:</dt>
+      <dd><a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20140305/tls" class="u-url">http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20140305/tls</a></dd>
+      <dt>Latest published version:</dt>
+      <dd><a href="http://www.w3.org/TR/auth-webid/">http://www.w3.org/TR/auth-webid/</a></dd>
+
+
+      <dt>Latest editor's draft:</dt>
+      <dd><a href="https://dvcs.w3.org/hg/WebID/raw-file/tip/spec/tls-respec.html">https://dvcs.w3.org/hg/WebID/raw-file/tip/spec/tls-respec.html</a></dd>
+
+
+
+
+
+
+
+
+
+    <dt>Editors:</dt>
+    <dd inlist="" rel="bibo:editor" class="p-author h-card vcard"><span typeof="foaf:Person"><a href="http://bblfish.net/" content="Henry Story" property="foaf:name" rel="foaf:homepage" class="u-url url p-name fn">Henry Story</a>, <span class="ed_mailto"><a href="mailto:henry.story@bblfish.net" rel="foaf:mbox" class="u-email email">henry.story@bblfish.net</a></span></span>
+</dd>
+<dd inlist="" rel="bibo:editor" class="p-author h-card vcard"><span typeof="foaf:Person"><span class="p-name fn" property="foaf:name">Stéphane Corlosquet</span>, <a href="http://massgeneral.org/" class="p-org org h-org h-card" rel="foaf:workplaceHomepage">Massachusetts General Hospital</a>, <span class="ed_mailto"><a href="mailto:scorlosquet@gmail.com" rel="foaf:mbox" class="u-email email">scorlosquet@gmail.com</a></span></span>
+</dd>
+<dd inlist="" rel="bibo:editor" class="p-author h-card vcard"><span typeof="foaf:Person"><a href="https://my-profile.eu/people/deiu/card#me" content="Andrei Sambra" property="foaf:name" rel="foaf:homepage" class="u-url url p-name fn">Andrei Sambra</a>, <span class="ed_mailto"><a href="mailto:andrei@fcns.eu" rel="foaf:mbox" class="u-email email">andrei@fcns.eu</a></span></span>
+</dd>
+
+
+      <dt>Authors:</dt>
+      <dd rel="dcterms:contributor" class="p-author h-card vcard"><span typeof="foaf:Person"><a href="http://tobyinkster.co.uk/" content="Toby Inkster" property="foaf:name" rel="foaf:homepage" class="u-url url p-name fn">Toby Inkster</a></span>
+</dd>
+<dd rel="dcterms:contributor" class="p-author h-card vcard"><span typeof="foaf:Person"><a href="http://bblfish.net/" content="Henry Story" property="foaf:name" rel="foaf:homepage" class="u-url url p-name fn">Henry Story</a></span>
+</dd>
+<dd rel="dcterms:contributor" class="p-author h-card vcard"><span typeof="foaf:Person"><a href="http://blog.distributedmatter.net/" content="Bruno Harbulot" property="foaf:name" rel="foaf:homepage" class="u-url url p-name fn">Bruno Harbulot</a></span>
+</dd>
+
+
+
+  </dl>
+
+
+
+
+
+      <p class="copyright">
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> ©
+        2010-2014
+
+        <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup>
+        (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+        <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
+        <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>),
+
+        All Rights Reserved.
+
+        <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
+
+          <a href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a>
+
+        rules apply.
+      </p>
+
+
+  <hr />
+</div>
+    <div id="abstract" class="introductory section" property="dcterms:abstract" datatype="" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter"><h2 id="h2_abstract">Abstract</h2>
+
+<p>A global distributed Social Web requires that each person be able to control their identity, that this identity be linkable across sites -  placing each person in a Web of relationships - and that it be possible to authenticate globally with such identities. By making distributed authentication easy one can allow everybody to protect their resources and enable their preferred privacy settings.</p>
+<p>This specification outlines a simple universal identification mechanism that is distributed, openly extensible, improves privacy, security and control over how each person can identify themselves in order to allow fine grained  access control to their information on the Web.
+It does this by applying the best practices of Web Architecture whilst building on well established widely deployed protocols and standards including HTML, URIs, HTTP, TLS, X.509 Certificates, and RDF Semantics.
+</p>
+
+<div class="section">
+<h3 id="how-to-read-this-document">How to Read this Document</h3>
+
+<p>There are a number of concepts that are covered in this document that the
+reader may want to be aware of before continuing. General knowledge of
+<a href="http://en.wikipedia.org/wiki/Public_key_cryptography">public key cryptography</a>
+and RDF [<cite><a class="bibref" href="#bib-RDF-PRIMER">RDF-PRIMER</a></cite>] is necessary to understand how
+to implement this specification. <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> uses a number of specific technologies
+like HTTP over TLS [<cite><a class="bibref" href="#bib-HTTP-TLS">HTTP-TLS</a></cite>], X.509 certificates [<cite><a class="bibref" href="#bib-X509V3">X509V3</a></cite>],
+Turtle [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>] and RDFa [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>].</p>
+
+<p>A general <a href="#introduction">Introduction</a> is provided for all that
+would like to understand why this specification is necessary to simplify usage
+of the Web.</p>
+
+<p>The terms used throughout this specification are listed in the section
+titled <a href="#terminology">Terminology</a>.</p>
+
+<p>Developers that are interested in implementing this specification will be
+most interested in the sections titled
+<a href="#authentication-sequence">Authentication Sequence</a> and
+<a href="#authentication-sequence-details">Authentication Sequence Details</a>.</p>
+
+</div>
+</div><div class="introductory section" id="sotd" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter"><h2 id="h2_sotd">Status of This Document</h2>
+
+
+
+        <p>
+          <em>This section describes the status of this document at the time of its publication.
+          Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the
+          latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at
+          http://www.w3.org/TR/.</em>
+        </p>
+
+
+<!-- <p>This document has been reviewed by W3C Members, by software
+developers, and by other W3C groups and interested parties, and is
+endorsed by the Director as a W3C Recommendation. It is a stable
+document and may be used as reference material or cited from another
+document. W3C's role in making the Recommendation is to draw attention
+to the specification and to promote its widespread deployment. This
+enhances the functionality and interoperability of the Web.</p> -->
+
+
+This document is produced from work by the
+<a href="http://www.w3.org/community/webid/"><abbr title="World Wide Web Consortium">W3C</abbr> WebID Community Group</a>.
+This is an internal draft document and may not even end up being officially
+published. It may also be updated, replaced or obsoleted by other documents
+at any time. It is inappropriate to cite this document as other than
+work in progress.
+The source code for this document is available at the following
+URI: <a href="https://dvcs.w3.org/hg/WebID">https://dvcs.w3.org/hg/WebID</a>
+
+
+        <p>
+          This document was published by the <a href="http://www.w3.org/community/webid/">WebID CG</a> as an Editor's Draft.
+
+
+            If you wish to make comments regarding this document, please send them to
+            <a href="mailto:public-webid@w3.org">public-webid@w3.org</a>
+            (<a href="mailto:public-webid-request@w3.org?subject=subscribe">subscribe</a>,
+            <a href="http://lists.w3.org/Archives/Public/public-webid/">archives</a>).
+
+
+
+
+            All comments are welcome.
+
+        </p>
+
+
+          <p>
+            Publication as an Editor's Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr>
+            Membership. This is a draft document and may be updated, replaced or obsoleted by other
+            documents at any time. It is inappropriate to cite this document as other than work in
+            progress.
+          </p>
+
+
+
+        <p>
+
+            This document was produced by a group operating under the
+            <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/" rel="w3p:patentRules" about="" id="sotd_patent">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
+            Policy</a>.
+
+
+
+
+              <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a rel="disclosure" href="http://www.w3.org/2004/01/pp-impl/46065/status">public list of any patent
+              disclosures</a>
+
+            made in connection with the deliverables of the group; that page also includes
+            instructions for disclosing a patent. An individual who has actual knowledge of a patent
+            which the individual believes contains
+            <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
+            Claim(s)</a> must disclose the information in accordance with
+            <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
+            6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
+
+
+        </p>
+
+
+
+
+</div><div id="toc" class="section"><h2 class="introductory" id="h2_toc">Table of Contents</h2><ul class="toc" id="respecContents"><li class="tocline"><a href="#introduction" class="tocxref"><span class="secno">1. </span>Introduction</a><ul class="toc"><li class="tocline"><a href="#outline" class="tocxref"><span class="secno">1.1 </span>Outline</a></li><li class="tocline"><a href="#terminology" class="tocxref"><span class="secno">1.2 </span>Terminology</a></li><li class="tocline"><a href="#namespaces" class="tocxref"><span class="secno">1.3 </span>Namespaces</a></li></ul></li><li class="tocline"><a href="#preconditions" class="tocxref"><span class="secno">2. </span>Preconditions</a><ul class="toc"><li class="tocline"><a href="#the-certificate" class="tocxref"><span class="secno">2.1 </span>The certificate</a><ul class="toc"><li class="tocline"><a href="#certificate-example" class="tocxref"><span class="secno">2.1.1 </span>Certificate example</a></li><li class="tocline"><a href="#certificate-creation" class="tocxref"><span class="secno">2.1.2 </span>Certificate creation</a></li></ul></li><li class="tocline"><a href="#the-webid-profile-document" class="tocxref"><span class="secno">2.2 </span>The WebID Profile Document</a><ul class="toc"><li class="tocline"><a href="#vocabulary" class="tocxref"><span class="secno">2.2.1 </span>Vocabulary</a></li></ul></li><li class="tocline"><a href="#turtle" class="tocxref"><span class="secno">2.3 </span>Turtle</a></li></ul></li><li class="tocline"><a href="#disabling-a-webid-certificate" class="tocxref"><span class="secno">3. </span>Disabling a WebID Certificate</a></li><li class="tocline"><a href="#the-webid-authentication-protocol" class="tocxref"><span class="secno">4. </span>The <span class="formerLink" title="WebID">WebID</span> Authentication Protocol</a><ul class="toc"><li class="tocline"><a href="#authentication-sequence" class="tocxref"><span class="secno">4.1 </span>Authentication Sequence</a></li><li class="tocline"><a href="#authentication-sequence-details" class="tocxref"><span class="secno">4.2 </span>Authentication Sequence Details</a><ul class="toc"><li class="tocline"><a href="#initiating-a-tls-connection" class="tocxref"><span class="secno">4.2.1 </span>Initiating a TLS Connection</a></li><li class="tocline"><a href="#connecting-at-the-application-layer" class="tocxref"><span class="secno">4.2.2 </span>Connecting at the Application Layer</a></li><li class="tocline"><a href="#access-control-check" class="tocxref"><span class="secno">4.2.3 </span>Access Control Check</a></li><li class="tocline"><a href="#requesting-the-client-certificate" class="tocxref"><span class="secno">4.2.4 </span>Requesting the Client Certificate</a></li><li class="tocline"><a href="#verifying-the-webids" class="tocxref"><span class="secno">4.2.5 </span>Verifying the WebIDs</a><ul class="toc"><li class="tocline"><a href="#processing-the-webid-profile" class="tocxref"><span class="secno">4.2.5.1 </span>Processing the WebID Profile</a></li><li class="tocline"><a href="#verifying-the-webid-claim" class="tocxref"><span class="secno">4.2.5.2 </span>Verifying the WebID Claim</a><ul class="toc"></ul></li><li class="tocline"><a href="#authorization" class="tocxref"><span class="secno">4.2.5.3 </span>Authorization</a></li></ul></li></ul></li></ul></li><li class="tocline"><a href="#privacy-considerations" class="tocxref"><span class="secno">5. </span>Privacy considerations</a><ul class="toc"><li class="tocline"><a href="#the-authenticating-subject" class="tocxref"><span class="secno">5.1 </span>The Authenticating Subject</a></li><li class="tocline"><a href="#privacy-considerations-for-the-webid-profile-server" class="tocxref"><span class="secno">5.2 </span>Privacy considerations for the WebID Profile Server</a></li><li class="tocline"><a href="#privacy-considerations-for-the-authenticating-server" class="tocxref"><span class="secno">5.3 </span>Privacy considerations for the authenticating Server</a></li></ul></li><li class="tocline"><a href="#security-considerations" class="tocxref"><span class="secno">6. </span>Security considerations</a></li><li class="tocline"><a href="#history" class="tocxref"><span class="secno">A. </span>Change History</a></li><li class="tocline"><a href="#acknowledgements" class="tocxref"><span class="secno">B. </span>Acknowledgments</a></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">C. </span>References</a><ul class="toc"><li class="tocline"><a href="#normative-references" class="tocxref"><span class="secno">C.1 </span>Normative references</a></li></ul></li></ul></div>
+
+
+
+<div class="informative section" id="introduction">
+
+<!--OddPage-->
+<h2 id="h2_introduction"><span class="secno">1. </span>Introduction</h2><p><em>This section is non-normative.</em></p>
+
+<p>
+The WebID-TLS protocol enables secure, efficient and maximally user friendly authentication on the Web.
+It enables people to authenticate onto any site by simply choosing one of the certificates proposed to them by their browser.
+These certificates can be created by any Web Site for their users.
+This specification extends the WebID Identity [<cite><a class="bibref" href="#bib-WEBID">WEBID</a></cite>] specification which defines many of the core concepts used in WebID-TLS, such as the identifier, known as the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>, as well as the associated <a class="tref internalDFN" title="Profile_Document" href="#dfn-profile_document">Profile Document</a>.
+</p>
+<p>
+WebIDs can be used to build a Web of trust using vocabularies such as [<cite><a class="bibref" href="#bib-FOAF">FOAF</a></cite>] by allowing people to link together their profiles in a public or protected manner.
+Such a web of trust can then be used by a <a class="tref internalDFN" title="Service" href="#dfn-service">Service</a> to make authorization decisions, by allowing access to resource depending on the properties of an agent, such that he/she is known by some relevant people, works at a given company, is a family member, is part of some group, ...</p>
+<p>
+The WebID-TLS protocol specifies how a <a class="tref internalDFN" title="Service" href="#dfn-service">Service</a> can authenticate a user after requesting his or her <a class="tref internalDFN" title="Certificate" href="#dfn-certificate">Certificate</a> without needing to rely on this being signed by a well known Certificate Authority. This is done by dereferencing the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a>, and checking if it describes the user as being in control of the private key related to the <a class="tref internalDFN" title="Public_Key" href="#dfn-public_key">Public Key</a> published in the <a class="tref internalDFN" title="Certificate" href="#dfn-certificate">Certificate</a> used to authenticate.
+</p>
+<p>WebID authentication can also be used for automatic authentication by robots, such as web crawlers of linked data repositories, which could be agents working on behalf of users to help them in their daily tasks.
+</p>
+<div id="outline" class="section">
+<h3 id="h3_outline"><span class="secno">1.1 </span>Outline</h3>
+<p>This specification is divided in the following sections.</p>
+<p><a href="#introduction">This section</a> gives a high level overview of the WebID-TLS Protocol, and presents the organization of the specification and the conventions used throughout the document.</p>
+<p><a href="#preconditions">Section 2</a> lists the preconditions that need to be in place for any authentication sequence to be successful: which include the creation of a <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> and the creation of a <a class="tref internalDFN" title="WebID_Certificate" href="#dfn-webid_certificate">WebID Certificate</a>.</p>
+<p><a href="#the-webid-authentication-protocol">Section 3</a> on the WebID-TLS Protocol describes in detail how a server can authenticate a user.</p>
+</div>
+<div id="terminology" class="section">
+<h3 id="h3_terminology"><span class="secno">1.2 </span>Terminology</h3>
+<dl>
+
+<dt><dfn title="WebID" id="dfn-webid">WebID</dfn></dt>
+<dd>A WebID is a URI with an HTTP or HTTPS scheme which denotes an Agent (Person, Organization, Group, Device, etc.).
+For WebIDs with fragment identifiers (e.g. #me), the URI without the fragment denotes the Profile Document.
+For WebIDs without fragment identifiers an HTTP request on the WebID <em class="rfc2119" title="MUST">MUST</em> return a 303 with a Location header URI referring to the Profile Document. Refer to [<cite><a class="bibref" href="#bib-WEBID">WEBID</a></cite>] for the normative definition.
+</dd>
+
+<dt><dfn title="WebID_Profile" id="dfn-webid_profile">WebID Profile</dfn> or <dfn title="Profile_Document" id="dfn-profile_document">Profile Document</dfn></dt>
+<dd>
+A WebID Profile is an RDF document which <em class="rfc2119" title="MUST">MUST</em> uniquely describe the Agent denoted by the WebID in relation to that WebID.
+This document <em class="rfc2119" title="MUST">MUST</em> be available as Turtle [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>].
+This document <em class="rfc2119" title="MAY">MAY</em> be available in other RDF serialization formats, such as RDFa [[!RDFA-CORE] or RDF/XML [<cite><a class="bibref" href="#bib-RDF-SYNTAX-GRAMMAR">RDF-SYNTAX-GRAMMAR</a></cite>] if so requested through content negotiation.
+
+Refer to [<cite><a class="bibref" href="#bib-WEBID">WEBID</a></cite>] for the normative definition.
+</dd>
+
+<dt><dfn title="Alice" id="dfn-alice">Alice</dfn></dt>
+<dd>Alice is an agent who owns a Server which runs a Service which Bob wishes to Access.</dd>
+
+<dt><dfn title="Bob" id="dfn-bob">Bob</dfn></dt>
+<dd>Bob is an agent who uses a <a class="tref internalDFN" title="Client" href="#dfn-client">Client</a> to connect to <a class="tref internalDFN" title="Alice" href="#dfn-alice">Alice</a>'s Service, and who is responsible for the private key the <a class="tref internalDFN" title="Client" href="#dfn-client">Client</a> uses to authenticate to <a class="tref internalDFN" title="Service" href="#dfn-service">Service</a>s.
+If he notices the private key was compromised he needs to take action to disable the public key.
+</dd>
+<dt><dfn title="Subject" id="dfn-subject">Subject</dfn></dt>
+<dd>The Subject is the Agent that is identified by the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>.
+Only the Subject should be able to authenticate to a <a class="tref internalDFN" title="Service" href="#dfn-service">Service</a>.
+We will name him <a class="tref internalDFN" title="Bob" href="#dfn-bob">Bob</a> throughout this document to improve readability.
+The Subject is distinct from the <a class="tref internalDFN" title="Client" href="#dfn-client">Client</a> which is used to connect to the <a class="tref internalDFN" title="Server" href="#dfn-server">Server</a>.
+</dd>
+<dt><dfn title="Client" id="dfn-client">Client</dfn></dt>
+<dd>The Client initiates a request to a Service listening on a specific port using a given protocol on a given Server. It can request authentication credentials from a <a class="tref internalDFN" title="Key_Store" href="#dfn-key_store">Key Store</a> to send to a server.
+</dd>
+
+<dt><dfn title="Key_Store" id="dfn-key_store">Key Store</dfn></dt>
+<dd>A Key Store can return certificates to authorized Clients and can sign cryptographic tokens with the corresponding key.
+This protocol does not specify where the Key Store is located: it could be that the <a class="tref internalDFN" title="Client" href="#dfn-client">Client</a> contains its own Key Store or it could be that the Key Store is a separate process on the Operating System, or even that it is to be found in an external device controlled by the <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a>.
+</dd>
+
+<dt><dfn title="Server" id="dfn-server">Server</dfn></dt>
+<dd>A Server is a machine contactable at a domain name or IP address that hosts a number of globally accessible Services. Refer to [<cite><a class="bibref" href="#bib-WEBID">WEBID</a></cite>] for the normative definition.</dd>
+
+<dt><dfn title="Service" id="dfn-service">Service</dfn></dt>
+<dd>A Service is an agent listening for requests at a given IP address on a given Server. Refer to [<cite><a class="bibref" href="#bib-WEBID">WEBID</a></cite>] for the normative definition.</dd>
+
+<dt><dfn title="TLS_Service" id="dfn-tls_service">TLS Service</dfn></dt>
+<dd>A TLS Service is a transport level service listening on the <a class="tref internalDFN" title="Service" href="#dfn-service">Service</a> port.
+It secures the transport layer before passing messages to the Application layer <a class="tref internalDFN" title="Service" href="#dfn-service">Service</a> itself.
+The TLS protocol [<cite><a class="bibref" href="#bib-TLS">TLS</a></cite>] is applied to incoming connections: it identifies the server to the client, securing the channel and is able to request authentication credentials from the <a class="tref internalDFN" title="Client" href="#dfn-client">Client</a> if needed.
+Server Credentials and Client credentials traditionally take the form of X.509 Certificates containing a public key.
+The TLS protocol enables the TLS Service to verify that the <a class="tref internalDFN" title="Client" href="#dfn-client">Client</a> controls the private key of the <a class="tref internalDFN" title="Public_Key" href="#dfn-public_key">Public Key</a> published in the certificate.
+Trust decisions on other attributes of the <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a> published in the Certificate - such as his name - are traditionally based on the trust in the Agent that signed the Certificate - known as a <a class="tref internalDFN" title="Certificate_Authority" href="#dfn-certificate_authority">Certificate Authority</a>.
+</dd>
+<dt><dfn title="Certificate" id="dfn-certificate">Certificate</dfn></dt><dt>
+</dt><dd>A Certificate is a document that affirms statements about a <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a> such as its <a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a> and its name, and that is signed by a <a class="tref internalDFN" title="Certificate_Authority" href="#dfn-certificate_authority">Certificate Authority</a> using the private key that corresponds to the public key published in its certificate. The Certificate Authority's own Certificate is self signed. Certificates used by TLS are traditionally X.509 [<cite><a class="bibref" href="#bib-X509V3">X509V3</a></cite>] Certificates. </dd>
+<dt><dfn title="Certificate_Authority" id="dfn-certificate_authority">Certificate Authority</dfn> (<dfn title="CA" id="dfn-ca">CA</dfn>)</dt>
+<dd>
+A Certificate Authority is a Subject that signs Certificates.
+It is an Authority for what is written in the Certificate for any Agent that trusts it to be truthful in what it signs.
+Such agents use the knowledge of the CA's public key to verify the statements made by that CA in any of the Certificates it signed.
+<a class="tref internalDFN" title="Service" href="#dfn-service">Service</a>s usually identify themselves with Certificates signed by well known and widely deployed CAs available in all agents.
+</dd>
+<dt><dfn title="TLS-Light_Service" id="dfn-tls-light_service">TLS-Light Service</dfn> or <dfn title="TLS_Agent" id="dfn-tls_agent">TLS Agent</dfn></dt>
+<dd>A TLS-Light Service is a standard <a class="tref internalDFN" title="TLS_Service" href="#dfn-tls_service">TLS Service</a>, without the CA Based Client Certificate Authentication.
+When receiving a Client Certificate, it simply verifies that the <a class="tref internalDFN" title="Client" href="#dfn-client">Client</a> knows the private key of the public key published in the Certificate.
+Verification of attributes in the certificate is left to other services such as the <a class="tref internalDFN" title="WebID_Verifier" href="#dfn-webid_verifier-1">WebID Verifier</a>.
+</dd>
+
+<dt><dfn title="Guard" id="dfn-guard">Guard</dfn></dt><dt>
+</dt><dd>A Guard is an agent, usually on the <a class="tref internalDFN" title="Server" href="#dfn-server">Server</a> that can look at a request from the <a class="tref internalDFN" title="Client" href="#dfn-client">Client</a> and decide if it needs to be authorized by looking at the access control rules for that resource ( using the <a href="http://www.w3.org/wiki/WebAccessControl">Web Access Control</a> ontology perhaps )
+If the request requires authorization, the Guard can first demand authentication of the <a class="tref internalDFN" title="Client" href="#dfn-client">Client</a> and use the <a class="tref internalDFN" title="WebID_Verifier" href="#dfn-webid_verifier-1">WebID Verifier</a> to check any claimed identies that would allow it to come to an authorization decision.
+Finally the Guard can grant or deny access according to how the verfied identities satisfy the Access Control Rules.
+</dd>
+
+<dt><dfn title="WebID_Verifier" id="dfn-webid_verifier">WebID Verifier</dfn></dt><dt>
+</dt><dd>A WebID Verifier is an agent trusted by the <a class="tref internalDFN" title="Server" href="#dfn-server">Server</a> to verify that the <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a> identified by the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> is the one that knows the private key of the given public key. The Verifier uses the procedure determined in this protocol to do the verification.
+</dd>
+
+<dt><dfn title="WebID_Claim" id="dfn-webid_claim">WebID Claim</dfn> or <dfn title="Claimed_WebID" id="dfn-claimed_webid">Claimed WebID</dfn></dt>
+<dd>A <a class="tref internalDFN" title="WebID_Certificate" href="#dfn-webid_certificate">WebID Certificate</a> can be thought of as a set of statements made and signed by a <a class="tref internalDFN" title="Certificate_Authority" href="#dfn-certificate_authority">Certificate Authority</a>.
+If the Certificate Authority is not known to be one whose every statement can be trusted, then the statements in the certificate must be thought of by a suspicious guard, as claimed statements only, that is as statements which have not been verified.
+In particular, statements about the <code>Subject Alternative Name</code>s of the agent that knows the private key should not be assumed to be true until verified.
+A WebID Claim then is the statement of Identity between the <code>Subject Alternative Name</code> and the public key in the certificate.
+In Turtle this can be written as
+  <div class="example"><div class="example-title"><span>Example 1</span></div><pre class="example">:bob cert:key [ a cert:RSAPublicKey;
+                cert:modulus &quot;00cb24ed85d64d794b...&quot;^^xsd:hexBinary;
+                cert:exponent 65537 ] .</pre></div>
+</dd>
+
+<dt><dfn title="Verification_Agent" id="dfn-verification_agent">Verification Agent</dfn> or <dfn title="WebID_Verifier" id="dfn-webid_verifier-1">WebID Verifier</dfn></dt>
+<dd>A WebID Verifier takes a <a class="tref internalDFN" title="WebID_Claim" href="#dfn-webid_claim">WebID Claim</a> and checks that it is currently true, as explained in <a href="#verifying-the-webids">Verifying the WebIDs</a> section.
+A WebID Verification Agent <em class="rfc2119" title="MUST">MUST</em> be able to parse documents in TURTLE [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>], RDF/XML [<cite><a class="bibref" href="#bib-RDF-SYNTAX-GRAMMAR">RDF-SYNTAX-GRAMMAR</a></cite>] and RDFa [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>].
+</dd>
+
+<dt><dfn title="WebID_Certificate" id="dfn-webid_certificate">WebID Certificate</dfn></dt>
+<dd>An X.509 [<cite><a class="bibref" href="#bib-X509V3">X509V3</a></cite>] <a class="tref internalDFN" title="Certificate" href="#dfn-certificate">Certificate</a> that identifes an Agent using one or more <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>s.
+The Certificate need not be signed by a well known Certificate Authority.
+Indeed it can be signed by the server which hosts the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a>, or it can even be self signed.
+The Certificate <em class="rfc2119" title="MUST">MUST</em> contain a <code>Subject Alternative Name</code> extension with at least one URI entry identifying the <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a>.
+This URI <em class="rfc2119" title="SHOULD">SHOULD</em> be one of the URIs with a dereferenceable secure scheme, such as https:// .   Dereferencing this URI should return a representation containing RDF data.
+For example, a certificate identifying the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> <code>https://bob.example/profile#me</code> would contain the following:
+<div class="example"><div class="example-title"><span>Example 2</span></div><pre class="example">X.509v3 extensions:
+   ...
+   X509v3 Subject Alternative Name:
+      URI:https://bob.example/profile#me</pre></div>
+And it would have a <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> at <code>https://bob.example/profile</code>.
+</dd>
+
+<dt><dfn title="Public_Key" id="dfn-public_key">Public Key</dfn></dt>
+<dd>A cryptographic key that can be published and can be used to verify the possession of a private key. A public
+key is always included in a <a class="tref internalDFN" title="WebID_Certificate" href="#dfn-webid_certificate">WebID Certificate</a>.</dd>
+
+</dl>
+</div>
+
+<div class="normative section" id="namespaces">
+<h3 id="h3_namespaces"><span class="secno">1.3 </span>Namespaces</h3>
+<p>Examples assume the following namespace prefix bindings unless otherwise stated:</p>
+<table cellpadding="5" border="1" style="text-align: left; border-color: rgb(0, 0, 0); border-collapse: collapse;">
+ <thead>
+  <tr>
+    <th>Prefix</th>
+    <th>IRI</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td><code>cert</code></td>
+    <td>http://www.w3.org/ns/auth/cert#</td>
+  </tr>
+
+  <tr>
+    <td><code>xsd</code></td>
+    <td>http://www.w3.org/2001/XMLSchema#</td>
+  </tr>
+  <tr>
+    <td><code>foaf</code></td>
+    <td>http://xmlns.com/foaf/0.1/</td>
+  </tr>
+  <tr>
+    <td><code>bob</code></td>
+    <td>https://bob.example/profile#</td>
+  </tr>
+  </tbody>
+</table>
+
+<p>The bob: namespace is a URI that refers to Bob's profile, where Bob is an imaginary character well known in security circles.</p>
+</div>
+</div>
+
+<div id="preconditions" class="section">
+
+<!--OddPage-->
+<h2 id="h2_preconditions"><span class="secno">2. </span>Preconditions</h2>
+
+
+<div class="normative section" id="the-certificate">
+<h3 id="h3_the-certificate"><span class="secno">2.1 </span>The certificate</h3>
+
+<p>The <a class="tref internalDFN" title="Key_Store" href="#dfn-key_store">Key Store</a> must have a <a class="tref internalDFN" title="Certificate" href="#dfn-certificate">Certificate</a> with a <code>Subject Alternative Name</code> URI entry.
+This URI must be one that dereferences to a <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> whose graph contains a <code>cert:key</code> relation from the WebID to the public key published in the <tref>Certificate</tref> . (see below <a href="#the-webid-profile-document">The WebID Profile Document</a>) </p>
+<div class="informative section" id="certificate-example">
+<h4 id="h4_certificate-example"><span class="secno">2.1.1 </span>Certificate example</h4><p><em>This section is non-normative.</em></p>
+<p>For example, if a user Bob controls <code>https://bob.example/profile</code>,
+then his <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> can be <code>https://bob.example/profile#me</code></p>
+<p>When creating a certificate it is very important to choose a user friendly Common Name (CN) for the user, that will allow him to distinguish between different certificates he may have, such as a personal or a business certificate, when selecting one from his browser.
+In the example below the CN is <code>Bob (personal)</code>.
+This name can then also be displayed by any server authenticating the user as a human friendly label.
+The <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> URL itself should not usually be used as a visible identifier for human users, rather it should be thought of as a hyperlink in an <code>&lt;a href=&quot;https://...&quot;&gt;</code> anchor.
+That is the CN should be a label and the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> a pointer. </p>
+
+<p>As an example to use throughout this specification here is the
+following certificate as an output of the OpenSSL program.</p>
+<div class="example"><div class="example-title"><span>Example 3</span></div><pre class="example">Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            5f:df:d6:be:2c:73:c1:fb:aa:2a:2d:23:a6:91:3b:5c
+        Signature Algorithm: sha1WithRSAEncryption
+        <span style="color: red">Issuer:</span> O={}, CN=WebID
+        Validity
+            Not Before: Jun  8 14:16:14 2010 GMT
+            Not After : Jun  8 16:16:14 2010 GMT
+        <span style="color: red">Subject:</span> O=bob.example, OU=cert creation, CN=Bob (personal)
+        Subject Public Key Info:
+<span style="color: red">            Public Key Algorithm:</span> rsaEncryption
+                <span style="color: red">Public-Key:</span> (2048 bit)
+                <span style="color: red">Modulus:</span>
+                    00:cb:24:ed:85:d6:4d:79:4b:69:c7:01:c1:86:ac:
+                    c0:59:50:1e:85:60:00:f6:61:c9:32:04:d8:38:0e:
+                    07:19:1c:5c:8b:36:8d:2a:c3:2a:42:8a:cb:97:03:
+                    98:66:43:68:dc:2a:86:73:20:22:0f:75:5e:99:ca:
+                    2e:ec:da:e6:2e:8d:15:fb:58:e1:b7:6a:e5:9c:b7:
+                    ac:e8:83:83:94:d5:9e:72:50:b4:49:17:6e:51:a4:
+                    94:95:1a:1c:36:6c:62:17:d8:76:8d:68:2d:de:78:
+                    dd:4d:55:e6:13:f8:83:9c:f2:75:d4:c8:40:37:43:
+                    e7:86:26:01:f3:c4:9a:63:66:e1:2b:b8:f4:98:26:
+                    2c:3c:77:de:19:bc:e4:0b:32:f8:9a:e6:2c:37:80:
+                    f5:b6:27:5b:e3:37:e2:b3:15:3a:e2:ba:72:a9:97:
+                    5a:e7:1a:b7:24:64:94:97:06:6b:66:0f:cf:77:4b:
+                    75:43:d9:80:95:2d:2e:85:86:20:0e:da:41:58:b0:
+                    14:e7:54:65:d9:1e:cf:93:ef:c7:ac:17:0c:11:fc:
+                    72:46:fc:6d:ed:79:c3:77:80:00:0a:c4:e0:79:f6:
+                    71:fd:4f:20:7a:d7:70:80:9e:0e:2d:7b:0e:f5:49:
+                    3b:ef:e7:35:44:d8:e1:be:3d:dd:b5:24:55:c6:13:
+                    91:a1
+                <span style="color: red">Exponent:</span> 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Key Usage: critical
+                Digital Signature, Non Repudiation, Key Encipherment, Key Agreement
+            Netscape Cert Type:
+                SSL Client, S/MIME
+            X509v3 Subject Key Identifier:
+                08:8E:A5:5B:AE:5D:C3:8B:00:B7:30:62:65:2A:5A:F5:D2:E9:00:FA
+            <span style="color: red">X509v3 Subject Alternative Name:</span> critical
+                <span style="color: red">URI:</span>https://bob.example/profile#me
+    Signature Algorithm: sha1WithRSAEncryption
+        cf:8c:f8:7b:b2:af:63:f0:0e:dc:64:22:e5:8a:ba:03:1e:f1:
+        ee:6f:2c:f5:f5:10:ad:4c:54:fc:49:2b:e1:0d:cd:be:3d:7c:
+        78:66:c8:ae:42:9d:75:9f:2c:29:71:91:5c:29:5b:96:ea:e1:
+        e4:ef:0e:5c:f7:07:a0:1e:9c:bf:50:ca:21:e6:6c:c3:df:64:
+        29:6b:d3:8a:bd:49:e8:72:39:dd:07:07:94:ac:d5:ec:85:b1:
+        a0:5c:c0:08:d3:28:2a:e6:be:ad:88:5e:2a:40:64:59:e7:f2:
+        45:0c:b9:48:c0:fd:ac:bc:fb:1b:c9:e0:1c:01:18:5e:44:bb:
+        d8:b8</pre></div>
+<div class="issue"><div class="issue-title" id="h_issue_1"><span>Issue 1</span></div><p class="">Should we formally require the last issuer of a chain of certificates
+to be <code>O={}, CN=WebID</code>
+This would allow the server to request only WebID enabled certificates, or even WebID enabled
+certificates in addition to CA signed certificates it trusts using the certificate_authorities
+field in the TLS request. </p></div>
+<div class="issue"><div class="issue-title" id="h_issue_2"><span>Issue 2</span></div><p class="">The above certificate is no longer valid.</p></div>
+</div>
+<div class="informative section" id="certificate-creation">
+<h4 id="h4_certificate-creation"><span class="secno">2.1.2 </span>Certificate creation</h4><p><em>This section is non-normative.</em></p>
+<p>Many tools exist to create Certificates.
+Some <a class="tref internalDFN" title="Key_Store" href="#dfn-key_store">Key Store</a>s allow a user to create the Certificate directly with a friendly User Interface.
+But using a <a class="tref internalDFN" title="Key_Store" href="#dfn-key_store">Key Store</a> on the client still requires the public key to be published on the server as detailed in the next section.
+It is possible to combine the creation of the key with its publication in one step in such a way as to allow the server to make the decision of what the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> should be, by using the <a href="http://www.w3.org/TR/html5/forms.html#the-keygen-element">HTML 5 keygen</a> element which can be added to an HTML form, as shown in this example:
+</p>
+<pre>  &lt;form action=&quot;/srv/certificateMaker&quot; method=&quot;POST&quot;&gt;
+   &lt;keygen challenge=&quot;random&quot; name=&quot;spkac&quot;/&gt;
+   &lt;input type=&quot;submit&quot; name=&quot;Create Certificate&quot;/&gt;
+  &lt;/form&gt;
+</pre>
+<p>
+When the user clicks such a form, the following sequence can take place on a properly configured server:
+</p>
+<ol>
+ <li>just before it submits the form, the browser asks the Key Store to create a public and private key pair, and saves the private key in its local <a class="tref internalDFN" title="Key_Store" href="#dfn-key_store">Key Store</a>
+ </li><li>the browser then sends the public part of the key in the spkac format along with any additional attribute values from the form to the certificate maker form handler with an HTTP <code>POST</code>
+ </li><li>The Certificate Maker service can then create an X509 Certificate with the user's WebID filled in the Subject Alternative Name field and return this to the Client
+ </li><li>the browser on receiving the response find the matching private key and places both in the Key Store
+
+<p>
+<img src="img/keygen-sequence.png" alt="Keygen Sequence Diagram" />
+</p>
+<p>The private key never leaves the secure Key Store. This exchange allows the Server to make the decision about what the Certificate should say, what the WebID should be, and to simultaneously add the public key to the User's <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> page. The user experience for this Certificate creation is a one click operation.
+</p>
+</li></ol></div>
+</div>
+<div class="normative section" id="the-webid-profile-document">
+<h3 id="h3_the-webid-profile-document"><span class="secno">2.2 </span>The WebID Profile Document</h3>
+
+<!-- Update the image to contain only certificate data -->
+
+
+<p>The <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> document <em class="rfc2119" title="MUST">MUST</em> be a [<cite><a class="bibref" href="#bib-WEBID">WEBID</a></cite>] document. It <em class="rfc2119" title="MUST">MUST</em> also expose the relation between the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> URI and the <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a>'s <a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a>s using the <a href="http://www.w3.org/ns/auth/cert#">cert ontology</a> as well as the standard <code>xsd</code> datatypes.
+
+</p><div class="note"><div class="note-title" id="h_note_1"><span>Note</span></div><p class="">The <a href="http://www.w3.org/ns/auth/cert#">cert ontology</a> will be extended to cover DSA, Eliptic Curve Cryptography, and other cryptographic alogrithms as requests for them are made, proposals accepted, and when enough working and compatible implementations can be shown to work. Please contact the <a href="http://www.w3.org/community/webid/">WebID Comunity Group</a> with requests and proposals.</p></div>
+The set of relations to be published at the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> document can be presented in a graphical notation as follows.<p></p>
+<img width="90%" src="img/WebIdGraph.jpg" alt="Web ID Profile Publication" />
+<p>The document can publish many more relations that are of interest to the WebID-TLS protocol, as shown in the above graph by the grayed out relations.
+For example Bob can publish a depiction or logo, so that sites he authenticates to can personalize the user experience. He can post links to people he knows, where those have <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>s published on other sites, in order to create a distributed Social Web.
+He can also publish relations to protected documents, where he keeps more information for people who authenticate, such as his friend Alois or his friends friends who may not yet know him personally, such as Alice.
+</p>
+<p>
+The protocol does not depend on any particular serialization of the graph, provided that agents are able to parse that serialization and obtain the graph automatically, see examples in the [<cite><a class="bibref" href="#bib-WEBID">WEBID</a></cite>] specification.
+</p>
+<div class="normative section" id="vocabulary">
+<h4 id="h4_vocabulary"><span class="secno">2.2.1 </span>Vocabulary</h4>
+
+<p>RDF graphs are built using vocabularies defined by URIs, that can be placed in subject, predicate or object position.
+    The definition of each URI should be found at the namespace of the URI.
+    Here we detail the core cryptographic terms needed. The optional foaf vocabulary used to describe
+    agents can be found at the <a href="http://xmlns.com/foaf/0.1/">the foaf namespace vocabulary document</a>.
+</p>
+
+<p>Below is a short summary of the vocabulary elements to be used when conveying the relation between the
+   <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a> and his or her key, within a <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> document.
+   For more details please consult the <a href="http://www.w3.org/ns/auth/cert">cert ontology document</a>. </p>
+<dl>
+  <dt><a href="http://www.w3.org/ns/auth/cert#key">cert:key</a></dt>
+  <dd>Used to associate a <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> URI with any PublicKey. A <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a>
+  <em class="rfc2119" title="MUST">MUST</em> contain at least one PublicKey that is associated with the
+  corresponding <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> URI.</dd>
+  <dt><a href="http://www.w3.org/ns/auth/cert#RSAPublicKey">cert:RSAPublicKey</a></dt>
+  <dd>Refers to the class of RSA Public Keys. A RSAPublicKey <em class="rfc2119" title="MUST">MUST</em> specify both a
+  cert:modulus and a cert:exponent property. As the cert:modulus and cert:exponent relations both
+  have as domain a cert:RSAPublicKey, the type of the key can be inferred by the use of those relations
+  and need not be written out explicitly.</dd>
+  <dt><a href="http://www.w3.org/ns/auth/cert#modulus">cert:modulus</a></dt>
+  <dd>Used to relate an RSAPublic key to its modulus expressed as a hexBinary.
+    An RSA key <em class="rfc2119" title="MUST">MUST</em> have one and only one modulus. The datatype of a modulus is xsd:hexBinary. The string representation of the hex:Binary <em class="rfc2119" title="MUST">MUST</em> not contain any whitespaces in between the hex numbers.
+  </dd>
+  <dt><a href="http://www.w3.org/ns/auth/cert#exponent">cert:exponent</a></dt>
+  <dd>Used to relate an RSAPublic key to its exponent expressed as a decimal integer.
+     An RSA key <em class="rfc2119" title="MUST">MUST</em> have one and only one exponent. The datatype of a modulus is xsd:integer.
+  </dd>
+</dl>
+
+</div>
+</div>
+<div class="informative section" id="turtle">
+<h3 id="h3_turtle"><span class="secno">2.3 </span>Turtle</h3><p><em>This section is non-normative.</em></p>
+<p>A widely used format for writing RDF graphs by hand is the <a href="http://www.w3.org/TR/turtle/">Turtle</a> [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>] notation.
+    It is easy to learn, and very handy for communicating over e-mail and on mailing lists.
+    The syntax is very similar to the SPARQL query language.
+    Turtle should be served with the <code>text/turtle</code> mime type.
+</p>
+<div class="example"><div class="example-title"><span>Example 4</span></div><pre style="word-wrap: break-word; white-space: pre-wrap;" class="example">@prefix cert: &lt;http://www.w3.org/ns/auth/cert#&gt; .
+@prefix xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt; .
+@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+@prefix rdfs: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt; .
+
+&lt;#me&gt; a foaf:Person;
+  foaf:name &quot;Bob&quot;;
+  foaf:knows &lt;https://example.edu/p/Alois#MSc&gt;;
+  foaf:img &lt;http://bob.example/picture.jpg&gt;;
+  cert:key [ a cert:RSAPublicKey;
+    rdfs:label &quot;made on 23 November 2011 on my laptop&quot;;
+    cert:modulus &quot;cb24ed85d64d794b69c701c186acc059501e856000f661c93204d8380e07191c5c8b368d2ac32a428acb970398664368dc2a867320220f755e99ca2eecdae62e8d15fb58e1b76ae59cb7ace8838394d59e7250b449176e51a494951a1c366c6217d8768d682dde78dd4d55e613f8839cf275d4c8403743e7862601f3c49a6366e12bb8f498262c3c77de19bce40b32f89ae62c3780f5b6275be337e2b3153ae2ba72a9975ae71ab724649497066b660fcf774b7543d980952d2e8586200eda4158b014e75465d91ecf93efc7ac170c11fc7246fc6ded79c37780000ac4e079f671fd4f207ad770809e0e2d7b0ef5493befe73544d8e1be3dddb52455c61391a1&quot;^^xsd:hexBinary;
+    cert:exponent 65537 ;
+   ] .</pre></div>
+</div>
+
+</div>
+<div class="normative section" id="disabling-a-webid-certificate">
+
+<!--OddPage-->
+<h2 id="h2_disabling-a-webid-certificate"><span class="secno">3. </span>Disabling a WebID Certificate</h2>
+<p>A <a class="tref internalDFN" title="WebID_Certificate" href="#dfn-webid_certificate">WebID Certificate</a> identifies the <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a> alone and no one else, if and only if that <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a> is the only one to control the corresponding private key.
+It is very important therefore that the <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a> take care of keeping the private key secure.
+This can be done by keeping it in the <a class="tref internalDFN" title="Key_Store" href="#dfn-key_store">Key Store</a> of a personal machine in an account that is password protected and free of viruses, or best of all on some physical device where the private key is inaccessible to be read by any software.
+In the second case, having the device implies that the private key has not been lost or copied.
+In the first case the user has to be more careful for signals of misuse.</p><p>
+</p><p>In either situation if the <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a> is suspicious that his private key has been taken, future authentications for that certificate can be disabled by removing the corresponding <a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a> from the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a>.
+ If the profile contains more than one public key for the <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a> then it is suggested that each public key contain a label to help the user locate the key. In the examples above an <code>rdfs:label</code> with a creation date was used for this purpose.
+</p>
+</div>
+
+
+<div class="normative section" id="the-webid-authentication-protocol">
+
+<!--OddPage-->
+<h2 id="h2_the-webid-authentication-protocol"><span class="secno">4. </span>The <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> Authentication Protocol</h2>
+
+<div class="normative section" id="authentication-sequence">
+<h3 id="h3_authentication-sequence"><span class="secno">4.1 </span>Authentication Sequence</h3>
+
+<p>In order to give the full context of a <a class="tref internalDFN" title="Client" href="#dfn-client">Client</a> interaction with a <a class="tref internalDFN" title="Server" href="#dfn-server">Server</a> we will illustrate the protocol with the following sequence diagram.
+ <a class="tref internalDFN" title="Bob" href="#dfn-bob">Bob</a> initiates a connection to <a class="tref internalDFN" title="Alice" href="#dfn-alice">Alice</a>'s server via a TLS enabled protocol such as HTTPS in order to access a Protected Resource or a Protected Service.
+ The Protected Resource <em class="rfc2119" title="MUST">MUST</em> be served over a <a class="tref internalDFN" title="TLS-Light_Service" href="#dfn-tls-light_service">TLS-Light Service</a>, that will not do full <a class="tref internalDFN" title="CA" href="#dfn-ca">CA</a> authentication of <a class="tref internalDFN" title="Client" href="#dfn-client">Client</a> <a class="tref internalDFN" title="Certificate" href="#dfn-certificate">Certificate</a>s it receives.
+ The Protected Resource may be a document served over HTTPS, but it could also be a SOAP service, or some other resource.
+This resource is protected by a Guard, which uses a <a class="tref internalDFN" title="WebID_Verifier" href="#dfn-webid_verifier-1">WebID Verifier</a> to verify the non Certified <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>s found in the certificate.
+ Once the verification succeeds the Guard checks to see if the Agent identified by the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> is allowed access to the resource, by using trusted information from the Web and access control rules.
+</p>
+<p>
+<img width="90%" src="img/WebIDSequence-friendly.png" alt="WebID Sequence Diagram" />
+</p>
+<p>The steps in detail are as follows:</p>
+<ol>
+    <li><a class="tref internalDFN" title="Bob" href="#dfn-bob">Bob</a>'s <a class="tref internalDFN" title="Client" href="#dfn-client">Client</a> <em class="rfc2119" title="MUST">MUST</em> open a TLS [<cite><a class="bibref" href="#bib-TLS">TLS</a></cite>] connection with the server which authenticates itself using the standard TLS protocol.
+    </li>
+    <li>Once the Transport Layer Security [TLS] has been set up, the application protocol exchange can start.
+        If the protocol is HTTP then the client can request an HTTP GET, PUT, POST, DELETE, ... action on a resource as detailed by [<cite><a class="bibref" href="#bib-HTTP11">HTTP11</a></cite>].
+    </li>
+    <li>
+        The <a class="tref internalDFN" title="Guard" href="#dfn-guard">Guard</a> can then intercept that request and by checking access control rules associated with that resource, determine if the client needs authorization and hence authentication for that type of request.
+        If the request has no access restrictions the request can be passed straight on to the resource.
+        If the request does have access restrictions then the <a class="tref internalDFN" title="Guard" href="#dfn-guard">Guard</a> can proceed to the next step.
+    </li>
+    <li>If the resource requires WebID authentication, the Guard <em class="rfc2119" title="MAY">MAY</em> request the client to authenticate itself using public key cryptography by signing a token with its private key and have the Client send its Certificate. This has been carefully defined in the TLS protocol and can be summarized by the following steps:
+        <ol>
+            <li>The <a class="tref internalDFN" title="Guard" href="#dfn-guard">Guard</a> requests the TLS agent to make a Certificate Request to the client. The TLS layer does this. Because the WebID-TLS protocol does not rely on Certificate Authorities to verify the contents of the <a class="tref internalDFN" title="Certificate" href="#dfn-certificate">Certificate</a>, the <a class="tref internalDFN" title="TLS_Agent" href="#dfn-tls_agent">TLS Agent</a> can ask for any Certificate from the Client. More details in <a href="#requesting-the-client-certificate">Requesting the Client Certificate</a>
+            </li>
+            <li>The <a class="tref internalDFN" title="Client" href="#dfn-client">Client</a> asks Bob to choose a certificate if the choice has not been automated.
+            We will assume that Bob does choose a <a class="tref internalDFN" title="WebID_Certificate" href="#dfn-webid_certificate">WebID Certificate</a> and sends it to the client.
+            </li>
+            <li>The <a class="tref internalDFN" title="TLS_Agent" href="#dfn-tls_agent">TLS Agent</a> <em class="rfc2119" title="MUST">MUST</em> verify that the client is indeed in possession of the private key.
+            What is important here is that the <a class="tref internalDFN" title="TLS_Agent" href="#dfn-tls_agent">TLS Agent</a> need not know the Issuer of the Certificate, or need not have any trust relation with the Issuer.
+            Indeed if the TLS Layer could verify the signature of the Issuer and trusted the statements it signed, then step 5 and 6 would not be needed - other than perhaps as a way to verify that the key was still valid.
+            </li>
+            <li>The <a class="tref internalDFN" title="WebID_Certificate" href="#dfn-webid_certificate">WebID Certificate</a> is then passed on to the <a class="tref internalDFN" title="Guard" href="#dfn-guard">Guard</a> with the provision that the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> still needs to be verified.
+            </li>
+        </ol>
+    </li>
+    <li>The <a class="tref internalDFN" title="Guard" href="#dfn-guard">Guard</a> then <em class="rfc2119" title="MUST">MUST</em> ask the <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> to verify that the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>s in the <a class="tref internalDFN" title="WebID_Certificate" href="#dfn-webid_certificate">WebID Certificate</a> do identify the agent who knows the given <a class="tref internalDFN" title="Public_Key" href="#dfn-public_key">Public Key</a>.
+    </li>
+    <li>The <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> <em class="rfc2119" title="MUST">MUST</em> extract the <a class="tref internalDFN" title="Public_Key" href="#dfn-public_key">Public Key</a> and all the URI entries contained in the <code>Subject Alternative Name</code> extension of the <a class="tref internalDFN" title="WebID_Certificate" href="#dfn-webid_certificate">WebID Certificate</a>.
+    A <a class="tref internalDFN" title="WebID_Certificate" href="#dfn-webid_certificate">WebID Certificate</a> <em class="rfc2119" title="MAY">MAY</em> contain multiple URI entries which are considered <a class="tref internalDFN" title="Claimed_WebID" href="#dfn-claimed_webid">Claimed WebID</a>s at this point, since they have not been verified.
+    The <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> may verify as many or as few <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>s it has time for.
+    It may do it in parallel and asynchronously.
+    However that is done, a <a class="tref internalDFN" title="Claimed_WebID" href="#dfn-claimed_webid">Claimed WebID</a> can only be considered verified if the following steps have been accomplished successfully:
+    </li>
+    <ol>
+        <li>The <a class="tref internalDFN" title="WebID_Verifier" href="#dfn-webid_verifier-1">WebID Verifier</a> must get access to an up to date version of the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> Graph.
+            <ol>
+                <li>If the <a class="tref internalDFN" title="WebID_Verifier" href="#dfn-webid_verifier-1">WebID Verifier</a> has an up to date version of the graph in its graph cache then it can return it.</li>
+                <li>Otherwise the <a class="tref internalDFN" title="WebID_verifier" href="#dfn-webid_verifier-1">WebID verifier</a> <em class="rfc2119" title="MUST">MUST</em> fetch an up to date version of the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> representation
+                    by dereferencing the URI, using the canonical method for dereferencing a URL of that scheme.
+                    For an <code>https://...</code> <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> this would be done using the [<cite><a class="bibref" href="#bib-HTTP-TLS">HTTP-TLS</a></cite>] protocol.
+                    The dereferencing of the URI <em class="rfc2119" title="MAY">MAY</em> use any representation caching mechanism it can to speed up the process.
+                    The returned representation is then transformed into an RDF graph [<cite><a class="bibref" href="#bib-RDF-MT">RDF-MT</a></cite>] as specified in processing the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> .
+                    This graph may be then be cached to speed up future requests.
+                </li>
+            </ol>
+        </li>
+        <li>The graph returned in the previous step is then queried as explained in <a href="#verifying-the-webids">Verifying the WebIDs</a>.
+        If the query is answered positively, then that <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> is verified.
+            If the query fails and the graph was not up to date, then the Verifier <em class="rfc2119" title="MAY">MAY</em> start again at point 6.1.2 by making
+            a request to an up to date graph.
+        </li>
+    </ol>
+    <li>With the set of verified <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>s the Guard can then check if one of  of them is authorized by the Access Control Rules found in step 2.
+    </li>
+    <li>If access is granted, then the guard can pass on the request to the protected resource.
+    </li>
+</ol>
+</div>
+
+<div class="normative section" id="authentication-sequence-details">
+<h3 id="h3_authentication-sequence-details"><span class="secno">4.2 </span>Authentication Sequence Details</h3>
+
+<p>This section covers details about each step in the authentication process.
+</p>
+
+<div class="informative section" id="initiating-a-tls-connection">
+<h4 id="h4_initiating-a-tls-connection"><span class="secno">4.2.1 </span>Initiating a TLS Connection</h4><p><em>This section is non-normative.</em></p>
+
+<p>Standard SSLv3 and TLSv1 and upwards can be used to establish the connection between
+the Client and the <a class="tref internalDFN" title="TLS_Agent" href="#dfn-tls_agent">TLS Agent</a> listening on the Service's port. </p>
+<div class="note"><div class="note-title" id="h_note_2"><span>Note</span></div><p class="">Many servers allow a simple form of TLS client side authentication to be setup when configuring a <a class="tref internalDFN" title="TLS_Agent" href="#dfn-tls_agent">TLS Agent</a>: they require the agent to be authenticated in WANT or NEED mode before any further interaction can take place.
+If the client sends a certificate, then neither of these have an impact on the WebID Verification steps (4) and (5).
+Nevertheless, from a user interaction perspective both of these are problematic as they either force (NEED) or ask the user to authenticate himself even if the resource he wishes to interact with is public and requires no authentication.
+Furthermore very few people will feel comfortable authenticating to a web site on the basis of reading the server certificate alone.
+Most people would like to know more about what the web site claims to be about before divulging their identity.
+This is usually done by reading a few web pages without being authenticated.
+Hence it is important for human users that authentication be only requested on user demand.
+
+This can be done by using TLS renegotiation and moving the authentication to the application layer <a class="tref internalDFN" title="Guard" href="#dfn-guard">Guard</a> which can make more fine grained decisions on when authentication is required.
+Please see the <a href="http://www.w3.org/2005/Incubator/webid/wiki/">WebID Wiki</a> for implementation pointers in different programming languages and platforms to learn about how this can be done and to share your experience.</p></div>
+</div>
+
+<div class="informative section" id="connecting-at-the-application-layer">
+<h4 id="h4_connecting-at-the-application-layer"><span class="secno">4.2.2 </span>Connecting at the Application Layer</h4><p><em>This section is non-normative.</em></p>
+
+<p>Once the TLS connection has been setup, the application layer protocol interaction can start.
+This could be an HTTP GET request on the protected resource for example.</p>
+<p>If the protocol permits it, the Client can let the Application layer, and especially the <a class="tref internalDFN" title="Guard" href="#dfn-guard">Guard</a> know that the client can authenticate with a <a class="tref internalDFN" title="WebID_Certificate" href="#dfn-webid_certificate">WebID Certificate</a>, and even if it wishes to do so. This may be useful both to allow the Server to know that it can request the client certificate, and also in order to make life easier for Robots that may find it a lot more convenient to be authenticated at the TLS layer.
+</p>
+<div class="issue"><div class="issue-title" id="h_issue_3"><span>Issue 3</span></div><p class="">Bergi proposed a header for HTTP which could do this. Please summarise it. </p></div>
+</div>
+
+<div class="informative section" id="access-control-check">
+<h4 id="h4_access-control-check"><span class="secno">4.2.3 </span>Access Control Check</h4><p><em>This section is non-normative.</em></p>
+<p>The <a class="tref internalDFN" title="Guard" href="#dfn-guard">Guard</a> can intercept the request and consult its access control rules for that resource, in order to determine if  some the request type is access controlled.
+If the request is authorized to anyone, then server can pass the request straight on to the resource.
+If the request requires some authentication the Guard <em class="rfc2119" title="MAY">MAY</em> request the client certificate as detailed
+in the next section. </p>
+<p>Because a <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> is a global linkable URI, one can  build webs of trust that can be crawled the same way the web can be crawled: by following links from one document to another.
+It is therefore possible to have very flexible access control rules where parts of the space of the user's machine is given access to friends and those friends' friends (FOAF), stated by them at their domains.
+It is even possible to allow remote agents to define their own access control rules for parts of the machine's namespace.</p>
+</div>
+<div class="informative section" id="requesting-the-client-certificate">
+<h4 id="h4_requesting-the-client-certificate"><span class="secno">4.2.4 </span>Requesting the Client Certificate</h4><p><em>This section is non-normative.</em></p>
+
+<p>TLS allows the server to request a Certificate from the Client using the <code>CertificateRequest</code> message [Section 7.4.4] of TLS v1.1 [<cite><a class="bibref" href="#bib-TLS">TLS</a></cite>].  Since WebID TLS authentication does not rely on CAs signing the certificate to verify the <a class="tref internalDFN" title="WebID_Claim" href="#dfn-webid_claim">WebID Claim</a>s made therein, the Server does not need to restrict the certificate it receives by the CAs they were signed by. It can therefore leave the  <code>certificate_authorities</code> field blank in the request. </p>
+<div class="note"><div class="note-title" id="h_note_3"><span>Note</span></div><p class="">From our experience leaving the certificate_authorities field empty leads to the correct behavior on all browsers and all TLS versions.</p></div>
+<div class="issue"><div class="issue-title" id="h_issue_4"><span>Issue 4</span></div><p class="">Should we formally require the last issuer of a chain of certificates
+to be <code>O={}, CN=WebID</code>
+This would allow the server to request only WebID enabled certificates, or even WebID enabled
+certificates in addition to CA signed certificates it trusts using the certificate_authorities
+field in the TLS request.</p></div>
+<div class="note"><div class="note-title" id="h_note_4"><span>Note</span></div><p class="">A security issue with TLS renegotiation was discovered in 2009, and an IETF fix was proposed in [<cite><a class="bibref" href="#bib-RFC5746">RFC5746</a></cite>] which is widely implemented.</p></div>
+<p>If the Client does not send a certificate, because either it does not have one or it does not wish to send one, other authentication procedures can be pursued at the application layer with protocols such as OpenID, OAuth, BrowserID, etc... </p>
+<p>As much as possible it is important for the server to request the client certificate in <code>WANT</code> mode, not in <code>NEED</code> mode.
+If the request is made in <code>NEED</code> mode then connections will be broken off if the client does not send a certificate.
+This will break the connection at the application protocol layer, and so will lead to a very bad user experience.  The server should therefore avoid doing this unless it can be confident that the client has a certificate - which it may be because the client advertised that in some other way to the server.
+</p>
+<div class="issue"><div class="issue-title" id="h_issue_5"><span>Issue 5</span></div><p class="">Is there some normative spec about what NEED and WANT refer to?</p></div>
+
+</div>
+<div class="normative section" id="verifying-the-webids">
+<h4 id="h4_verifying-the-webids"><span class="secno">4.2.5 </span>Verifying the WebIDs</h4>
+<p>The <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> is given a list of <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>s associated with a public key. It needs to verify that the agent identified by that <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> is indeed the agent that controls the private key of the given public key. It does this by looking up the definition of the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>. A <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> is a URI, and its meaning can be obtained by dereferencing it using the protocol indicated in its scheme. </p>
+<p>If we first consider <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>s with fragment identifiers, we can explain the logic of this as follows. As is explained in the RFC defining URIs [<cite><a class="bibref" href="#bib-RFC3986">RFC3986</a></cite>]:
+</p><blockquote>
+The fragment identifier component of a URI allows indirect identification of a secondary resource by reference to a primary resource and additional identifying information.
+The identified secondary resource may be some portion or subset of the primary resource, some view on representations of the primary resource, or some other resource defined or described by those representations.
+[...]
+The semantics of a fragment identifier are defined by the set of representations that might result from a retrieval action on the primary resource.
+</blockquote>
+<p>In order therefore to know the meaning of a <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> containing a fragment identifier, one needs to dereference the resource referred to without the fragment identifier.
+This resource will describe the referent of the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> using a syntax convertible to RDF triples.
+If the document returned states that the referent of the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> is the agent that controls the private key of the given public key, then this is a  definite description that can be considered to be a definition of the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>: it gives its meaning.
+</p>
+<p>The trust that can be had in that statement is therefore the trust that one can have in one's having received the correct representation of the document that defined that <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>.
+An HTTPS <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> will therefore be a lot more trustworthy than an HTTP <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>, as it reduces the likelihood of man-in-the-middle attacks.</p>
+<p>If the authenticity of the server hosting the WebID profile document is proven through the use of HTTPS, then the trust one can have in the agent at the end of the TLS connection being the referent of the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> is related to the trust one has in the cryptography, and the likelihood that the private key could have been stolen.</p>
+<div class="issue"><div class="issue-title" id="h_issue_6"><span>Issue 6</span></div><p class="">Add explanation for URI with redirect.</p></div>
+<div class="normative section" id="processing-the-webid-profile">
+<h5 id="h5_processing-the-webid-profile"><span class="secno">4.2.5.1 </span>Processing the WebID Profile</h5>
+
+<p>The Verification Agent needs to fetch the document, if it does not have a valid one in cache.
+The WebID <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> <em class="rfc2119" title="MUST">MUST</em> be able to parse documents in TURTLE [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>], and <em class="rfc2119" title="MAY">MAY</em> be able to also parse them in RDFa [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>] and RDF/XML [<cite><a class="bibref" href="#bib-RDF-SYNTAX-GRAMMAR">RDF-SYNTAX-GRAMMAR</a></cite>].
+The result of this processing should be a graph of RDF relations that is queryable, as explained in the next section.</p>
+<div class="note"><div class="note-title" id="h_note_5"><span>Note</span></div><p class="">
+The <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> <em class="rfc2119" title="MUST">MUST</em> set the Accept-Header to request <code>text/turtle</code> with a higher priority than <code>text/html</code> and <code>application/rdf+xml</code>.  The reason is that it is quite likely that many sites will produce non marked up HTML and leave the graph to the pure RDF formats.
+</p></div>
+<p>If the <a class="tref internalDFN" title="Guard" href="#dfn-guard">Guard</a> wishes to have the most up-to-date Profile document for an HTTPS URL, it can use the HTTP cache control headers to get the latest versions.</p>
+</div>
+
+<div class="normative section" id="verifying-the-webid-claim">
+<h5 id="h5_verifying-the-webid-claim"><span class="secno">4.2.5.2 </span>Verifying the WebID Claim</h5>
+
+<p>
+To check a <a class="tref internalDFN" title="WebID_Claim" href="#dfn-webid_claim">WebID Claim</a> one has to find if the graph returned by the profile  relates the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> to the <a class="tref internalDFN" title="Certificate" href="#dfn-certificate">Certificate</a> <a class="tref internalDFN" title="Public_Key" href="#dfn-public_key">Public Key</a> with the <code>cert:key</code> relation. In other words, one has to check if those statements are present in the graph.</p>
+
+<div class="normative section" id="verifying-the-webid-claim-with-sparql">
+<h6 id="h6_verifying-the-webid-claim-with-sparql"><span class="secno">4.2.5.2.1 </span>Verifying the WebID Claim with SPARQL</h6>
+<p>Testing for patterns in graphs is what the SPARQL query language is designed to do [<cite><a class="bibref" href="#bib-RDF-SPARQL-QUERY">RDF-SPARQL-QUERY</a></cite>]. We will first look at how to use this as it is also the simplest method, and then what some other programmatic options may be.</p>
+<p>Below is the SPARQL Query Template which should be used for an RSA public key. It contains three variables <code>?webid</code>, <code>?mod</code> and <code>?exp</code> that need to be replaced by the appropriate values:</p>
+<pre style="word-wrap: break-word; white-space: pre-wrap;">PREFIX : &lt;http://www.w3.org/ns/auth/cert#&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+ASK {
+   ?webid :key [
+      :modulus ?mod;
+      :exponent ?exp;
+   ] .
+}
+</pre>
+<p>The variables to be replaced for each <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> claim are:</p>
+<table cellpadding="5" border="1" style="text-align: left; border-color: rgb(0, 0, 0); border-collapse: collapse; wordwrap: break-word; white-psace: pre-wrap">
+<thead>
+ <tr>
+   <th>Variable</th>
+   <th>Details on its value.</th>
+ </tr>
+</thead>
+<tbody>
+<tr><td><code>?webid</code></td><td>should be replaced by the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> Resource. In the SPARQL notation that is the URL string would be placed between <code>&lt;...&gt;</code> in the position of the <code>?webid</code> variable. </td></tr>
+<tr><td><code>?mod</code></td><td>should be replaced by the modulus written as a xsd:hexBinary as specified by the <a href="http://www.w3.org/ns/auth/cert#modulus">cert:modulus</a> relation. All leading double 0 bytes (written  &quot;00&quot; in hexadecimal) should be removed. The resulting hexadecimal should then be placed in the space of the XXX in <code>&quot;XXX&quot;^^xsd:hexBinary</code> </td></tr>
+<tr><td><code>?exp</code></td><td>should be replaced by the public exponent written as an xsd:integer typed literal. In SPARQL as in Turtle notation this can just be written directly as an integer.</td></tr>
+</tbody>
+</table>
+
+<p>Assuming that we received Bob's key whose modulus starts with <code>cb24ed85d64d794b6...</code> and whose exponent is <code>65537</code> then the following query should be used:
+</p>
+<div class="example"><div class="example-title"><span>Example 5</span></div><pre style="word-wrap: break-word; white-space: pre-wrap;" class="example">PREFIX : &lt;http://www.w3.org/ns/auth/cert#&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+ASK {
+   &lt;https://bob.example/profile#me&gt; :key [
+      :modulus &quot;cb24ed85d64d794b69c701c186acc059501e856000f661c93204d8380e07191c5c8b368d2ac32a428acb970398664368dc2a867320220f755e99ca2eecdae62e8d15fb58e1b76ae59cb7ace8838394d59e7250b449176e51a494951a1c366c6217d8768d682dde78dd4d55e613f8839cf275d4c8403743e7862601f3c49a6366e12bb8f498262c3c77de19bce40b32f89ae62c3780f5b6275be337e2b3153ae2ba72a9975ae71ab724649497066b660fcf774b7543d980952d2e8586200eda4158b014e75465d91ecf93efc7ac170c11fc7246fc6ded79c37780000ac4e079f671fd4f207ad770809e0e2d7b0ef5493befe73544d8e1be3dddb52455c61391a1&quot;^^xsd:hexBinary;
+      :exponent 65537;
+   ] .
+}</pre></div>
+<p>An ASK query simply returns true or false. If it returns true, then the key was found in the graph with the proper relation and the claim is verified.</p>
+<p>When processing the queries in the above template, unexpected results may appear if the representation of a modulus or exponent contains whitespace characters in the initial and/or final position. To avoid these unexpected results, the query engine <em class="rfc2119" title="MUST">MUST</em> support the D-entailment regime for <code>xsd:hexBinary</code> and <code>xsd:integer</code> as specified in <a href="http://www.w3.org/TR/sparql11-entailment/#DEntRegime">SPARQL 1.1 Entailment Regimes</a>.</p>
+<p>For verifiers that do not have access to a SPARQL query engine but can query the RDF data programmatically, it is relatively easy to emulate the above SPARQL query programmatically. There are a number of ways of doing this, some more efficient than others.</p><p>
+</p></div>
+<div class="normative section" id="verifying-the-webid-claim-without-sparql">
+<h6 id="h6_verifying-the-webid-claim-without-sparql"><span class="secno">4.2.5.2.2 </span>Verifying the WebID claim without SPARQL</h6>
+<p>If the RDF library does datatype normalization of all literals before loading them, then the most efficient way to execute this would be to start by searching for all triples whose subjects have relation <code>cert:modulus</code> to the literal which in our example was <code>&quot;cb24ed...&quot;^^xsd:hexBinary</code>. One would then iterate through all the subjects of the relations that satisfied that condition, which would most likely never number more than one, and from there filter out all those that were the object of the <code>cert:modulus</code> relation of the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> - in the example <code>bob:me</code>. Finally one would verify that one of the keys that had satisfied those relations also had the <code>cert:exponent</code> relation to the number which in the example above is <code>&quot;65537&quot;^^xsd:integer</code>.
+</p>
+<p>For triples stores that do not normalize literals on loading a graph, the normalization will need to be done after the query results and before matching those with the values from the <a class="tref internalDFN" title="Certificate" href="#dfn-certificate">Certificate</a>. Because one could not rely on the modulus having been normalized, one would have to start with the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> - <code>bob:me</code> and find all its <code>cert:key</code> relations to objects - which we know to be keys - and then iterate through each of those keys' modulus and exponent, and verify if the normalized version of the value of those relation is equal to the numbers found in the certificate. If one such key is found then the answer is <code>true</code>, otherwise the answer will be <code>false</code>.</p>
+</div>
+</div>
+<div class="informative section" id="authorization">
+<h5 id="h5_authorization"><span class="secno">4.2.5.3 </span>Authorization</h5><p><em>This section is non-normative.</em></p>
+
+<p>Once the <a class="tref internalDFN" title="Guard" href="#dfn-guard">Guard</a> has a <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> it can lookup the access control rules for the given resource to see if the agent is allowed the required type of access.
+Up to this point, we are not much more advanced than with a user name and password, except that the user did not have to create an account on Alice's server to identify himself and that the server has some claimed attributes to personalize the site for the requestor.
+</p>
+
+
+</div>
+
+</div>
+</div>
+</div>
+<div class="informative section" id="privacy-considerations">
+
+<!--OddPage-->
+<h2 id="h2_privacy-considerations"><span class="secno">5. </span>Privacy considerations</h2><p><em>This section is non-normative.</em></p>
+<p>
+  In an WebID authentication process, three actors are involved: the authenticating <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a>, the server he is authenticating to, and the server serving the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a>. Different privacy considerations apply to each one of these actors.
+</p>
+    <div class="informative section" id="the-authenticating-subject">
+    <h3 id="h3_the-authenticating-subject"><span class="secno">5.1 </span>The Authenticating Subject</h3><p><em>This section is non-normative.</em></p>
+<p>
+  During authentication, the <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a> authenticating to a server must reveal one of his identies.
+  As a consequence, information that is associated with that identity, found at the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a>, will be tied to behavioral information that can be gathered by the site he is logging into.
+  Access to profile information can be restricted through access control policies, based on ontologies such as <a href="http://www.w3.org/wiki/WebAccessControl">Web Access Control</a>.
+  However, by aggregating user data from multiple servers that exchange information about users, attackers could in theory be able to build a complete profile of a given user.
+  It is therefore important that the <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a> understands the privacy policies of the site to which he authenticates in order to choose the appropriate identity to use for that site.
+</p>
+<p>
+  The development of a limited number of easy to understand and machine readable privacy policies, would greatly help users make informed decisions in this space.
+  Further flexibility may be offered to the authenticating <a class="tref internalDFN" title="Subject" href="#dfn-subject">Subject</a> to adapt his privacy policies to a site, allowing the user to select the group of agents with whom he wishes to share the information he generates.
+</p>
+   </div>
+   <div class="informative section" id="privacy-considerations-for-the-webid-profile-server">
+   <h3 id="h3_privacy-considerations-for-the-webid-profile-server"><span class="secno">5.2 </span>Privacy considerations for the WebID Profile Server</h3><p><em>This section is non-normative.</em></p>
+   <p>
+   To avoid potential deadlock problems, where one server needs to authenticate into a second server that itself requires authentication, etc... , <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a>'s <em class="rfc2119" title="MUST">MUST</em> be public.
+ It follows that WebID Authenticating servers <em class="rfc2119" title="MUST">MUST</em> not authenticate when fetching a <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a>.
+   </p>
+   <p>Even though a <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> document <em class="rfc2119" title="MUST">MUST</em> be publicly accessible, the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> can be split among multiple resources that are linked and protected by <a href="http://www.w3.org/wiki/WebAccessControl">access control rules</a> (as explained in the privacy section of the WebID specification [<cite><a class="bibref" href="#bib-WEBID">WEBID</a></cite>]), in order to provide limited access to sensitive information.
+   </p>
+   <p>
+   As a consequence of dereferencing the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> during authentication, identity providers such as the server hosting the profile document are able to track the IP addresses of incoming requests for the user's profile document, and potentially match them to a list of known servers and services.
+   In other words, unless the user hosts her profile on a server she owns and controls, the server owner will be able to track references to the user across the Web, and effectively use this pattern to build a picture of the user's actions on the Web.
+   WebID Profiles that are hosted on organizational servers should therefore be used by their owners with care and responsibility.
+   </p>
+   </div>
+   <div class="informative section" id="privacy-considerations-for-the-authenticating-server">
+   <h3 id="h3_privacy-considerations-for-the-authenticating-server"><span class="secno">5.3 </span>Privacy considerations for the authenticating Server</h3><p><em>This section is non-normative.</em></p>
+   <p>
+ Servers identify themselves in any transaction, and even more so when the transactions are done over HTTPS.
+ A server must make sure that information is served only to Agents that are allowed access to that information - public information should be made available to anyone, and non public information be only made available to those that are allowed access.
+   </p>
+   <p>As explained in the previous section, the <a class="tref internalDFN" title="WebID_Verifier" href="#dfn-webid_verifier-1">WebID Verifier</a> <em class="rfc2119" title="MUST NOT">MUST NOT</em> authenticate when fetching a WebID profile, as this leads to deadlock situations. </p>
+  <p></p>
+   </div>
+</div>
+
+<div class="informative section" id="security-considerations">
+
+<!--OddPage-->
+<h2 id="h2_security-considerations"><span class="secno">6. </span>Security considerations</h2><p><em>This section is non-normative.</em></p>
+ <p>A <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> identifies an agent via a description found in the associated <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> document.
+An agent that wishes to know what a WebID refers to, must rely on the description found in the WebID Profile.
+An attack on the relation between the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> and the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> can thus be used
+to subvert the meaning of the WebID, and to make agents following links within the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> come to different conclusions from those intended by profile owners.
+</p>
+<p>When authenticating clients identified by an <code>http://</code> (as opposed to <code>https://</code>) WebID, the server to which the client is authenticating should take into account the potential man-in-the-middle attack or DNS poisoning attacks that may take place when fetching a non secure resource on the Web.
+The server to which the client is authenticating should take these attacks into account when deciding what level of service to provide for the user, and also what type of information to allow him access to.
+If such a user wants to access sensitive data or enter a serious transaction it may be important to verify his authenticity using additional channels.
+</p>
+<p>For more sensitive transactions, a server authenticating <code>https://</code> WebIDs may want to make sure that the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> information it obtains is recent, in order to be able to exclude the possibility that the user disabled that certificate by removing its public key from the list of <code>cert:key</code>s listed in the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a>. A user may do that on discovering that one or more of its private keys were compromised.</p>
+<p>A server to which the client is authenticating must remember that the contents of a <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> is only a self assertion by the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> owner.
+In other words, the server can decide on the authenticity of that information when communicating with the referent of the WebID itself, but it must take care not to assume that other agents on the web will agree with those statements.
+If other agents do build up relations to that <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a>, then depending on the nature of those relations one may conclude to a certain overlapping of points of views, leading to a Web of trust.
+The position of the WebID in the global Linked Data space may make a very big difference as to how much trust the authenticating server puts in the veracity of those relations.
+The publication of a profile on a publicly listed company's web site may make the information legally binding and the legal framework may create a stronger space in which those statements can be accepted.
+This details of this trust reasoning goes way beyond what can be explored by the WebID authentication protocol.
+</p>
+<p>
+As security is constantly being challenged by new attacks, to which new responses are found, a collection of security considerations will be made available on the <a href="http://www.w3.org/2005/Incubator/webid/wiki/Identity_Security">WebID Wiki</a>.
+</p>
+</div>
+
+<div id="history" class="appendix informative section" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter">
+
+<!--OddPage-->
+<h2 id="h2_history"><span class="secno">A. </span>Change History</h2><p><em>This section is non-normative.</em></p>
+<p><a href="">2013-08-01</a>
+Separated the WebID Identity and Discovery spec from the WebID Authentication over TLS protool. Updated editors and acknowledgments. Reorganised diagram to make clearer that authentication of user should depend on access control rules.
+</p>
+<p><a href="https://dvcs.w3.org/hg/WebID/rev/46e0aadef7b6">2011-12-12</a>
+Fixed several errors in examples and diagrams, clarified TLS-Light, added SSL renegotiation, key chain and cache control, updated list people in acknowledgments.
+</p>
+<p><a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20111123/">2011-11-23</a>
+Wide ranging changes: Rewrote the Verification algorithm now enhanced with a detailed sequence diagram.  Moved to new ontology using xsd:hexBinary datatypes and removed rsa: ontology. Rewrote vocabulary section using clearer names. All these changes required serious rewriting everywhere.
+</p>
+<p><a href="https://dvcs.w3.org/hg/WebID/rev/6b60d7335151">2011-02-10</a>
+Move to <a href="http://www.w3.org/2005/Incubator/webid/"><abbr title="World Wide Web Consortium">W3C</abbr> WebID XG</a>.
+Updates from previous unofficial WebID group include changes on
+RDF/XML publishing in HTML, clarification on multiple SAN URIs and
+WebID verification steps.
+</p>
+<p><a href="https://dvcs.w3.org/hg/WebID/rev/dc93b6bbc538">2010-08-09</a>
+Updates from WebID community: moved OpenID/OAuth sections to separate document,
+switched to the URI terminology instead of URL, added &quot;Creating the certificate&quot;
+and &quot;Publishing the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> document&quot; sections with a WebID graph and
+serializations in Turtle and RDFa, improved SPARQL queries using literal
+notation with cert datatypes, updated list of contributors,
+and many other fixes.</p>
+<p><a href="https://dvcs.w3.org/hg/WebID/rev/4aef27947dec">2010-07-25</a>
+Added <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> section.</p>
+<p><a href="https://dvcs.w3.org/hg/WebID/rev/805d44635286">2010-07-18</a>
+Updates from WebID community related to RDF/XML support, authentication sequence
+corrections, abstract and introduction updates.</p>
+<p><a href="https://dvcs.w3.org/hg/WebID/rev/25ba7f596f07">2010-07-11</a>
+Manu Sporny formats protocol with respec for <abbr title="World Wide Web Consortium">W3C</abbr> standard look and feel.</p>
+<p><a href="https://www.w3.org/2008/09/msnws/papers/foaf+ssl.html">2008-09</a>
+Bruno Harbulot, Toby Inkster, Ian Jacobi &amp; Henry Story presentation at
+    <a href="http://www.w3.org/2008/09/msnws/"><abbr title="World Wide Web Consortium">W3C</abbr> Workshop on future of Social Networking</a>.
+</p>
+</div>
+
+<div id="acknowledgements" class="informative section" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter">?
+
+
+<!--OddPage-->
+<h2 id="h2_acknowledgements"><span class="secno">B. </span>Acknowledgments</h2><p><em>This section is non-normative.</em></p>
+
+<p>The following people have been instrumental in providing thoughts, feedback,
+reviews, criticism and input in the creation of this specification:
+Tim Berners-Lee, Thomas Bergwinkl, Andrei Sambra, Erich Bremer, Sarven Capadisli, Melvin Carvalho, Martin Gaedke, Michael Hausenblas, Kingsley Idehen, Ian Jacobi, Nathan Rixham, Seth Russell, Jeff Sayre, Dominik Tomaszuk, Mo McRoberts, David Chadwick, Patrick Logan, Peter Williams, Mischa Tuffield, Pierre Antoine Champin, Reto Bachman Gmür, Antoine Zimmermann, Manu Sporny.
+
+</p></div>
+
+
+
+<div class="appendix section" id="references" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter">
+<!--OddPage-->
+<h2 id="h2_references"><span class="secno">C. </span>References</h2><div id="normative-references" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" class="section"><h3 id="h3_normative-references"><span class="secno">C.1 </span>Normative references</h3><dl class="bibliography" about=""><dt id="bib-FOAF">[FOAF]</dt><dd rel="dcterms:requires">Dan Brickley, Libby Miller. <a href="http://xmlns.com/foaf/spec/"><cite>FOAF Vocabulary Specification 0.98.</cite></a> 9 August 2010. URL: <a href="http://xmlns.com/foaf/spec/">http://xmlns.com/foaf/spec/</a>
+</dd><dt id="bib-HTTP-TLS">[HTTP-TLS]</dt><dd rel="dcterms:requires">E. Rescorla. <a href="http://www.ietf.org/rfc/rfc2818.txt"><cite>HTTP Over TLS</cite></a>. May 2000. RFC. URL: <a href="http://www.ietf.org/rfc/rfc2818.txt">http://www.ietf.org/rfc/rfc2818.txt</a>
+</dd><dt id="bib-HTTP11">[HTTP11]</dt><dd rel="dcterms:requires">R. Fielding et al. <a href="http://www.ietf.org/rfc/rfc2616.txt"><cite>Hypertext Transfer Protocol - HTTP/1.1</cite></a>. June 1999. RFC. URL: <a href="http://www.ietf.org/rfc/rfc2616.txt">http://www.ietf.org/rfc/rfc2616.txt</a>
+</dd><dt id="bib-RDF-MT">[RDF-MT]</dt><dd rel="dcterms:requires">Patrick Hayes. <a href="http://www.w3.org/TR/rdf-mt/"><cite>RDF Semantics</cite></a>. 10 February 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdf-mt/">http://www.w3.org/TR/rdf-mt/</a>
+</dd><dt id="bib-RDF-PRIMER">[RDF-PRIMER]</dt><dd rel="dcterms:requires">Frank Manola; Eric Miller. <a href="http://www.w3.org/TR/rdf-primer/"><cite>RDF Primer</cite></a>. 10 February 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdf-primer/">http://www.w3.org/TR/rdf-primer/</a>
+</dd><dt id="bib-RDF-SPARQL-QUERY">[RDF-SPARQL-QUERY]</dt><dd rel="dcterms:requires">Eric Prud'hommeaux; Andy Seaborne. <a href="http://www.w3.org/TR/rdf-sparql-query/"><cite>SPARQL Query Language for RDF</cite></a>. 15 January 2008. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdf-sparql-query/">http://www.w3.org/TR/rdf-sparql-query/</a>
+</dd><dt id="bib-RDF-SYNTAX-GRAMMAR">[RDF-SYNTAX-GRAMMAR]</dt><dd rel="dcterms:requires">Fabien Gandon; Guus Schreiber. <a href="http://www.w3.org/TR/rdf-syntax-grammar/"><cite>RDF 1.1 XML Syntax</cite></a>. 9 January 2014. W3C Proposed Edited Recommendation. URL: <a href="http://www.w3.org/TR/rdf-syntax-grammar/">http://www.w3.org/TR/rdf-syntax-grammar/</a>
+</dd><dt id="bib-RDFA-CORE">[RDFA-CORE]</dt><dd rel="dcterms:requires">Ben Adida; Mark Birbeck; Shane McCarron; Ivan Herman et al. <a href="http://www.w3.org/TR/rdfa-core/"><cite>RDFa Core 1.1 - Second Edition</cite></a>. 22 August 2013. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdfa-core/">http://www.w3.org/TR/rdfa-core/</a>
+</dd><dt id="bib-RFC3986">[RFC3986]</dt><dd rel="dcterms:requires">T. Berners-Lee; R. Fielding; L. Masinter. <a href="http://www.ietf.org/rfc/rfc3986.txt"><cite>Uniform Resource Identifier (URI): Generic Syntax (RFC 3986)</cite></a>. January 2005. RFC. URL: <a href="http://www.ietf.org/rfc/rfc3986.txt">http://www.ietf.org/rfc/rfc3986.txt</a>
+</dd><dt id="bib-RFC5746">[RFC5746]</dt><dd rel="dcterms:requires">E. Rescorla, M. Ray, S. Dispensa, N. Oskov,  <a href="http://tools.ietf.org/html/rfc5746"><cite>Transport Layer Security (TLS) Renegotiation Indication Extension</cite></a> February 2010. Internet RFC 5246. URL: <a href="http://tools.ietf.org/html/rfc5746">http://tools.ietf.org/html/rfc5746</a>
+</dd><dt id="bib-TLS">[TLS]</dt><dd rel="dcterms:requires">T. Dierks; E. Rescorla. <a href="http://tools.ietf.org/html/rfc5246"><cite>The Transport Layer Security (TLS) Protocol, Version 1.2</cite></a>. August 2008. RFC 5246. URL: <a href="http://tools.ietf.org/html/rfc5246">http://tools.ietf.org/html/rfc5246</a>
+</dd><dt id="bib-WEBID">[WEBID]</dt><dd rel="dcterms:requires">Henry Story, Andrei Sambra, Stéphane Corlosquet, <a href="https://dvcs.w3.org/hg/WebID/raw-file/tip/spec/identity-respec.html"><cite>WebID 1.0: Web Identity and Discovery.</cite></a>
+</dd><dt id="bib-X509V3">[X509V3]</dt><dd rel="dcterms:requires"><cite>ITU-T Recommendation X.509 version 3 (1997). &quot;Information Technology - Open Systems Interconnection - The Directory Authentication Framework&quot;  ISO/IEC 9594-8:1997</cite>.
+</dd><dt id="bib-turtle">[turtle]</dt><dd rel="dcterms:requires">Eric Prud'hommeaux; Gavin Carothers. <a href="http://www.w3.org/TR/turtle/"><cite>RDF 1.1 Turtle</cite></a>. 9 January 2014. W3C Proposed Recommendation. URL: <a href="http://www.w3.org/TR/turtle/">http://www.w3.org/TR/turtle/</a>
+</dd></dl></div></div></body></html>

@@ -1,0 +1,1342 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML+RDFa 1.0//EN' 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd'>
+<html dir="ltr" about="" property="dcterms:language" content="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:dcterms='http://purl.org/dc/terms/' xmlns:bibo='http://purl.org/ontology/bibo/' xmlns:foaf='http://xmlns.com/foaf/0.1/' xmlns:xsd='http://www.w3.org/2001/XMLSchema#'>
+<head>
+    <title>WebID 1.0</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    
+<!-- 
+      === NOTA BENE ===
+      For the three scripts below, if your spec resides on dev.w3 you can check them
+      out in the same tree and use relative links so that they'll work offline,
+      -->
+
+<style type="text/css">
+code           { font-family: monospace; }
+
+span.hilite { color: red; /* font-weight: bold */ }
+
+li p           { margin-top: 0.3em;
+                 margin-bottom: 0.3em; }
+
+div.explanation { background-color: #ADD8E6;
+                   width: 80%;
+                   margin: 12px; padding: 8px; }
+div.explanation li { margin-top: 8px; }
+div.explanation dd { margin: 4px; }
+
+.adef {
+	font-family: monospace;
+	font-weight: bold;
+    color: #ff4500 !important;
+}
+
+.aref {
+	font-family: monospace;
+	font-weight: bold;
+    color: #ff4500 !important;
+}
+
+span.entity { color: red; }
+
+span.element { color: green; }
+</style>
+
+    
+
+<!--     <script src='/ReSpec.js/js/respec.js' class='remove'></script>  -->
+
+    
+  <style type="text/css">
+/*****************************************************************
+ * ReSpec CSS
+ * Robin Berjon (robin at berjon dot com)
+ * v0.05 - 2009-07-31
+ *****************************************************************/
+
+
+/* --- INLINES --- */
+em.rfc2119 { 
+    text-transform:     lowercase;
+    font-variant:       small-caps;
+    font-style:         normal;
+    color:              #900;
+}
+
+h1 acronym, h2 acronym, h3 acronym, h4 acronym, h5 acronym, h6 acronym, a acronym,
+h1 abbr, h2 abbr, h3 abbr, h4 abbr, h5 abbr, h6 abbr, a abbr {
+    border: none;
+}
+
+dfn {
+    font-weight:    bold;
+}
+
+a.internalDFN {
+    color:  inherit;
+    border-bottom:  1px solid #99c;
+    text-decoration:    none;
+}
+
+a.externalDFN {
+    color:  inherit;
+    border-bottom:  1px dotted #ccc;
+    text-decoration:    none;
+}
+
+a.bibref {
+    text-decoration:    none;
+}
+
+code {
+    color:  #ff4500;
+}
+
+
+/* --- WEB IDL --- */
+pre.idl {
+    border-top: 1px solid #90b8de;
+    border-bottom: 1px solid #90b8de;
+    padding:    1em;
+    line-height:    120%;
+}
+
+pre.idl::before {
+    content:    &quot;WebIDL&quot;;
+    display:    block;
+    width:      150px;
+    background: #90b8de;
+    color:  #fff;
+    font-family:    initial;
+    padding:    3px;
+    font-weight:    bold;
+    margin: -1em 0 1em -1em;
+}
+
+.idlType {
+    color:  #ff4500;
+    font-weight:    bold;
+    text-decoration:    none;
+}
+
+/*.idlModule*/
+/*.idlModuleID*/
+/*.idlInterface*/
+.idlInterfaceID, .idlDictionaryID {
+    font-weight:    bold;
+    color:  #005a9c;
+}
+
+.idlSuperclass {
+    font-style: italic;
+    color:  #005a9c;
+}
+
+/*.idlAttribute*/
+.idlAttrType, .idlFieldType, .idlMemberType {
+    color:  #005a9c;
+}
+.idlAttrName, .idlFieldName, .idlMemberName {
+    color:  #ff4500;
+}
+.idlAttrName a, .idlFieldName a, .idlMemberName a {
+    color:  #ff4500;
+    border-bottom:  1px dotted #ff4500;
+    text-decoration: none;
+}
+
+/*.idlMethod*/
+.idlMethType {
+    color:  #005a9c;
+}
+.idlMethName {
+    color:  #ff4500;
+}
+.idlMethName a {
+    color:  #ff4500;
+    border-bottom:  1px dotted #ff4500;
+    text-decoration: none;
+}
+
+/*.idlParam*/
+.idlParamType {
+    color:  #005a9c;
+}
+.idlParamName {
+    font-style: italic;
+}
+
+.extAttr {
+    color:  #666;
+}
+
+/*.idlConst*/
+.idlConstType {
+    color:  #005a9c;
+}
+.idlConstName {
+    color:  #ff4500;
+}
+.idlConstName a {
+    color:  #ff4500;
+    border-bottom:  1px dotted #ff4500;
+    text-decoration: none;
+}
+
+/*.idlException*/
+.idlExceptionID {
+    font-weight:    bold;
+    color:  #c00;
+}
+
+.idlTypedefID, .idlTypedefType {
+    color:  #005a9c;
+}
+
+.idlRaises, .idlRaises a.idlType, .idlRaises a.idlType code, .excName a, .excName a code {
+    color:  #c00;
+    font-weight:    normal;
+}
+
+.excName a {
+    font-family:    monospace;
+}
+
+.idlRaises a.idlType, .excName a.idlType {
+    border-bottom:  1px dotted #c00;
+}
+
+.excGetSetTrue, .excGetSetFalse, .prmNullTrue, .prmNullFalse, .prmOptTrue, .prmOptFalse {
+    width:  45px;
+    text-align: center;
+}
+.excGetSetTrue, .prmNullTrue, .prmOptTrue { color:  #0c0; }
+.excGetSetFalse, .prmNullFalse, .prmOptFalse { color:  #c00; }
+
+.idlImplements a {
+    font-weight:    bold;
+}
+
+dl.attributes, dl.methods, dl.constants, dl.fields, dl.dictionary-members {
+    margin-left:    2em;
+}
+
+.attributes dt, .methods dt, .constants dt, .fields dt, .dictionary-members dt {
+    font-weight:    normal;
+}
+
+.attributes dt code, .methods dt code, .constants dt code, .fields dt code, .dictionary-members dt code {
+    font-weight:    bold;
+    color:  #000;
+    font-family:    monospace;
+}
+
+.attributes dt code, .fields dt code, .dictionary-members dt code {
+    background:  #ffffd2;
+}
+
+.attributes dt .idlAttrType code, .fields dt .idlFieldType code, .dictionary-members dt .idlMemberType code {
+    color:  #005a9c;
+    background:  transparent;
+    font-family:    inherit;
+    font-weight:    normal;
+    font-style: italic;
+}
+
+.methods dt code {
+    background:  #d9e6f8;
+}
+
+.constants dt code {
+    background:  #ddffd2;
+}
+
+.attributes dd, .methods dd, .constants dd, .fields dd, .dictionary-members dd {
+    margin-bottom:  1em;
+}
+
+table.parameters, table.exceptions {
+    border-spacing: 0;
+    border-collapse:    collapse;
+    margin: 0.5em 0;
+    width:  100%;
+}
+table.parameters { border-bottom:  1px solid #90b8de; }
+table.exceptions { border-bottom:  1px solid #deb890; }
+
+.parameters th, .exceptions th {
+    color:  #fff;
+    padding:    3px 5px;
+    text-align: left;
+    font-family:    initial;
+    font-weight:    normal;
+    text-shadow:    #666 1px 1px 0;
+}
+.parameters th { background: #90b8de; }
+.exceptions th { background: #deb890; }
+
+.parameters td, .exceptions td {
+    padding:    3px 10px;
+    border-top: 1px solid #ddd;
+    vertical-align: top;
+}
+
+.parameters tr:first-child td, .exceptions tr:first-child td {
+    border-top: none;
+}
+
+.parameters td.prmName, .exceptions td.excName, .exceptions td.excCodeName {
+    width:  100px;
+}
+
+.parameters td.prmType {
+    width:  120px;
+}
+
+table.exceptions table {
+    border-spacing: 0;
+    border-collapse:    collapse;
+    width:  100%;
+}
+
+/* --- TOC --- */
+.toc a {
+    text-decoration:    none;
+}
+
+a .secno {
+    color:  #000;
+}
+
+/* --- TABLE --- */
+table.simple {
+    border-spacing: 0;
+    border-collapse:    collapse;
+    border-bottom:  3px solid #005a9c;
+}
+
+.simple th {
+    background: #005a9c;
+    color:  #fff;
+    padding:    3px 5px;
+    text-align: left;
+}
+
+.simple th[scope=&quot;row&quot;] {
+    background: inherit;
+    color:  inherit;
+    border-top: 1px solid #ddd;
+}
+
+.simple td {
+    padding:    3px 10px;
+    border-top: 1px solid #ddd;
+}
+
+.simple tr:nth-child(even) {
+    background: #f0f6ff;
+}
+
+/* --- DL --- */
+.section dd &gt; p:first-child {
+    margin-top: 0;
+}
+
+.section dd &gt; p:last-child {
+    margin-bottom: 0;
+}
+
+.section dd {
+    margin-bottom:  1em;
+}
+
+.section dl.attrs dd, .section dl.eldef dd {
+    margin-bottom:  0;
+}
+
+/* --- EXAMPLES --- */
+pre.example {
+    border-top: 1px solid #ff4500;
+    border-bottom: 1px solid #ff4500;
+    padding:    1em;
+    margin-top: 1em;
+}
+
+pre.example::before {
+    content:    &quot;Example&quot;;
+    display:    block;
+    width:      150px;
+    background: #ff4500;
+    color:  #fff;
+    font-family:    initial;
+    padding:    3px;
+    font-weight:    bold;
+    margin: -1em 0 1em -1em;
+}
+
+/* --- EDITORIAL NOTES --- */
+.issue {
+    padding:    1em;
+    margin: 1em 0em 0em;
+    border: 1px solid #f00;
+    background: #ffc;
+}
+
+.issue::before {
+    content:    &quot;Issue&quot;;
+    display:    block;
+    width:  150px;
+    margin: -1.5em 0 0.5em 0;
+    font-weight:    bold;
+    border: 1px solid #f00;
+    background: #fff;
+    padding:    3px 1em;
+}
+
+.note {
+    margin: 1em 0em 0em;
+    padding:    1em;
+    border: 2px solid #cff6d9;
+    background: #e2fff0;
+}
+
+.note::before {
+    content:    &quot;Note&quot;;
+    display:    block;
+    width:  150px;
+    margin: -1.5em 0 0.5em 0;
+    font-weight:    bold;
+    border: 1px solid #cff6d9;
+    background: #fff;
+    padding:    3px 1em;
+}
+
+/* --- Best Practices --- */
+div.practice {
+    border: solid #bebebe 1px;
+    margin: 2em 1em 1em 2em;
+}
+
+span.practicelab {
+    margin: 1.5em 0.5em 1em 1em;
+    font-weight: bold;
+    font-style: italic;
+}
+
+span.practicelab   { background: #dfffff; }
+
+span.practicelab {
+    position: relative;
+    padding: 0 0.5em;
+    top: -1.5em;
+}
+
+p.practicedesc {
+    margin: 1.5em 0.5em 1em 1em;
+}
+
+@media screen {
+    p.practicedesc {
+        position: relative;
+        top: -2em;
+        padding: 0;
+        margin: 1.5em 0.5em -1em 1em;
+    }
+}
+
+/* --- SYNTAX HIGHLIGHTING --- */
+pre.sh_sourceCode {
+  background-color: white;
+  color: black;
+  font-style: normal;
+  font-weight: normal;
+}
+
+pre.sh_sourceCode .sh_keyword { color: #005a9c; font-weight: bold; }           /* language keywords */
+pre.sh_sourceCode .sh_type { color: #666; }                            /* basic types */
+pre.sh_sourceCode .sh_usertype { color: teal; }                             /* user defined types */
+pre.sh_sourceCode .sh_string { color: red; font-family: monospace; }        /* strings and chars */
+pre.sh_sourceCode .sh_regexp { color: orange; font-family: monospace; }     /* regular expressions */
+pre.sh_sourceCode .sh_specialchar { color: 	#ffc0cb; font-family: monospace; }  /* e.g., \n, \t, \\ */
+pre.sh_sourceCode .sh_comment { color: #A52A2A; font-style: italic; }         /* comments */
+pre.sh_sourceCode .sh_number { color: purple; }                             /* literal numbers */
+pre.sh_sourceCode .sh_preproc { color: #00008B; font-weight: bold; }       /* e.g., #include, import */
+pre.sh_sourceCode .sh_symbol { color: blue; }                            /* e.g., *, + */
+pre.sh_sourceCode .sh_function { color: black; font-weight: bold; }         /* function calls and declarations */
+pre.sh_sourceCode .sh_cbracket { color: red; }                              /* block brackets (e.g., {, }) */
+pre.sh_sourceCode .sh_todo { font-weight: bold; background-color: #00FFFF; }   /* TODO and FIXME */
+
+/* Predefined variables and functions (for instance glsl) */
+pre.sh_sourceCode .sh_predef_var { color: #00008B; }
+pre.sh_sourceCode .sh_predef_func { color: #00008B; font-weight: bold; }
+
+/* for OOP */
+pre.sh_sourceCode .sh_classname { color: teal; }
+
+/* line numbers (not yet implemented) */
+pre.sh_sourceCode .sh_linenum { display: none; }
+
+/* Internet related */
+pre.sh_sourceCode .sh_url { color: blue; text-decoration: underline; font-family: monospace; }
+
+/* for ChangeLog and Log files */
+pre.sh_sourceCode .sh_date { color: blue; font-weight: bold; }
+pre.sh_sourceCode .sh_time, pre.sh_sourceCode .sh_file { color: #00008B; font-weight: bold; }
+pre.sh_sourceCode .sh_ip, pre.sh_sourceCode .sh_name { color: #006400; }
+
+/* for Prolog, Perl... */
+pre.sh_sourceCode .sh_variable { color: #006400; }
+
+/* for LaTeX */
+pre.sh_sourceCode .sh_italics { color: #006400; font-style: italic; }
+pre.sh_sourceCode .sh_bold { color: #006400; font-weight: bold; }
+pre.sh_sourceCode .sh_underline { color: #006400; text-decoration: underline; }
+pre.sh_sourceCode .sh_fixed { color: green; font-family: monospace; }
+pre.sh_sourceCode .sh_argument { color: #006400; }
+pre.sh_sourceCode .sh_optionalargument { color: purple; }
+pre.sh_sourceCode .sh_math { color: orange; }
+pre.sh_sourceCode .sh_bibtex { color: blue; }
+
+/* for diffs */
+pre.sh_sourceCode .sh_oldfile { color: orange; }
+pre.sh_sourceCode .sh_newfile { color: #006400; }
+pre.sh_sourceCode .sh_difflines { color: blue; }
+
+/* for css */
+pre.sh_sourceCode .sh_selector { color: purple; }
+pre.sh_sourceCode .sh_property { color: blue; }
+pre.sh_sourceCode .sh_value { color: #006400; font-style: italic; }
+
+/* other */
+pre.sh_sourceCode .sh_section { color: black; font-weight: bold; }
+pre.sh_sourceCode .sh_paren { color: red; }
+pre.sh_sourceCode .sh_attribute { color: #006400; }
+
+</style><link href="http://www.w3.org/StyleSheets/TR/W3C-ED" rel="stylesheet" type="text/css" charset="utf-8" /></head>
+  <body style="display: inherit; "><div class="head"><p><a href="http://www.w3.org/"><img width="72" height="48" src="http://www.w3.org/Icons/w3c_home" alt="W3C" /></a></p><h1 property="dcterms:title" class="title" id="title">WebID 1.0</h1><h2 property="bibo:subtitle" id="subtitle">Web Identification and Discovery</h2><h2 property="dcterms:issued" datatype="xsd:dateTime" content="2011-10-17T15:24:43+0000" id="w3c-editor-s-draft-17-october-2011">W3C Editor's Draft 17 October 2011</h2><dl><dt>This version:</dt><dd><a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-2011-11-17">http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-2011-11-17</a></dd><dt>Latest editor's draft:</dt><dd><a href="http://www.w3.org/2005/Incubator/webid/spec/">http://www.w3.org/2005/Incubator/webid/spec/</a></dd><dt>Previous version:</dt><dd><a rel="dcterms:replaces" href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20110210">http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20110210</a></dd><dt>Editors:</dt><dd rel="bibo:editor"><span typeof="foaf:Person"><span property="foaf:name">Stéphane Corlosquet</span>, <a rel="foaf:workplaceHomepage" href="http://massgeneral.org/">Massachusetts General Hospital</a> <span class="ed_mailto"><a rel="foaf:mbox" href="mailto:scorlosquet@gmail.com">scorlosquet@gmail.com</a></span> </span>
+</dd>
+<dd rel="bibo:editor"><span typeof="foaf:Person"><a rel="foaf:homepage" property="foaf:name" content="Henry Story" href="http://bblfish.net/">Henry Story</a> <span class="ed_mailto"><a rel="foaf:mbox" href="mailto:henry.story@bblfish.net">henry.story@bblfish.net</a></span> </span>
+</dd>
+<dt>Authors:</dt><dd rel="dcterms:contributor"><span typeof="foaf:Person"><span property="foaf:name">Manu Sporny</span>, <a rel="foaf:workplaceHomepage" href="http://blog.digitalbazaar.com/">Digital Bazaar, Inc.</a> <span class="ed_mailto"><a rel="foaf:mbox" href="mailto:msporny@digitalbazaar.com">msporny@digitalbazaar.com</a></span> </span>
+</dd>
+<dd rel="dcterms:contributor"><span typeof="foaf:Person"><a rel="foaf:homepage" property="foaf:name" content="Toby Inkster" href="http://tobyinkster.co.uk/">Toby Inkster</a></span>
+</dd>
+<dd rel="dcterms:contributor"><span typeof="foaf:Person"><a rel="foaf:homepage" property="foaf:name" content="Henry Story" href="http://bblfish.net/">Henry Story</a></span>
+</dd>
+<dd rel="dcterms:contributor"><span typeof="foaf:Person"><a rel="foaf:homepage" property="foaf:name" content="Bruno Harbulot" href="http://blog.distributedmatter.net/">Bruno Harbulot</a></span>
+</dd>
+<dd rel="dcterms:contributor"><span typeof="foaf:Person"><a rel="foaf:homepage" property="foaf:name" content="Reto Bachmann-Gmür" href="http://trialox.org/">Reto Bachmann-Gmür</a></span>
+</dd>
+</dl><p>This document is also available in this non-normative format: <a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20110210/diff-20100809.html">Diff from previous Editors Draft</a>.</p><p class="copyright"><a rel="license" href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2010-2011 <span rel="dcterms:publisher"><span typeof="foaf:Organization"><a rel="foaf:homepage" property="foaf:name" content="World Wide Web Consotrium" href="http://www.w3.org/"><acronym title="World Wide Web Consortium">W3C</acronym></a><sup>®</sup></span></span> (<a href="http://www.csail.mit.edu/"><acronym title="Massachusetts Institute of Technology">MIT</acronym></a>, <a href="http://www.ercim.eu/"><acronym title="European Research Consortium for Informatics and Mathematics">ERCIM</acronym></a>, <a href="http://www.keio.ac.jp/">Keio</a>), All Rights Reserved. W3C <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>, <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and <a href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply.</p><hr /></div>
+    <div id="abstract" class="introductory section" property="dcterms:abstract" datatype="" typeof="bibo:Chapter" about="#abstract"><h2>Abstract</h2>
+
+<p>Social networking, identity and privacy have been at the center of how we
+interact with the Web in the last decade. The explosion of social networking
+sites has brought the world closer together as well as created new points of
+pain regarding ease of use and the Web. Remembering login details, passwords,
+and sharing private information across the many websites and social groups
+that we are a part of has become more difficult and complicated than necessary.
+The Social Web is designed to ensure that control of identity and privacy
+settings is always simple and under one's control. WebID is a key enabler of the
+Social Web. This specification outlines a simple universal identification
+mechanism that is distributed, openly extensible, improves privacy, security
+and control over how one can identify themselves and control access to their
+information on the Web.
+</p>
+
+<div typeof="bibo:Chapter" about="#how-to-read-this-document" class="section">
+<h3 id="how-to-read-this-document">How to Read this Document</h3>
+
+<p>There are a number of concepts that are covered in this document that the
+reader may want to be aware of before continuing. General knowledge of
+<a href="http://en.wikipedia.org/wiki/Public_key_cryptography">public key cryptography</a>
+and RDF [<cite><a class="bibref" rel="biblioentry" href="#bib-RDF-PRIMER">RDF-PRIMER</a></cite>] and RDFa [<cite><a class="bibref" rel="biblioentry" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>] is necessary to understand how
+to implement this specification. WebID uses a number of specific technologies
+like HTTP over TLS [<cite><a class="bibref" rel="biblioentry" href="#bib-HTTP-TLS">HTTP-TLS</a></cite>], X.509 certificates [<cite><a class="bibref" rel="biblioentry" href="#bib-X509V3">X509V3</a></cite>],
+RDF/XML [<cite><a class="bibref" rel="biblioentry" href="#bib-RDF-SYNTAX-GRAMMAR">RDF-SYNTAX-GRAMMAR</a></cite>] and XHTML+RDFa [<cite><a class="bibref" rel="biblioentry" href="#bib-XHTML-RDFA">XHTML-RDFA</a></cite>].</p>
+
+<p>A general <a href="#introduction">Introduction</a> is provided for all that
+would like to understand why this specification is necessary to simplify usage
+of the Web.</p>
+
+<p>The terms used throughout this specification are listed in the section
+titled <a href="#terminology">Terminology</a>.</p>
+
+<p>Developers that are interested in implementing this specification will be
+most interested in the sections titled
+<a href="#authentication-sequence">Authentication Sequence</a> and
+<a href="#authentication-sequence-details">Authentication Sequence Details</a>.</p>
+
+</div>
+</div><div id="sotd" class="introductory section" typeof="bibo:Chapter" about="#sotd"><h2>Status of This Document</h2><p><em>This section describes the status of this document at the time of its publication. Other documents may supersede this document. A list of current W3C publications and the latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/">W3C technical reports index</a> at http://www.w3.org/TR/.</em></p>
+
+<!--  <p>This document has been reviewed by W3C Members, by software
+developers, and by other W3C groups and interested parties, and is
+endorsed by the Director as a W3C Recommendation. It is a stable
+document and may be used as reference material or cited from another
+document. W3C's role in making the Recommendation is to draw attention
+to the specification and to promote its widespread deployment. This
+enhances the functionality and interoperability of the Web.</p>  -->
+
+
+This document is produced from work by the
+<a href="http://www.w3.org/2005/Incubator/webid/">W3C WebID Incubator Group</a>.
+This is an internal draft document and may not even end up being officially
+published. It may also be updated, replaced or obsoleted by other documents
+at any time. It is inappropriate to cite this document as other than
+work in progress.
+The source code for this document is available at the following
+URI: <a href="https://dvcs.w3.org/hg/WebID">https://dvcs.w3.org/hg/WebID</a>
+
+<p>This document was published by the <a href="http://www.w3.org/2005/Incubator/webid/">WebID XG</a> as an Editor's Draft. If you wish to make comments regarding this document, please send them to <a href="mailto:public-xg-webid@w3.org">public-xg-webid@w3.org</a> (<a href="mailto:public-xg-webid-request@w3.org?subject=subscribe">subscribe</a>, <a href="http://lists.w3.org/Archives/Public/public-xg-webid/">archives</a>). All feedback is welcome.</p><p>Publication as a Editor's Draft does not imply endorsement by the W3C Membership. This is a draft document and may be updated, replaced or obsoleted by other documents at any time. It is inappropriate to cite this document as other than work in progress.</p><p>This document was produced by a group operating under the <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/">5 February 2004 W3C Patent Policy</a>. W3C maintains a <a href="http://www.w3.org/2004/01/pp-impl/46065/status" rel="disclosure">public list of any patent disclosures</a> made in connection with the deliverables of the group; that page also includes instructions for disclosing a patent. An individual who has actual knowledge of a patent which the individual believes contains <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential Claim(s)</a> must disclose the information in accordance with <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section 6 of the W3C Patent Policy</a>.</p></div><div id="toc" typeof="bibo:Chapter" about="#toc" class="section"><h2 class="introductory">Table of Contents</h2><ul class="toc"><li class="tocline"><a href="#introduction" class="tocxref"><span class="secno">1. </span>Introduction</a><ul class="toc"><li class="tocline"><a href="#motivation" class="tocxref"><span class="secno">1.1 </span>Motivation</a></li></ul></li><li class="tocline"><a href="#preconditions" class="tocxref"><span class="secno">2. </span>Preconditions</a><ul class="toc"><li class="tocline"><a href="#terminology" class="tocxref"><span class="secno">2.1 </span>Terminology</a></li><li class="tocline"><a href="#creating-the-certificate" class="tocxref"><span class="secno">2.2 </span>Creating the certificate</a></li><li class="tocline"><a href="#publishing-the-webid-profile-document" class="tocxref"><span class="secno">2.3 </span>Publishing the WebID Profile Document</a><ul class="toc"><li class="tocline"><a href="#turtle" class="tocxref"><span class="secno">2.3.1 </span>Turtle</a></li><li class="tocline"><a href="#rdfa-html-notation" class="tocxref"><span class="secno">2.3.2 </span>RDFa HTML notation</a></li><li class="tocline"><a href="#in-rdf-xml" class="tocxref"><span class="secno">2.3.3 </span>In RDF/XML</a></li><li class="tocline"><a href="#in-portable-contacts-format-using-grddl" class="tocxref"><span class="secno">2.3.4 </span>In Portable Contacts format using GRDDL</a></li></ul></li></ul></li><li class="tocline"><a href="#the-webid-protocol" class="tocxref"><span class="secno">3. </span>The WebID Protocol</a><ul class="toc"><li class="tocline"><a href="#authentication-sequence" class="tocxref"><span class="secno">3.1 </span>Authentication Sequence</a></li><li class="tocline"><a href="#authentication-sequence-details" class="tocxref"><span class="secno">3.2 </span>Authentication Sequence Details</a><ul class="toc"><li class="tocline"><a href="#initiating-a-tls-connection" class="tocxref"><span class="secno">3.2.1 </span>Initiating a TLS Connection</a></li><li class="tocline"><a href="#exchanging-the-identification-certificate" class="tocxref"><span class="secno">3.2.2 </span>Exchanging the Identification Certificate</a></li><li class="tocline"><a href="#processing-the-webid-profile" class="tocxref"><span class="secno">3.2.3 </span>Processing the WebID Profile</a></li><li class="tocline"><a href="#verifying-the-webid-is-identified-by-that-public-key" class="tocxref"><span class="secno">3.2.4 </span>Verifying the WebID is identified by that public key</a></li><li class="tocline"><a href="#authorization" class="tocxref"><span class="secno">3.2.5 </span>Authorization</a></li><li class="tocline"><a href="#secure-communication" class="tocxref"><span class="secno">3.2.6 </span>Secure Communication</a></li></ul></li><li class="tocline"><a href="#the-webid-profile" class="tocxref"><span class="secno">3.3 </span>The WebID Profile</a><ul class="toc"><li class="tocline"><a href="#personal-information" class="tocxref"><span class="secno">3.3.1 </span>Personal Information</a></li><li class="tocline"><a href="#cryptographic-details" class="tocxref"><span class="secno">3.3.2 </span>Cryptographic Details</a></li></ul></li></ul></li><li class="tocline"><a href="#history" class="tocxref"><span class="secno">A. </span>Change History</a></li><li class="tocline"><a href="#acknowledgements" class="tocxref"><span class="secno">B. </span>Acknowledgments</a></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">C. </span>References</a><ul class="toc"><li class="tocline"><a href="#normative-references" class="tocxref"><span class="secno">C.1 </span>Normative references</a></li><li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">C.2 </span>Informative references</a></li></ul></li></ul></div>
+
+
+
+<div class="informative section" id="introduction" typeof="bibo:Chapter" about="#introduction">
+
+<!-- OddPage -->
+<h2><span class="secno">1. </span>Introduction</h2><p><em>This section is non-normative.</em></p>
+
+<p>
+The WebID specification is designed to help alleviate the difficultly that
+remembering different logins, passwords and settings for websites has created.
+It is also designed to provide a universal and extensible mechanism to express
+public and private information about yourself. This section outlines the
+motivation behind the specification and the relationship to other similar
+specifications that are in active use today.
+</p>
+
+<div class="informative section" id="motivation" typeof="bibo:Chapter" about="#motivation">
+<h3><span class="secno">1.1 </span>Motivation</h3><p><em>This section is non-normative.</em></p>
+
+<p>
+It is a fundamental design criteria of the Web to enable individuals and
+organizations to control how they interact with the rest of society. This
+includes how one expresses their identity, public information and personal
+details to social networks, Web sites and services.
+</p>
+
+<p>
+Semantic Web vocabularies such as Friend-of-a-Friend (FOAF) permit distributed
+hyperlinked social networks to exist. This vocabulary, along with other
+vocabularies, allow one to add information and services protection to
+distributed social networks.
+</p>
+
+<p>
+One major criticism of open networks is that they seem to have no way of
+protecting the personal information distributed on the web or limiting
+access to resources. Few people are willing to make all their personal
+information public, many would like large pieces to be protected, making
+it available only to a selected group of agents. Giving access to
+information is very similar to giving access to services. There are many
+occasions when people would like services to only be accessible to
+members of a group, such as allowing only friends, family members,
+colleagues to post an article, photo or comment on a blog. How does one do
+this in a flexible way, without requiring a central point of
+access control?
+</p>
+
+<p>
+Using a process made popular by OpenID, we show how one can tie a User
+Agent to a URI by proving that one has write access to the URI.
+WebID is an authentication protocol which uses X.509
+certificates to associate a User Agent (Browser) to a Person identified
+via a URI.
+A WebID profile can also be used for OpenID, WebID provides a few additional
+features such as trust management via digital signatures, and free-form
+extensibility via RDF. By using the existing SSL certificate exchange
+mechanism, WebID integrates smoothly with existing Web browsers, including
+browsers on mobile devices. WebID also permits automated session login
+in addition to interactive session login. Additionally, all data is encrypted
+and guaranteed to only be received by the person or organization that was
+intended to receive it.
+</p>
+
+</div>
+
+</div>
+
+<div id="preconditions" typeof="bibo:Chapter" about="#preconditions" class="section">
+
+<!-- OddPage -->
+<h2><span class="secno">2. </span>Preconditions</h2>
+
+<div id="terminology" typeof="bibo:Chapter" about="#terminology" class="section">
+<h3><span class="secno">2.1 </span>Terminology</h3>
+
+<dl>
+
+<dt><dfn title="Verification_Agent" id="dfn-verification_agent">Verification Agent</dfn></dt>
+<dd>Performs authentication on provided WebID credentials and determines if
+an <a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a> can have access to a particular
+resource. A <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> is typically a Web server, but
+may also be a peer on a peer-to-peer network.</dd>
+
+<dt><dfn title="Identification_Agent" id="dfn-identification_agent">Identification Agent</dfn></dt>
+<dd>Provides identification credentials to a <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a>.
+The <a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a> is typically also a User Agent.</dd>
+
+<dt><dfn title="Identification_Certificate" id="dfn-identification_certificate">Identification Certificate</dfn></dt>
+<dd>An X.509 [<cite><a class="bibref" rel="biblioentry" href="#bib-X509V3">X509V3</a></cite>] Certificate that <em class="rfc2119" title="must">must</em> contain a
+<code>Subject Alternative Name</code> extension with at least one URI entry
+identifying the <a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a>. This URI <em class="rfc2119" title="should">should</em> be
+dereference-able and result in a document containing RDF data.
+For example, a certificate identifying the WebID URI
+<code>http://example.org/webid#public</code> would contain the following:
+<pre>X509v3 extensions:
+   ...
+   X509v3 Subject Alternative Name:
+      URI:http://example.org/webid#public
+</pre>
+<p class="issue">TODO: cover the case where there are more than one URI entry</p>
+</dd>
+
+<dt><dfn title="WebID_URI" id="dfn-webid_uri">WebID URI</dfn></dt>
+<dd>A URI specified via the <code>Subject Alternative Name</code> extension
+of the <a class="tref internalDFN" title="Identification_Certificate" href="#dfn-identification_certificate">Identification Certificate</a> that identifies an
+<a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a>.</dd>
+
+<dt><dfn title="public_key" id="dfn-public_key">public key</dfn></dt>
+<dd>A widely distributed cryptographic key that can be used to verify
+digital signatures and encrypt data between a sender and a receiver. A public
+key is always included in an <a class="tref internalDFN" title="Identification_Certificate" href="#dfn-identification_certificate">Identification Certificate</a>.</dd>
+
+<dt><dfn title="WebID_Profile" id="dfn-webid_profile">WebID Profile</dfn></dt>
+<dd>
+A structured document that contains identification credentials for the
+<a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a> expressed using the Resource Description
+Framework [<cite><a class="bibref" rel="biblioentry" href="#bib-RDF-CONCEPTS">RDF-CONCEPTS</a></cite>]. Either the XHTML+RDFa 1.1 [<cite><a class="bibref" rel="biblioentry" href="#bib-XHTML-RDFA">XHTML-RDFA</a></cite>]
+serialization format or the RDF/XML [<cite><a class="bibref" rel="biblioentry" href="#bib-RDF-SYNTAX-GRAMMAR">RDF-SYNTAX-GRAMMAR</a></cite>] serialization
+format <em class="rfc2119" title="must">must</em> be supported by the mechanism, e.g. a Web Service, providing the
+WebID Profile document. Alternate RDF serialization
+formats, such as N3 [<cite><a class="bibref" rel="biblioentry" href="#bib-N3">N3</a></cite>] or Turtle [<cite><a class="bibref" rel="biblioentry" href="#bib-TURTLE">TURTLE</a></cite>], <em class="rfc2119" title="may">may</em> be supported by the
+mechanism providing the WebID Profile document.
+<p class="issue">Whether or not RDF/XML, XHTML+RDFa 1.1, both or neither
+serialization of RDF should be required serialization formats in the
+specification is currently under heavy debate.</p>
+</dd>
+
+</dl>
+
+
+</div>
+
+
+<div class="normative section" id="creating-the-certificate" typeof="bibo:Chapter" about="#creating-the-certificate">
+<h3><span class="secno">2.2 </span>Creating the certificate</h3>
+
+<p>The user agent will create a <a class="tref internalDFN" title="Identification_Certificate" href="#dfn-identification_certificate">Identification Certificate</a> with a
+<code>Subject Alternative Name</code> URI entry. This URI must be one that
+dereferences to a document the user controls so that he can publish the
+public key of the <a class="tref internalDFN" title="Identification_Certificate" href="#dfn-identification_certificate">Identification Certificate</a> at this URI.</p>
+<p>For example, if a user Joe controls <code>http://joe.example/profile</code>,
+then his WebID can be <code>http://joe.example/profile#me</code></p>
+
+<p class="issue">explain why the WebID URI is different from the URI of the
+WebID profile document.</p>
+
+<p>As an example to use throughout this specification here is the
+following certificate as an output of the openssl program.</p>
+<p class="example">
+</p><pre>Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            5f:df:d6:be:2c:73:c1:fb:aa:2a:2d:23:a6:91:3b:5c
+        Signature Algorithm: sha1WithRSAEncryption
+        <span style="color: red">Issuer:</span> O=FOAF+SSL, OU=The Community of Self Signers, CN=Not a Certification Authority
+        Validity
+            Not Before: Jun  8 14:16:14 2010 GMT
+            Not After : Jun  8 16:16:14 2010 GMT
+        <span style="color: red">Subject:</span> O=FOAF+SSL, OU=The Community Of Self Signers/UID=https://example.org/profile#me, CN=Joe (Personal)
+        Subject Public Key Info:
+<span style="color: red">            Public Key Algorithm:</span> rsaEncryption
+                <span style="color: red">Public-Key:</span> (2048 bit)
+                <span style="color: red">Modulus:</span>
+                    00:cb:24:ed:85:d6:4d:79:4b:69:c7:01:c1:86:ac:
+                    c0:59:50:1e:85:60:00:f6:61:c9:32:04:d8:38:0e:
+                    07:19:1c:5c:8b:36:8d:2a:c3:2a:42:8a:cb:97:03:
+                    98:66:43:68:dc:2a:86:73:20:22:0f:75:5e:99:ca:
+                    2e:ec:da:e6:2e:8d:15:fb:58:e1:b7:6a:e5:9c:b7:
+                    ac:e8:83:83:94:d5:9e:72:50:b4:49:17:6e:51:a4:
+                    94:95:1a:1c:36:6c:62:17:d8:76:8d:68:2d:de:78:
+                    dd:4d:55:e6:13:f8:83:9c:f2:75:d4:c8:40:37:43:
+                    e7:86:26:01:f3:c4:9a:63:66:e1:2b:b8:f4:98:26:
+                    2c:3c:77:de:19:bc:e4:0b:32:f8:9a:e6:2c:37:80:
+                    f5:b6:27:5b:e3:37:e2:b3:15:3a:e2:ba:72:a9:97:
+                    5a:e7:1a:b7:24:64:94:97:06:6b:66:0f:cf:77:4b:
+                    75:43:d9:80:95:2d:2e:85:86:20:0e:da:41:58:b0:
+                    14:e7:54:65:d9:1e:cf:93:ef:c7:ac:17:0c:11:fc:
+                    72:46:fc:6d:ed:79:c3:77:80:00:0a:c4:e0:79:f6:
+                    71:fd:4f:20:7a:d7:70:80:9e:0e:2d:7b:0e:f5:49:
+                    3b:ef:e7:35:44:d8:e1:be:3d:dd:b5:24:55:c6:13:
+                    91:a1
+                <span style="color: red">Exponent:</span> 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Key Usage: critical
+                Digital Signature, Non Repudiation, Key Encipherment, Key Agreement, Certificate Sign
+            Netscape Cert Type:
+                SSL Client, S/MIME
+            X509v3 Subject Key Identifier:
+                08:8E:A5:5B:AE:5D:C3:8B:00:B7:30:62:65:2A:5A:F5:D2:E9:00:FA
+            <span style="color: red">X509v3 Subject Alternative Name:</span> critical
+                <span style="color: red">URI:</span>https://joe.example/profile#me
+    Signature Algorithm: sha1WithRSAEncryption
+        cf:8c:f8:7b:b2:af:63:f0:0e:dc:64:22:e5:8a:ba:03:1e:f1:
+        ee:6f:2c:f5:f5:10:ad:4c:54:fc:49:2b:e1:0d:cd:be:3d:7c:
+        78:66:c8:ae:42:9d:75:9f:2c:29:71:91:5c:29:5b:96:ea:e1:
+        e4:ef:0e:5c:f7:07:a0:1e:9c:bf:50:ca:21:e6:6c:c3:df:64:
+        29:6b:d3:8a:bd:49:e8:72:39:dd:07:07:94:ac:d5:ec:85:b1:
+        a0:5c:c0:08:d3:28:2a:e6:be:ad:88:5e:2a:40:64:59:e7:f2:
+        45:0c:b9:48:c0:fd:ac:bc:fb:1b:c9:e0:1c:01:18:5e:44:bb:
+        d8:b8
+</pre>
+<p></p>
+<p class="issue">Should we formally require the Issuer to be
+O=FOAF+SSL, OU=The Community of Self Signers, CN=Not a Certification Authority.
+This was discussed on the list as allowing servers to distinguish certificates
+that are foaf+Ssl enabled from others. Will probably need some very deep TLS
+thinking to get this right.</p>
+<p class="issue">discuss the importance for UIs of the CN</p>
+<p class="issue">The above certificate is no longer valid, as I took an valid
+certificate and change the time and WebID. As a result the Signatiure is now
+false. A completely valid certificate should be generated to avoid nit-pickers
+picking nits</p>
+</div>
+
+
+<div class="normative section" id="publishing-the-webid-profile-document" typeof="bibo:Chapter" about="#publishing-the-webid-profile-document">
+<h3><span class="secno">2.3 </span>Publishing the WebID Profile Document</h3>
+
+<p>The <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> document <em class="rfc2119" title="must">must</em> expose the relation between the
+<a class="tref internalDFN" title="WebID_URI" href="#dfn-webid_uri">WebID URI</a> and the <a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a>'s
+<a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a>s using the <code>cert</code> and <code>rsa</code>
+ontologies, as well as the <code>cert</code> or <code>xsd</code> datatypes.
+The set of relations to be published at the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> document
+can be presented in a graphical notation as follows.</p>
+<img alt="Web ID graph" src="img/WebIdGraph.jpg" />
+<p>The document can publish many more relations than are of interest to the
+WebID protocol, as shown in the above graph by the grayed out relations.</p>
+<p>The encoding of this graph is immaterial to the protocol, so long as a well
+known mapping to the format of the representation to such a graph can be found.
+Below we discuss the most well known formats, and a method for dealing with new
+unknown formats as they come along.</p>
+<p>The WebID provider must publish the graph of relations in one of the well
+known formats, though he may publish it in a number of formats to increase the
+usability of his site using content negotiations.</p>
+<p class="issue">Add content negotiation pointers</p>
+<p>It is particularly useful to have one of the representations be in HTML or
+XHTML even if it is not marked up in RDFa as this allows people using a
+web browser to understand what the information at that URI represents.</p>
+<div class="normative section" id="turtle" typeof="bibo:Chapter" about="#turtle">
+<h4><span class="secno">2.3.1 </span>Turtle</h4>
+<p>A widely used format for writing RDF graphs is the Turtle notation. </p>
+<p class="example">
+</p><pre> @prefix cert: &lt;http://www.w3.org/ns/auth/cert#&gt; .
+ @prefix rsa: &lt;http://www.w3.org/ns/auth/rsa#&gt; .
+ @prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+ @prefix : &lt;https://joe.example/profile#&gt; .
+
+ :me a foaf:Person;
+   foaf:name &quot;Joe&quot;;
+   cert:key [
+     a rsa:RSAPublicKey;
+     rsa:modulus &quot;&quot;&quot;
+       00:cb:24:ed:85:d6:4d:79:4b:69:c7:01:c1:86:ac:
+       c0:59:50:1e:85:60:00:f6:61:c9:32:04:d8:38:0e:
+       07:19:1c:5c:8b:36:8d:2a:c3:2a:42:8a:cb:97:03:
+       98:66:43:68:dc:2a:86:73:20:22:0f:75:5e:99:ca:
+       2e:ec:da:e6:2e:8d:15:fb:58:e1:b7:6a:e5:9c:b7:
+       ac:e8:83:83:94:d5:9e:72:50:b4:49:17:6e:51:a4:
+       94:95:1a:1c:36:6c:62:17:d8:76:8d:68:2d:de:78:
+       dd:4d:55:e6:13:f8:83:9c:f2:75:d4:c8:40:37:43:
+       e7:86:26:01:f3:c4:9a:63:66:e1:2b:b8:f4:98:26:
+       2c:3c:77:de:19:bc:e4:0b:32:f8:9a:e6:2c:37:80:
+       f5:b6:27:5b:e3:37:e2:b3:15:3a:e2:ba:72:a9:97:
+       5a:e7:1a:b7:24:64:94:97:06:6b:66:0f:cf:77:4b:
+       75:43:d9:80:95:2d:2e:85:86:20:0e:da:41:58:b0:
+       14:e7:54:65:d9:1e:cf:93:ef:c7:ac:17:0c:11:fc:
+       72:46:fc:6d:ed:79:c3:77:80:00:0a:c4:e0:79:f6:
+       71:fd:4f:20:7a:d7:70:80:9e:0e:2d:7b:0e:f5:49:
+       3b:ef:e7:35:44:d8:e1:be:3d:dd:b5:24:55:c6:13:
+       91:a1
+     &quot;&quot;&quot;^^cert:hex;
+     rsa:public_exponent &quot;65537&quot;^^cert:int ;
+     ] .
+</pre>
+<p></p>
+</div>
+<div id="rdfa-html-notation" typeof="bibo:Chapter" about="#rdfa-html-notation" class="section">
+<h4><span class="secno">2.3.2 </span>RDFa HTML notation</h4>
+<p>There are many ways of writing out the above graph using RDFa in
+html. Here is just one example.</p>
+<p class="example">
+</p><pre>&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;
+      xmlns:cert=&quot;http://www.w3.org/ns/auth/cert#&quot;
+      xmlns:foaf=&quot;http://xmlns.com/foaf/0.1/&quot;
+      xmlns:owl=&quot;http://www.w3.org/2002/07/owl#&quot;
+      xmlns:rsa=&quot;http://www.w3.org/ns/auth/rsa#&quot;
+      xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div&gt;
+  &lt;span property=&quot;foaf:name&quot;&gt;Joe&lt;/span&gt;
+
+  &lt;div rel=&quot;cert:key&quot;&gt;
+    &lt;h2&gt;My RSA Public Key&lt;/h2&gt;
+    &lt;div typeof=&quot;rsa:RSAPublicKey&quot;&gt;
+      &lt;dl&gt;
+      &lt;dt&gt;Modulus (hexadecimal)&lt;/dt&gt;
+      &lt;dd property=&quot;rsa:modulus&quot; datatype=&quot;cert:hex&quot;&gt;
+        00:cb:24:ed:85:d6:4d:79:4b:69:c7:01:c1:86:ac:
+        c0:59:50:1e:85:60:00:f6:61:c9:32:04:d8:38:0e:
+        07:19:1c:5c:8b:36:8d:2a:c3:2a:42:8a:cb:97:03:
+        98:66:43:68:dc:2a:86:73:20:22:0f:75:5e:99:ca:
+        2e:ec:da:e6:2e:8d:15:fb:58:e1:b7:6a:e5:9c:b7:
+        ac:e8:83:83:94:d5:9e:72:50:b4:49:17:6e:51:a4:
+        94:95:1a:1c:36:6c:62:17:d8:76:8d:68:2d:de:78:
+        dd:4d:55:e6:13:f8:83:9c:f2:75:d4:c8:40:37:43:
+        e7:86:26:01:f3:c4:9a:63:66:e1:2b:b8:f4:98:26:
+        2c:3c:77:de:19:bc:e4:0b:32:f8:9a:e6:2c:37:80:
+        f5:b6:27:5b:e3:37:e2:b3:15:3a:e2:ba:72:a9:97:
+        5a:e7:1a:b7:24:64:94:97:06:6b:66:0f:cf:77:4b:
+        75:43:d9:80:95:2d:2e:85:86:20:0e:da:41:58:b0:
+        14:e7:54:65:d9:1e:cf:93:ef:c7:ac:17:0c:11:fc:
+        72:46:fc:6d:ed:79:c3:77:80:00:0a:c4:e0:79:f6:
+        71:fd:4f:20:7a:d7:70:80:9e:0e:2d:7b:0e:f5:49:
+        3b:ef:e7:35:44:d8:e1:be:3d:dd:b5:24:55:c6:13:
+        91:a1
+      &lt;/dd&gt;
+      &lt;dt&gt;Exponent (decimal)&lt;/dt&gt;
+      &lt;dd property=&quot;rsa:public_exponent&quot; datatype=&quot;cert:int&quot;&gt;65537&lt;/dd&gt;
+      &lt;/dl&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p></p>
+<p>If a WebID provider would rather prefer not to mark up his data in RDFa, but
+just provide a human readable format for users and have the RDF graph appear
+in a machine readable format such as RDF/XML then he <em class="rfc2119" title="may">may</em> publish the link from
+the HTML to a machine readable format (it this is available at a dedicated URI)
+as follows:</p>
+ <p class="example">
+</p><pre>&lt;html&gt;
+&lt;head&gt;
+&lt;link type=&quot;rel&quot; type=&quot;application/rdf+xml&quot; href=&quot;profile.rdf&quot;/&gt;
+&lt;/head&gt;
+&lt;body&gt; ...  &lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p></p>
+</div>
+<div id="in-rdf-xml" typeof="bibo:Chapter" about="#in-rdf-xml" class="section">
+<h4><span class="secno">2.3.3 </span>In RDF/XML</h4>
+<p>RDF/XML is easy to generate automatically from structured data, be it in
+object notation or in relational databases. Parsers for it are also widely
+available.</p>
+
+<pre>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;rdf:RDF
+ xmlns:rdf=&quot;http://www.w3.org/1999/02/22-rdf-syntax-ns#&quot;
+ xmlns:cert=&quot;http://www.w3.org/ns/auth/cert#&quot;
+ xmlns:rsa=&quot;http://www.w3.org/ns/auth/rsa#&quot;
+ xmlns:foaf=&quot;http://xmlns.com/foaf/0.1/&quot;&gt;
+  &lt;foaf:Person rdf:about=&quot;https://joe.example/profile#me&quot;&gt;
+    &lt;foaf:name&gt;Joe&lt;/foaf:name&gt;
+    &lt;cert:key&gt;
+      &lt;rsa:RSAPublicKey&gt;
+        &lt;rsa:modulus rdf:datatype=&quot;http://www.w3.org/ns/auth/cert#hex&quot;&gt;
+          00:cb:24:ed:85:d6:4d:79:4b:69:c7:01:c1:86:ac:
+          c0:59:50:1e:85:60:00:f6:61:c9:32:04:d8:38:0e:
+          07:19:1c:5c:8b:36:8d:2a:c3:2a:42:8a:cb:97:03:
+          98:66:43:68:dc:2a:86:73:20:22:0f:75:5e:99:ca:
+          2e:ec:da:e6:2e:8d:15:fb:58:e1:b7:6a:e5:9c:b7:
+          ac:e8:83:83:94:d5:9e:72:50:b4:49:17:6e:51:a4:
+          94:95:1a:1c:36:6c:62:17:d8:76:8d:68:2d:de:78:
+          dd:4d:55:e6:13:f8:83:9c:f2:75:d4:c8:40:37:43:
+          e7:86:26:01:f3:c4:9a:63:66:e1:2b:b8:f4:98:26:
+          2c:3c:77:de:19:bc:e4:0b:32:f8:9a:e6:2c:37:80:
+          f5:b6:27:5b:e3:37:e2:b3:15:3a:e2:ba:72:a9:97:
+          5a:e7:1a:b7:24:64:94:97:06:6b:66:0f:cf:77:4b:
+          75:43:d9:80:95:2d:2e:85:86:20:0e:da:41:58:b0:
+          14:e7:54:65:d9:1e:cf:93:ef:c7:ac:17:0c:11:fc:
+          72:46:fc:6d:ed:79:c3:77:80:00:0a:c4:e0:79:f6:
+          71:fd:4f:20:7a:d7:70:80:9e:0e:2d:7b:0e:f5:49:
+          3b:ef:e7:35:44:d8:e1:be:3d:dd:b5:24:55:c6:13:
+          91:a1
+        &lt;/rsa:modulus&gt;
+        &lt;rsa:public_exponent rdf:datatype=&quot;http://www.w3.org/ns/auth/cert#int&quot;&gt;65537&lt;/rsa:public_exponent&gt;
+      &lt;/rsa:RSAPublicKey&gt;
+    &lt;/cert:key&gt;
+  &lt;/foaf:Person&gt;
+
+&lt;/rdf:RDF&gt;
+</pre>
+<p class="issue">TODO: the dsa ontology</p>
+</div>
+<div id="in-portable-contacts-format-using-grddl" typeof="bibo:Chapter" about="#in-portable-contacts-format-using-grddl" class="section">
+<h4><span class="secno">2.3.4 </span>In Portable Contacts format using GRDDL</h4>
+<p class="issue">TODO: discuss other formats and GRDDL, XSPARQL options for xml formats</p>
+<p class="issue">summarize and point to content negotiation documents</p>
+</div>
+</div>
+</div>
+
+<div class="normative section" id="the-webid-protocol" typeof="bibo:Chapter" about="#the-webid-protocol">
+
+<!-- OddPage -->
+<h2><span class="secno">3. </span>The WebID Protocol</h2>
+
+<div class="normative section" id="authentication-sequence" typeof="bibo:Chapter" about="#authentication-sequence">
+<h3><span class="secno">3.1 </span>Authentication Sequence</h3>
+
+<img src="img/WebIDSequence-friendly.jpg" />
+<p>The following steps are executed by <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a>s and
+<a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a>s to determine the global identity of the
+requesting agent. Once this is known, the identity can be used to determine
+if access should be granted to the requested resource.
+</p>
+
+<ol>
+<li>The <a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a> attempts to access a resource
+using HTTP over TLS [<cite><a class="bibref" rel="biblioentry" href="#bib-HTTP-TLS">HTTP-TLS</a></cite>] via the <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a>.</li>
+
+<li>The <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> <em class="rfc2119" title="must">must</em> request the
+<a class="tref internalDFN" title="Identification_Certificate" href="#dfn-identification_certificate">Identification Certificate</a> of the <a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a>
+as a part of the TLS client-certificate retrieval protocol.</li>
+
+<li>The <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> <em class="rfc2119" title="must">must</em> extract the <a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a>
+and all the URI entries contained in the <code>Subject Alternative Name</code>
+extension of the <a class="tref internalDFN" title="Identification_Certificate" href="#dfn-identification_certificate">Identification Certificate</a>.
+An <a class="tref internalDFN" title="Identification_Certificate" href="#dfn-identification_certificate">Identification Certificate</a> <em class="rfc2119" title="may">may</em> contain multiple URI entries
+which are considered claimed <a class="tref internalDFN" title="WebID_URI" href="#dfn-webid_uri">WebID URI</a>s.</li>
+
+<li>The <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> <em class="rfc2119" title="must">must</em> attempt to verify the
+<a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a> information associated with at least one of the claimed
+<a class="tref internalDFN" title="WebID_URI" href="#dfn-webid_uri">WebID URI</a>s. The <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> <em class="rfc2119" title="may">may</em> attempt to
+verify more than one claimed <a class="tref internalDFN" title="WebID_URI" href="#dfn-webid_uri">WebID URI</a>.
+This verification process <em class="rfc2119" title="should">should</em> occur either by dereferencing the
+<a class="tref internalDFN" title="WebID_URI" href="#dfn-webid_uri">WebID URI</a> and
+extracting RDF data from the resulting document, or by utilizing a cached
+version of the RDF data contained in the document or other data source that is
+up-to-date and trusted by the <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a>. The processing
+and extraction mechanism is further detailed in the sections titled
+<a href="#processing-the-webid-profile">Processing the WebID Profile</a> and
+<a href="#extracting-webid-URI-details">Extracting WebID URI Details</a>.
+</li>
+
+<li>If the <a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a> in the
+<a class="tref internalDFN" title="Identification_Certificate" href="#dfn-identification_certificate">Identification Certificate</a> is found in the list of
+<a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a>s associated with the claimed <a class="tref internalDFN" title="WebID_URI" href="#dfn-webid_uri">WebID URI</a>, the
+<a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> <em class="rfc2119" title="must">must</em> assume that the client intends to use
+this <a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a> to verify their ownership of the
+<a class="tref internalDFN" title="WebID_URI" href="#dfn-webid_uri">WebID URI</a>.
+On the other hand, if no matching <a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a> is found in the list
+of <a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a>s associated with the claimed <a class="tref internalDFN" title="WebID_URI" href="#dfn-webid_uri">WebID URI</a>,
+the <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> <em class="rfc2119" title="must">must</em> attempt to verify another claimed
+<a class="tref internalDFN" title="WebID_URI" href="#dfn-webid_uri">WebID URI</a>. The authentication <em class="rfc2119" title="must">must</em> fail if no matching
+<a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a> is found among all the claimed
+<a class="tref internalDFN" title="WebID_URI" href="#dfn-webid_uri">WebID URI</a>s.</li>
+
+<li>The <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> verifies that the
+<a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a> owns the private key corresponding to the
+public key  sent in the <a class="tref internalDFN" title="Identification_Certificate" href="#dfn-identification_certificate">Identification Certificate</a>.
+This <em class="rfc2119" title="should">should</em> be fulfilled by performing TLS mutual-authentication
+between the <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> and the
+<a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a>.
+If the <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> does not have access to the TLS layer,
+a digital signature challenge <em class="rfc2119" title="must">must</em> be provided by the
+<a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a>. These processes are detailed in the sections
+titled <a href="#authorization">Authorization</a> and
+<a href="#secure-communication">Secure Communication</a>.</li>
+
+<li>If the <a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a> in the
+<a class="tref internalDFN" title="Identification_Certificate" href="#dfn-identification_certificate">Identification Certificate</a> matches one in the set given by the
+profile document graph given above then the <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a>
+knows that the <a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a> is indeed identified by the
+<a class="tref internalDFN" title="WebID_URI" href="#dfn-webid_uri">WebID URI</a>. The verification is done by querying the
+Personal Profile graph as specified in
+<a href="#extracting-webid-uri-details">querying the RDF graph</a>.</li>
+</ol>
+
+<p>
+The <a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a> <em class="rfc2119" title="may">may</em> re-establish a different identity at
+any time by executing all of the steps in the Authentication Sequence again.
+Additional algorithms, detailed in the next section, <em class="rfc2119" title="may">may</em> be performed to
+determine if the <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> can access a particular
+resource after the last step of the Authentication Sequence has been
+completed.
+</p>
+
+</div>
+
+<div class="normative section" id="authentication-sequence-details" typeof="bibo:Chapter" about="#authentication-sequence-details">
+<h3><span class="secno">3.2 </span>Authentication Sequence Details</h3>
+
+<p>This section covers details about each step in the authentication process.
+</p>
+
+<div class="normative section" id="initiating-a-tls-connection" typeof="bibo:Chapter" about="#initiating-a-tls-connection">
+<h4><span class="secno">3.2.1 </span>Initiating a TLS Connection</h4>
+
+<p class="issue">This section will detail how the TLS connection process is
+started and used by WebID to create a secure channel between the
+Identification Agent and the Verification Agent.</p>
+</div>
+
+<div class="normative section" id="exchanging-the-identification-certificate" typeof="bibo:Chapter" about="#exchanging-the-identification-certificate">
+<h4><span class="secno">3.2.2 </span>Exchanging the Identification Certificate</h4>
+
+<p class="issue">This section will detail how the certificate is selected and
+sent to the Verification Agent.</p>
+</div>
+
+<div class="normative section" id="processing-the-webid-profile" typeof="bibo:Chapter" about="#processing-the-webid-profile">
+<h4><span class="secno">3.2.3 </span>Processing the WebID Profile</h4>
+
+<p>A <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> <em class="rfc2119" title="must">must</em> be able to process documents in
+RDF/XML [<cite><a class="bibref" rel="biblioentry" href="#bib-RDF-SYNTAX-GRAMMAR">RDF-SYNTAX-GRAMMAR</a></cite>] and XHTML+RDFa [<cite><a class="bibref" rel="biblioentry" href="#bib-XHTML-RDFA">XHTML-RDFA</a></cite>].
+A server responding to a <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> request <em class="rfc2119" title="should">should</em> be able
+to deliver at least RDF/XML or RDFa.
+The <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> <em class="rfc2119" title="must">must</em> set the Accept-Header to request
+<code>application/rdf+xml</code> with a higher priority than
+<code>text/html</code> and <code>application/xhtml+xml</code>. If the server
+answers such a request with an HTML representation of the resource, this <em class="rfc2119" title="should">should</em>
+describe the WebID Profile with RDFa.
+</p>
+
+<p class="issue">This section will explain how a Verification Agent extracts
+semantic data describing the identification credentials from a WebID Profile.</p>
+</div>
+
+<div class="normative section" id="verifying-the-webid-is-identified-by-that-public-key" typeof="bibo:Chapter" about="#verifying-the-webid-is-identified-by-that-public-key">
+<h4><span class="secno">3.2.4 </span>Verifying the WebID is identified by that public key</h4>
+
+<p>
+There are number of different ways to check that the public key given in the
+X.509 certificate against the one provided by the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> or
+another trusted source, the essence is checking that the graph of relations in
+the Profile contains a pattern of relations.
+</p>
+<p>Assuming the public key is an RSA key, and that its modulus is
+&quot;9D79BFE2498...&quot; and exponent &quot;65537&quot; then the following SPARQL query could
+be used:
+</p>
+<pre class="example">PREFIX cert: &lt;http://www.w3.org/ns/auth/cert#&gt;
+PREFIX rsa: &lt;http://www.w3.org/ns/auth/rsa#&gt;
+ASK {
+   &lt;http://example.org/webid#public&gt; cert:key [
+      rsa:modulus  &quot;9D79BFE2498...&quot;^^cert:hex;
+      rsa:public_exponent &quot;65537&quot;^^cert:int;
+   ] .
+}</pre>
+<p>If the query returns true, then the graph has validated the associated
+public key with the WebID.</p>
+<p>The above requires the sparql endpoint (or the underlying triple store
+to be able to do inferencing on dataytypes. This is because the numerical
+values may be expressed with different xsd and cert datatypes which must all
+be supported by <a class="tref" title="VerificationAgent">VerificationAgent</a>s. The cert datatypes allow
+the numerical expression to be spread over a number of lines, or contain
+arbitrary characters such as &quot;9D ☮ 79 ☮ BF ☮ E2 ☮ F4 ☮ 98 ☮...&quot; . The datatype
+itself need not necessarily be expressed in cert:hex, but could use a number of
+xsd integer datatype notations, cert:int or future base64 notations.
+</p>
+<p class="issue">Should we define the base64 notation?</p>
+<p>If the SPARQL endpoint doesn't provide a literal inferencing engine, then
+the modulus should be extracted from the graph, normalised into a big integer
+(integers without an upper bound), and compared with the values given in the
+public key certificate. After replacing the <code>?webid</code> variable in the
+following query with the required value the <a class="tref" title="Verifying_Agent">Verifying Agent</a> can
+query the Profile Graph with</p>
+<pre class="example">PREFIX cert: &lt;http://www.w3.org/ns/auth/cert#&gt;
+PREFIX rsa: &lt;http://www.w3.org/ns/auth/rsa#&gt;
+SELECT ?m ?e
+WHERE {
+   ?webid cert:key [
+        rsa:modulus ?m ;
+        rsa:public_exponent ?e ;
+   ] .
+}</pre>
+<p>Here the verification agent must check that one of the answers for ?m and ?e
+matches the integer values of the modulus and exponent given in the public key
+in the certificate.</p>
+<p class="issue"> The public key could be a DSA key. We need to add an ontology
+for DSA too. What other cryptographic ontologies should we add?</p>
+
+</div>
+
+<div class="normative section" id="authorization" typeof="bibo:Chapter" about="#authorization">
+<h4><span class="secno">3.2.5 </span>Authorization</h4>
+
+<p class="issue">This section will explain how a Verification Agent may
+use the information discovered via a WebID URI to determine if one should
+be able to access a particular resource. It will explain how a Verification
+Agent can use links to other RDFa documents to build knowledge about the
+given WebID.</p>
+
+</div>
+
+<div class="normative section" id="secure-communication" typeof="bibo:Chapter" about="#secure-communication">
+<h4><span class="secno">3.2.6 </span>Secure Communication</h4>
+
+<p class="issue">This section will explain how an Identification Agent and
+a Verification Agent may communicate securely using a set of verified
+identification credentials.</p>
+
+<p>
+If the <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> has verified that the
+<a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> is owned by the <a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a>,
+the <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> <em class="rfc2119" title="should">should</em> use the verified
+<a class="tref internalDFN" title="public_key" href="#dfn-public_key">public key</a> contained in the <a class="tref internalDFN" title="Identification_Certificate" href="#dfn-identification_certificate">Identification Certificate</a>
+for all TLS-based communication with the <a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a>.
+This ensures that both the <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a> and the
+<a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a>
+are communicating in a secure manner, ensuring cryptographically protected
+privacy for both sides.
+</p>
+
+</div>
+
+</div>
+
+<div class="normative section" id="the-webid-profile" typeof="bibo:Chapter" about="#the-webid-profile">
+<h3><span class="secno">3.3 </span>The WebID Profile</h3>
+
+<p>The <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> is a structured document that contains
+identification credentials for the <a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a> expressed
+using the Resource Description Framework [<cite><a class="bibref" rel="biblioentry" href="#bib-RDF-CONCEPTS">RDF-CONCEPTS</a></cite>]. The following
+sections describe how to express certain common properties that could be used
+by <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a>s and other entities that consume a
+<a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a>.</p>
+
+<p>The following vocabularies are used in their shortened form in the
+subsequent sections:</p>
+
+<dl>
+  <dt>foaf</dt>
+  <dd>http://xmlns.com/foaf/0.1/</dd>
+  <dt>cert</dt>
+  <dd>http://www.w3.org/ns/auth/cert#</dd>
+  <dt>rsa</dt>
+  <dd>http://www.w3.org/ns/auth/rsa#</dd>
+</dl>
+
+<div class="normative section" id="personal-information" typeof="bibo:Chapter" about="#personal-information">
+<h4><span class="secno">3.3.1 </span>Personal Information</h4>
+
+<p>Personal details are the most common requirement when registering an
+account with a website. Some of these pieces of information include an e-mail
+address, a name and perhaps an avatar image. This section includes
+properties that <em class="rfc2119" title="should">should</em> be used when conveying key pieces of personal information
+but are <em class="rfc2119" title="not required">not required</em> to be present in a <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a>:</p>
+
+<dl>
+  <dt>foaf:mbox</dt>
+  <dd>The e-mail address that is associated with the WebID URI.</dd>
+  <dt>foaf:name</dt>
+  <dd>The name that is most commonly used to refer to the individual
+    or agent.</dd>
+  <dt>foaf:depiction</dt>
+  <dd>An image representation of the individual or agent.</dd>
+</dl>
+</div>
+
+<div class="normative section" id="cryptographic-details" typeof="bibo:Chapter" about="#cryptographic-details">
+<h4><span class="secno">3.3.2 </span>Cryptographic Details</h4>
+
+<p>Cryptographic details are important when <a class="tref internalDFN" title="Verification_Agent" href="#dfn-verification_agent">Verification Agent</a>s
+and <a class="tref internalDFN" title="Identification_Agent" href="#dfn-identification_agent">Identification Agent</a>s interact. The following properties
+<em class="rfc2119" title="should">should</em> be used when conveying cryptographic information in
+<a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile</a> documents:</p>
+
+<dl>
+  <dt>rsa:RSAPublicKey</dt>
+  <dd>Expresses an RSA public key. The RSAPublicKey <em class="rfc2119" title="must">must</em> specify the
+  rsa:modulus and rsa:public_exponent properties.</dd>
+  <dt>cert:key</dt>
+  <dd>Used to associate a WebID URI with an RSAPublicKey. A WebID Profile
+  <em class="rfc2119" title="must">must</em> contain at least one RSAPublicKey that is associated with the
+  corresponding WebID URI.</dd>
+</dl>
+<p class="note">cert:identity was previously used to associate an RSAPublicKey
+with a WebID URI. cert:identity has been deprecated in favor of its inverse
+property cert:key. Implementors are encouraged to publish WebID Profile
+Documents using cert:key. During this transitional period, implementations
+consuming WebID Profile Documents might still support the deprecated
+cert:identity as well as the stable cert:key.</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="appendix informative section" id="history" typeof="bibo:Chapter" about="#history">
+
+<!-- OddPage -->
+<h2><span class="secno">A. </span>Change History</h2><p><em>This section is non-normative.</em></p>
+<p><a href="https://dvcs.w3.org/hg/WebID/rev/6b60d7335151">2011-02-10</a>
+Move to <a href="http://www.w3.org/2005/Incubator/webid/">W3C WebID XG</a>.
+Updates from previous unofficial WebID group include changes on
+RDF/XML publishing in HTML, clarification on multiple SAN URIs and
+WebID verification steps.
+</p>
+<p><a href="https://dvcs.w3.org/hg/WebID/rev/dc93b6bbc538">2010-08-09</a>
+Updates from WebID community: moved OpenID/OAuth sections to separate document,
+switched to the URI terminology instead of URL, added &quot;Creating the certificate&quot;
+and &quot;Publishing the WebID Profile document&quot; sections with a WebID graph and
+serializations in Turtle and RDFa, improved SPARQL queries using literal
+notation with cert datatypes, updated list of contributors,
+and many other fixes.</p>
+<p><a href="https://dvcs.w3.org/hg/WebID/rev/4aef27947dec">2010-07-25</a>
+Added WebID Profile section.</p>
+<p><a href="https://dvcs.w3.org/hg/WebID/rev/805d44635286">2010-07-18</a>
+Updates from WebID community related to RDF/XML support, authentication sequence
+corrections, abstract and introduction updates.</p>
+<p><a href="https://dvcs.w3.org/hg/WebID/rev/25ba7f596f07">2010-07-11</a>
+Initial version.</p>
+</div>
+
+<div class="informative section" id="acknowledgements" typeof="bibo:Chapter" about="#acknowledgements">
+
+<!-- OddPage -->
+<h2><span class="secno">B. </span>Acknowledgments</h2><p><em>This section is non-normative.</em></p>
+
+<p>The following people have been instrumental in providing thoughts, feedback,
+reviews, criticism and input in the creation of this specification:</p>
+
+<ul>
+<li>Tim Berners-Lee</li>
+<li>Sarven Capadisli</li>
+<li>Melvin Carvalho</li>
+<li>Michael Hausenblas</li>
+<li>Kingsley Idehen</li>
+<li>Ian Jacobi</li>
+<li>Nathan Rixham</li>
+<li>Seth Russell</li>
+<li>Jeff Sayre</li>
+</ul>
+
+</div>
+  
+
+
+<div id="references" class="appendix section" typeof="bibo:Chapter" about="#references">
+<!-- OddPage -->
+<h2><span class="secno">C. </span>References</h2><div id="normative-references" typeof="bibo:Chapter" about="#normative-references" class="section"><h3><span class="secno">C.1 </span>Normative references</h3><dl class="bibliography" about=""><dt id="bib-HTTP-TLS">[HTTP-TLS]</dt><dd rel="dcterms:requires">E. Rescorla. <a href="http://www.ietf.org/rfc/rfc2818.txt"><cite>HTTP Over TLS.</cite></a> May 2000. Internet RFC 2818. URL: <a href="http://www.ietf.org/rfc/rfc2818.txt">http://www.ietf.org/rfc/rfc2818.txt</a> 
+</dd><dt id="bib-N3">[N3]</dt><dd rel="dcterms:requires">Tim Berners-Lee; Dan Connolly. <a href="http://www.w3.org/TeamSubmission/2008/SUBM-n3-20080114/"><cite>Notation3 (N3): A readable RDF syntax.</cite></a> 14 January 2008. W3C Team Submission. URL: <a href="http://www.w3.org/TeamSubmission/2008/SUBM-n3-20080114/">http://www.w3.org/TeamSubmission/2008/SUBM-n3-20080114/</a> 
+</dd><dt id="bib-RDF-PRIMER">[RDF-PRIMER]</dt><dd rel="dcterms:requires">Frank Manola; Eric Miller. <a href="http://www.w3.org/TR/2004/REC-rdf-primer-20040210/"><cite>RDF Primer.</cite></a> 10 February 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/2004/REC-rdf-primer-20040210/">http://www.w3.org/TR/2004/REC-rdf-primer-20040210/</a> 
+</dd><dt id="bib-RDF-SYNTAX-GRAMMAR">[RDF-SYNTAX-GRAMMAR]</dt><dd rel="dcterms:requires">Dave Beckett. <a href="http://www.w3.org/TR/2004/REC-rdf-syntax-grammar-20040210"><cite>RDF/XML Syntax Specification (Revised).</cite></a> 10 February 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/2004/REC-rdf-syntax-grammar-20040210">http://www.w3.org/TR/2004/REC-rdf-syntax-grammar-20040210</a> 
+</dd><dt id="bib-RDFA-CORE">[RDFA-CORE]</dt><dd rel="dcterms:requires">Shane McCarron; et al. <a href="http://www.w3.org/TR/2011/WD-rdfa-core-20110331"><cite>RDFa Core 1.1: Syntax and processing rules for embedding RDF through attributes.</cite></a> 31 March 2011. W3C Working Draft. URL: <a href="http://www.w3.org/TR/2011/WD-rdfa-core-20110331">http://www.w3.org/TR/2011/WD-rdfa-core-20110331</a> 
+</dd><dt id="bib-TURTLE">[TURTLE]</dt><dd rel="dcterms:requires">David Beckett, Tim Berners-Lee. <a href="http://www.w3.org/TeamSubmission/turtle/"><cite>Turtle: Terse RDF Triple Language.</cite></a> January 2008. W3C Team Submission. URL: <a href="http://www.w3.org/TeamSubmission/turtle/">http://www.w3.org/TeamSubmission/turtle/</a> 
+</dd><dt id="bib-X509V3">[X509V3]</dt><dd rel="dcterms:requires"><cite>ITU-T Recommendation X.509 version 3 (1997). &quot;Information Technology - Open Systems Interconnection - The Directory Authentication Framework&quot;  ISO/IEC 9594-8:1997</cite>.
+</dd><dt id="bib-XHTML-RDFA">[XHTML-RDFA]</dt><dd rel="dcterms:requires">Shane McCarron; et. al. <a href="http://www.w3.org/TR/2011/WD-xhtml-rdfa-20110331"><cite>XHTML+RDFa 1.1.</cite></a> 31 March 2011. W3C Working Draft. URL: <a href="http://www.w3.org/TR/2011/WD-xhtml-rdfa-20110331">http://www.w3.org/TR/2011/WD-xhtml-rdfa-20110331</a> 
+</dd></dl></div><div id="informative-references" typeof="bibo:Chapter" about="#informative-references" class="section"><h3><span class="secno">C.2 </span>Informative references</h3><dl class="bibliography" about=""><dt id="bib-RDF-CONCEPTS">[RDF-CONCEPTS]</dt><dd rel="dcterms:references">Graham Klyne; Jeremy J. Carroll. <a href="http://www.w3.org/TR/2004/REC-rdf-concepts-20040210"><cite>Resource Description Framework (RDF): Concepts and Abstract Syntax.</cite></a> 10 February 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/2004/REC-rdf-concepts-20040210">http://www.w3.org/TR/2004/REC-rdf-concepts-20040210</a> 
+</dd></dl></div></div></body></html>

@@ -1,0 +1,59 @@
+Abstract
+--------
+WebID 1.0
+Web Identification and Discovery
+
+Identification and privacy have been at the center of how we interact
+with sites on the Web. The explosion of Websites over the last decade
+and a half has created a point of pain for anyone that uses the Web on a
+regular basis. Remembering login details, passwords, and sharing private
+information across the many websites that people use on a daily basis
+has become more difficult and complicated than necessary. This
+specification outlines a simple universal identification mechanism that
+is distributed, openly extensible, improves privacy, security and
+control over how one can identify themselves and control access to their
+information on the Web.
+
+Source
+------
+
+You can read, branch and modify the source code for this specification via
+github:
+
+https://github.com/webid-community/webid-spec
+
+Feedback
+--------
+
+Don't e-mail patches to the editors, don't send tweets, IMs, or e-mails.
+Log bugs if you want to request changes to the spec, it is the only way
+you can make sure that your input will be tracked and considered by
+the group:
+
+https://github.com/webid-community/webid-spec/issues
+
+When logging an issue, be very specific about the problem and the
+exact change and wording that you would like to suggest. The easier
+you make changing the spec, the more likely that your change will be
+placed into the specification.
+
+Contributing
+------------
+
+To directly contribute to the specification:
+
+1. You MUST modify the 'index-respec.html' file via github - it is the
+   primary source document.
+2. You MUST agree to transferring the specification text to a governing
+   specification body such as the IETF or W3C when the time comes to
+   transition the documents to an official specification.
+3. You MUST NOT add in any text that you know to be in violation of a trade
+   secret, patent or other form of intellectual property.
+4. Understand that this will be a patent and royalty-free specification and
+   no payment will be made to any of the editors, authors or contributors. That
+   said, millions of people will be thankful for your contribution in ensuring
+   that the web continutes to be accessible in a patent and royalty-free way.
+5. You will want to become familiar with ReSpec before you edit the
+   'index-respec.html' file. Documentation for respec is available here:
+   http://dev.w3.org/2009/dap/ReSpec.js/documentation.html
+

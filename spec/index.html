@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html>
+<html dir="ltr" typeof="bibo:Document " about="" property="dcterms:language" content="en" version="XHTML+RDFa 1.0" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54# dcterms: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ xsd: http://www.w3.org/2001/XMLSchema#" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>WebID Specifications</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+
+<!--
+      === NOTA BENE ===
+      For the three scripts below, if your spec resides on dev.w3 you can check them
+      out in the same tree and use relative links so that they'll work offline,
+     -->
+
+<link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-ED" />
+<style type="text/css">
+dd {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+</style>
+<!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
+</head>
+  <body class="h-entry"><div class="head">
+  <p>
+
+      <a href="http://www.w3.org/"><img width="72" height="48" alt="W3C" src="https://www.w3.org/Icons/w3c_home" /></a>
+
+  </p>
+  <h1 property="dcterms:title" id="title" class="title p-name">WebID specifications</h1>
+
+  <p>Put together by the <a href="http://www.w3.org/2005/Incubator/webid/">WebID Incubator Group</a> chaired by <a href="http://bblfish.net/">Henry Story</a>.</p>
+
+
+
+      <p class="copyright">
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> ©
+        2010-2013
+
+        <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup>
+        (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+        <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
+        <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>), All Rights Reserved.
+        <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
+        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
+        <a href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a> rules apply.
+      </p>
+
+
+  <hr />
+
+
+<section id="abstract"><h2>Abstract</h2>
+<p>A global distributed Social Web requires distributed identity. Following up on an earlier paper by An identity system that fits the philosophy of the web must have the following properties:
+</p>
+<ul>
+ <li>agents should be able to control their identity,
+ <li>this identity should be linkable across sites -  placing each agent in a Web of relationships,
+ <li>the web of relationships should build a web of trust that allows each agent to determine for himself what trust anchors he wishes to be guided by,
+ <li>it should be possible to describe each agent flexibly,
+ <li>it should enable global authentication,
+ <li>it should allow flexible access control that is both easy for humans and machines to use and understand,
+ <li>it should be respectful of privacy,
+ <li>the whole lifecycle of an identity, from setting up a profile, to editing it, to possibly deleting it should require nothing more than HTTP, extended by the <a href="http://www.w3.org/2012/ldp/wiki/Main_Page">Linked Data Platform</a>.
+</ul>
+<p>
+The following specs have been put together by the <a href="http://www.w3.org/2005/Incubator/webid/">WebID Incubator Group</a> with those properties in mind, and following on Tim Berners Lee's <a href="http://www.w3.org/DesignIssues/CloudStorage.html">Socially Aware Cloud Storage</a> note. </p>
+</section>
+
+<section id="outline"><h2>Specifications</h2>
+<dl>
+  <dt><a href="identity">WebID 1.0 - Web Identity and Discovery</a></dt>
+  <dd>This specification outlines a simple universal identification mechanism that is distributed, openly extensible, enabling each person to control their identity, and to build a decentralised web of trust, which can be used to allow fine grained access control.
+ It does this by applying the best practices of Web Architecture whilst building on well established widely deployed protocols and standards including HTML, URIs, HTTP, and RDF Semantics.</dd>
+  <dt><a href="tls">WebID-TLS - WebID Authentication over TLS</a></dt>
+  <dd> The WebID-TLS protocol enables secure, efficient and  user friendly authentication on the Web using TLS and X.509 Certificates.
+ It enables people to authenticate onto any site by simply choosing one of the certificates proposed to them by their browser.
+These certificates can be created by any Web Site for their users.
+It is also very effective means for software agents to authenticate.
+This specification extends the WebID Identity specification which defines many of the core concepts used in WebID-TLS. </dd>
+  <dt><a href="http://www.w3.org/ns/auth/cert#">Certificate Ontology</a></dt>
+  <dd>WebID Profile documents can be used to publish public keys that identify the referent of the WebID as the owner of the corresponding private key.
+The Certificate Ontology defines the vocabulary to use to publish this information.
+  </dd>
+</dl>
+</section>
+
+<section id="todo"><h2>Prototype Specs</h2>
+<p>The benefits of WebID become even more evident if the following prototype specifications are taken
+into account. These are currently published on a wiki. Please implement them, send feedback, and help us turn them into
+widely implemented well reviewed specifications.</p>
+<dl>
+  <dt><a href="http://www.w3.org/wiki/WebAccessControl">Web Access Control</a></dt>
+  <dd>Every resource on the Web can link to a resource describing in RDF the Access Control Restrictions on that resource: i.e. which agent or groups of agents (listed by WebID ) are allowed Read, Write or Control access on a resource.
+  This allows clients to understand what they need to do to get access to a resource, using the same vocabulary the server uses to give access to resources.
+  It also allows the Access Control rules to be editable using the same protocol defined by the <a href="http://www.w3.org/2012/ldp/wiki/Main_Page">Linked Data Platform</a>.
+  The Linked Data Platform is putting together a set of requirements for <a href="http://www.w3.org/2012/ldp/wiki/AccessControl">Access Control</a>
+  </dd>
+  <dt><a href="http://www.w3.org/2005/Incubator/webid/wiki/Identity_Interoperability">Identity_Interoperability</a></dt>
+  <dd>Agents can be identified in many more ways than via WebIDs.
+A WebID is a direct identifier: it refers directly to an agent. There are also a large number of indirect identifiers, that is identifiers that refer to things ( usually not agents ) directly, but that only indirectly refer to an agent.
+For example the initial http OpenIds, directly identify a web page, and indirectly an agent.
+An account name is a string that refers to itself, but indirectly identifies an account, which itself identifies a person.
+A public key identifies a set of numbers, but indirectly an agent that knows the private key, etc....
+Each of the identifiers then come with methods of verifying the referent.
+The Identity Interoperability document should aim to show how one can transfer trust gained via one authentication procedure to another identifier, by relying on relations published between these identifiers in a Linked Data space tied potentially to a WebID.
+  </dd>
+</dl>
+
+</section>
+
+</body>
+</html>
