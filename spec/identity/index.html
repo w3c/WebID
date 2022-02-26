@@ -445,13 +445,13 @@ URI: <a href="https://dvcs.w3.org/hg/WebID">https://dvcs.w3.org/hg/WebID</a>
 <h2 id="h2_introduction"><span class="secno">1. </span>Introduction</h2><p><em>This section is non-normative.</em></p>
 
 <p>
-A WebID is an HTTP URI which refers to an Agent (Person, Organization, Group, Device, etc.). A description of the WebID can be found in the <a class="tref internalDFN" title="Profile_Document" href="#dfn-profile_document">Profile Document</a>, a type of web page that any Social Network user is familiar with.</p>
+A WebID is an HTTP URI that refers to an Agent (Person, Organization, Group, Device, etc.). A description of the WebID can be found in the <a class="tref internalDFN" title="Profile_Document" href="#dfn-profile_document">Profile Document</a>, a type of web page that would be familiar to any Social Network user.</p>
 <p>
 A WebID <a class="tref internalDFN" title="Profile_Document" href="#dfn-profile_document">Profile Document</a> is a Web resource that <em class="rfc2119" title="MUST">MUST</em> be available as <code>text/turtle</code> [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>], but <em class="rfc2119" title="MAY">MAY</em> be available in other RDF serialization formats (e.g. [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>]) if requested through content negotiation.
 </p>
 <p>
-WebIDs can be used to build a Web of trust using vocabularies such as FOAF [<cite><a class="bibref" href="#bib-FOAF">FOAF</a></cite>] by allowing people to link together their profiles in a public or protected manner.
-Such a web of trust can then be used by a <a class="tref internalDFN" title="Service" href="#dfn-service">Service</a> to make authorization decisions, by allowing access to resource depending on the properties of an agent, such that he/she is known by some relevant people, works at a given company, is a family member, is part of some group, etc..
+WebIDs can be used to build a Web of trust using vocabularies such as FOAF [<cite><a class="bibref" href="#bib-FOAF">FOAF</a></cite>] by allowing people to link their profiles in a public or protected manner.
+Such a web of trust can then be used by a <a class="tref internalDFN" title="Service" href="#dfn-service">Service</a> to make authorization decisions, by allowing access to resources depending on the properties of an agent, such as that he/she is known by some relevant people, works at a given company, is a family member, is part of some group, etc..
 </p>
 
 <div id="outline" class="section">
@@ -476,18 +476,18 @@ Such a web of trust can then be used by a <a class="tref internalDFN" title="Ser
 <dd>The Requesting Agent initiates a request to a Service listening on a specific port using a given protocol on a given Server.</dd>
 
 <dt><dfn title="Server" id="dfn-server">Server</dfn></dt>
-<dd>A Server is a machine contactable at a domain name or IP address that hosts a number of globally accessible Services.</dd>
+<dd>A Server is a machine, contactable at a domain name or IP address, that hosts globally accessible Services.</dd>
 
 <dt><dfn title="Service" id="dfn-service">Service</dfn></dt>
-<dd>A Service is an agent listening for requests at a given IP address on a given Server.</dd>
+<dd>A Service is an agent listening for requests at a particular IP address on a given Server.</dd>
 
 <dt><dfn title="WebID" id="dfn-webid">WebID</dfn></dt>
-<dd>A WebID is a URI with an HTTP or HTTPS scheme which denotes an Agent (Person, Organization, Group, Device, etc.). For WebIDs with fragment identifiers (e.g. #me), the URI without the fragment denotes the Profile Document. For WebIDs without fragment identifiers an HTTP request on the WebID <em class="rfc2119" title="MUST">MUST</em> return a 303 with a Location header URI referring to the Profile Document.
+<dd>A WebID is a URI with an HTTP or HTTPS scheme that denotes an Agent (Person, Organization, Group, Device, etc.). For WebIDs with fragment identifiers (e.g. #me), the URI without the fragment denotes the Profile Document. For WebIDs without fragment identifiers an HTTP request on the WebID <em class="rfc2119" title="MUST">MUST</em> return a 303 with a Location header URI referring to the Profile Document.
 </dd>
 
 <dt><dfn title="WebID_Profile" id="dfn-webid_profile">WebID Profile</dfn> or <dfn title="Profile_Document" id="dfn-profile_document">Profile Document</dfn></dt>
 <dd>
-A WebID Profile is an RDF document which uniquely describes the Agent denoted by the WebID in relation to that WebID. The server <em class="rfc2119" title="MUST">MUST</em> provide a <code>text/turtle</code> [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>] representation of the requested profile. This document <em class="rfc2119" title="MAY">MAY</em> be available in other RDF serialization formats, such as RDFa [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>], or [<cite><a class="bibref" href="#bib-RDF-SYNTAX-GRAMMAR">RDF-SYNTAX-GRAMMAR</a></cite>] if so requested through content negotiation.
+A WebID Profile is an RDF document that uniquely describes the Agent denoted by the WebID in relation to that WebID. The server <em class="rfc2119" title="MUST">MUST</em> provide a <code>text/turtle</code> [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>] representation of the requested profile. This document <em class="rfc2119" title="MAY">MAY</em> be available in other RDF serialization formats, such as RDFa [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>], or [<cite><a class="bibref" href="#bib-RDF-SYNTAX-GRAMMAR">RDF-SYNTAX-GRAMMAR</a></cite>] if so requested through content negotiation.
 </dd>
 </dl>
 
@@ -516,12 +516,12 @@ A WebID Profile is an RDF document which uniquely describes the Agent denoted by
 
 <!--OddPage-->
 <h2 id="h2_the-webid-http-uri"><span class="secno">3. </span>The WebID HTTP URI</h2>
-<p>When using URIs, it is possible to identify both a thing (which may exist outside of the Web) and a Web document describing the thing. For example, the person Bob is described on his homepage. Alice may not like the look of the homepage, but may want to link to the person Bob. Therefore, two URIs are needed, one for Alice and one for the homepage or a RDF document describing Alice.</p>
+<p>When using URIs, it is possible to identify both a thing (which may exist outside of the Web) and a Web document describing the thing. For example, the person Bob is described on his homepage. Alice may not like the look of the homepage, but may want to link to the person Bob. Therefore, two URIs are needed, one for Alice and one for the homepage or a RDF document describing Bob.</p>
 <p>The WebID HTTP URI must be one that dereferences to a document the user controls.</p>
 <p>For example, if a user Bob controls <code>https://bob.example.org/profile</code>,
 then his WebID can be <code>https://bob.example.org/profile#me</code>.</p>
 
-<div class="note"><div class="note-title" id="h_note_1"><span>Note</span></div><p class="">There are two solutions that meet our requirements for identifying real-world objects: 303 redirects and hash URIs. Which one to use depends on the situation, both have advantages and disadvantages, as presented in [<cite><a class="bibref" href="#bib-COOLURIS">COOLURIS</a></cite>]. All examples in this specification will use such hash URIs.</p></div>
+<div class="note"><div class="note-title" id="h_note_1"><span>Note</span></div><p class="">There are two solutions that meet our requirements for identifying real-world objects: 303 redirects and hash URIs. Which one to use depends on the situation.  Both have advantages and disadvantages, as presented in [<cite><a class="bibref" href="#bib-COOLURIS">COOLURIS</a></cite>]. All examples in this specification will use such hash URIs.</p></div>
 
 </div>
 
@@ -535,8 +535,8 @@ then his WebID can be <code>https://bob.example.org/profile#me</code>.</p>
 
 <p>The WebID URI - <em><a href="http://www.w3.org/People/Berners-Lee/card#i">http://www.w3.org/People/Berners-Lee/card<strong>#i</strong></a>&quot;</em> (containing the <strong>#i</strong> hash tag) - is an identifier that denotes (refers to) a person or more generally an agent. In the above illustration, the referent is Tim Berners Lee, a real physical person who has a history, who invented the World Wide Web, and who directs the World Web Consortium.
 </p><p>The WebID Profile URI - <em>&quot;<a href="http://www.w3.org/People/Berners-Lee/card">http://www.w3.org/People/Berners-Lee/card</a>&quot;</em> (without the <strong>#i</strong> hash tag) - denotes the document describing the person (or more generally any agent) who is the referent of the WebID URI.</p>
-<p>The WebID Profile gives the <em>sense</em> of the WebID: its RDF Graph contains a <a href="http://www.w3.org/Submission/CBD/">Concise Bounded Description</a> of the WebID such that this subgraph forms a definite description of the referent of the WebID, that is, a description that distinguishes the referent of that WebID from all other things in the world.<br />
-The document can, for example, contain relations to another document depicting the WebID referent, or it can relate the WebID to principals used by different authentication protocols.
+<p>The WebID Profile gives the meaning of the WebID: its RDF Graph contains a <a href="http://www.w3.org/Submission/CBD/">Concise Bounded Description</a> of the WebID such that this subgraph forms a definite description of the referent of the WebID, that is, a description that distinguishes the referent of that WebID from all other things in the world.<br />
+The document can, for example, contain relations to other document depicting the WebID referent, or it can relate the WebID to principals used by different authentication protocols.
 (More information on WebID and other authentication protocols can be found on the <a href="http://www.w3.org/2005/Incubator/webid/wiki/Identity_Interoperability">WebID Identity Interoperability</a> page).
 </p>
 </div>
@@ -551,7 +551,7 @@ WebID requires that servers <em class="rfc2119" title="MUST">MUST</em> at least 
 HTTP Content Negotiation can be employed to aid in publication and discovery of multiple distinct serializations of the same graph at the same URL, as explained in [<cite><a class="bibref" href="#bib-COOLURIS">COOLURIS</a></cite>]</p>
 
 <p>It is particularly useful to have one of the representations be in HTML
-even if it is not marked up in RDFa as this allows people using a
+even if it is not marked up in RDFa, as this allows people using a
 web browser to understand what the information at that URI represents.</p>
 
 <div class="normative section" id="webid-profile-vocabulary">
@@ -631,7 +631,7 @@ html as shown here:</p>
 <div class="informative section" id="privacy">
 <h3 id="h3_privacy"><span class="secno">5.4 </span>Privacy</h3><p><em>This section is non-normative.</em></p>
 <p>
-A WebID Profile is a public document that may contain public as well personal information about the agent identified by the WebID.
+A WebID Profile is a public document that may contain public as well as personal information about the agent identified by the WebID.
 As some agents may not want to reveal a lot of information about themselves, RDF and Linked Data principles allows them to choose how much information they wish to make publicly available.
 This can be achieved by separating parts of the profile information into separate documents, each protected by access control policies.
 </p>
