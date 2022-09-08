@@ -323,8 +323,8 @@ span.note, span.issue { padding: .1em .5em .15em; }
     <div id="abstract" class="introductory section" property="dcterms:abstract" datatype="" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter"><h2 id="h2_abstract">Abstract</h2>
 
     <p>A global distributed Social Web requires that each person be able to
-    control their identity, that this identity be linkable across sites -
-    placing each person in a Web of relationships - and that it be possible to
+    control their identity, that this identity be linkable across sites &mdash;
+    placing each person in a Web of relationships &mdash; and that it be possible to
     authenticate globally with such identities.
     </p>
     <p>This specification outlines a simple universal identification mechanism
@@ -447,7 +447,7 @@ URI: <a href="https://dvcs.w3.org/hg/WebID">https://dvcs.w3.org/hg/WebID</a>
 <p>
 A WebID is an HTTP URI that refers to an Agent (Person, Organization, Group, Device, etc.). A description of the WebID can be found in the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a>, a type of web page that would be familiar to any Social Network user.</p>
 <p>
-A <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a> is a Web resource that <em class="rfc2119" title="MUST">MUST</em> be available as <code>text/turtle</code> [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>], but <em class="rfc2119" title="MAY">MAY</em> be available in other RDF serialization formats (e.g. [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>]) if requested through content negotiation.
+A <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a> is a Web resource that <em class="rfc2119" title="MUST">MUST</em> be available as <code>text/turtle</code> [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>], but <em class="rfc2119" title="MAY">MAY</em> be available in other RDF serialization formats (e.g., [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>]) if requested through content negotiation.
 </p>
 <p>
 WebIDs can be used to build a Web of trust using vocabularies such as FOAF [<cite><a class="bibref" href="#bib-FOAF">FOAF</a></cite>] by allowing people to link their profiles in a public or protected manner.
@@ -482,7 +482,7 @@ Such a web of trust can then be used by a <a class="tref internalDFN" title="Ser
 <dd>A Service is an agent listening for requests at a particular domain name or IP address on a given Server.</dd>
 
 <dt><dfn title="WebID" id="dfn-webid">WebID</dfn></dt>
-<dd>A WebID is a URI with an HTTP or HTTPS scheme that denotes an Agent (Person, Organization, Group, Device, etc.). For WebIDs with fragment identifiers (e.g. #me), the URI without the fragment denotes the WebID Profile Document. For WebIDs without fragment identifiers an HTTP request on the WebID <em class="rfc2119" title="MUST">MUST</em> return a 303 with a Location header URI referring to the WebID Profile Document.
+<dd>A WebID is a URI with an HTTP or HTTPS scheme that denotes an Agent (Person, Organization, Group, Device, etc.). For WebIDs with fragment identifiers (e.g., `#me`), the URI without the fragment denotes the WebID Profile Document. For WebIDs without fragment identifiers an HTTP request on the WebID <em class="rfc2119" title="MUST">MUST</em> return a 303 with a Location header URI referring to the WebID Profile Document.
 </dd>
 
 <dt><dfn title="WebID_Profile" id="dfn-webid_profile">WebID Profile Document</dfn></dt>
@@ -533,8 +533,8 @@ then his WebID can be <code>https://bob.example.org/profile#me</code>.</p>
 <p>The relation between the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> URI and the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a> is illustrated below.</p>
 <img src="img/WebID-overview.png" alt="WebID overview" id="webid-diagram" />
 
-<p>The WebID URI - <em><a href="http://www.w3.org/People/Berners-Lee/card#i">http://www.w3.org/People/Berners-Lee/card<strong>#i</strong></a>&quot;</em> (containing the <strong>#i</strong> hash tag) - is an identifier that denotes (refers to) a person or more generally an agent. In the above illustration, the referent is Tim Berners Lee, a real physical person who has a history, who invented the World Wide Web, and who directs the World Web Consortium.
-</p><p>The WebID Profile Document URI - <em>&quot;<a href="http://www.w3.org/People/Berners-Lee/card">http://www.w3.org/People/Berners-Lee/card</a>&quot;</em> (without the <strong>#i</strong> hash tag) - denotes the document describing the person (or more generally any agent) who is the referent of the WebID URI.</p>
+<p>The WebID URI &mdash; <em><a href="http://www.w3.org/People/Berners-Lee/card#i">http://www.w3.org/People/Berners-Lee/card<strong>#i</strong></a>&quot;</em> (containing the <strong>#i</strong> hash tag) &mdash; is an identifier that denotes (refers to) a person or more generally an agent. In the above illustration, the referent is Tim Berners Lee, a real physical person who has a history, who invented the World Wide Web, and who directs the World Web Consortium.
+</p><p>The WebID Profile Document URI &mdash; <em>&quot;<a href="http://www.w3.org/People/Berners-Lee/card">http://www.w3.org/People/Berners-Lee/card</a>&quot;</em> (without the <strong>#i</strong> hash tag) &mdash; denotes the document describing the person (or more generally any agent) who is the referent of the WebID URI.</p>
 <p>The WebID Profile Document gives the meaning of the WebID: its RDF Graph contains a <a href="http://www.w3.org/Submission/CBD/">Concise Bounded Description</a> of the WebID such that this subgraph forms a definite description of the referent of the WebID, that is, a description that distinguishes the referent of that WebID from all other things in the world.<br />
 The document can, for example, contain relations to other documents depicting the WebID referent, or it can relate the WebID to principals used by different authentication protocols.
 (More information on WebID and other authentication protocols can be found on the <a href="http://www.w3.org/2005/Incubator/webid/wiki/Identity_Interoperability">WebID Identity Interoperability</a> page).
@@ -736,7 +736,7 @@ reviews, criticism and input in the creation of this specification:</p>
 </dd><dt id="bib-HTTP-TLS">[HTTP-TLS]</dt><dd rel="dcterms:requires">E. Rescorla. <a href="http://www.ietf.org/rfc/rfc2818.txt"><cite>HTTP Over TLS</cite></a>. May 2000. RFC. URL: <a href="http://www.ietf.org/rfc/rfc2818.txt">http://www.ietf.org/rfc/rfc2818.txt</a>
 </dd><dt id="bib-RDF-PRIMER">[RDF-PRIMER]</dt><dd rel="dcterms:requires">Frank Manola; Eric Miller. <a href="http://www.w3.org/TR/rdf-primer/"><cite>RDF Primer</cite></a>. 10 February 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdf-primer/">http://www.w3.org/TR/rdf-primer/</a>
 </dd><dt id="bib-RDF-SYNTAX-GRAMMAR">[RDF-SYNTAX-GRAMMAR]</dt><dd rel="dcterms:requires">Fabien Gandon; Guus Schreiber. <a href="http://www.w3.org/TR/rdf-syntax-grammar/"><cite>RDF 1.1 XML Syntax</cite></a>. 9 January 2014. W3C Proposed Edited Recommendation. URL: <a href="http://www.w3.org/TR/rdf-syntax-grammar/">http://www.w3.org/TR/rdf-syntax-grammar/</a>
-</dd><dt id="bib-RDFA-CORE">[RDFA-CORE]</dt><dd rel="dcterms:requires">Ben Adida; Mark Birbeck; Shane McCarron; Ivan Herman et al. <a href="http://www.w3.org/TR/rdfa-core/"><cite>RDFa Core 1.1 - Second Edition</cite></a>. 22 August 2013. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdfa-core/">http://www.w3.org/TR/rdfa-core/</a>
+</dd><dt id="bib-RDFA-CORE">[RDFA-CORE]</dt><dd rel="dcterms:requires">Ben Adida; Mark Birbeck; Shane McCarron; Ivan Herman et al. <a href="http://www.w3.org/TR/rdfa-core/"><cite>RDFa Core 1.1 &mdash; Second Edition</cite></a>. 22 August 2013. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdfa-core/">http://www.w3.org/TR/rdfa-core/</a>
 </dd><dt id="bib-RFC5988">[RFC5988]</dt><dd rel="dcterms:requires">Mark Nottingham. <a href="http://www.ietf.org/rfc/rfc5988.txt"><cite>Web Linking (RFC 5988)</cite></a>. October 2010. RFC. URL: <a href="http://www.ietf.org/rfc/rfc5988.txt">http://www.ietf.org/rfc/rfc5988.txt</a>
 </dd><dt id="bib-turtle">[turtle]</dt><dd rel="dcterms:requires">Eric Prud'hommeaux; Gavin Carothers. <a href="http://www.w3.org/TR/turtle/"><cite>RDF 1.1 Turtle</cite></a>. 9 January 2014. W3C Proposed Recommendation. URL: <a href="http://www.w3.org/TR/turtle/">http://www.w3.org/TR/turtle/</a>
 </dd></dl></div></div></body></html>
