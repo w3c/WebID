@@ -457,7 +457,7 @@ Such a web of trust can then be used by a <a class="tref internalDFN" title="Ser
 <div id="outline" class="section">
 <h3 id="h3_outline"><span class="secno">1.1 </span>Outline</h3>
 <p>This specification is divided in the following sections.</p>
-<p><a href="#introduction">This section</a> gives a high level overview of WebID, and presents the organization of the specification and the conventions used throughout the document.</p>
+<p><a href="#introduction">This section</a> gives a high level overview of WebID, and presents the organization of the specification and the conventions used throughout this document.</p>
 <p><a href="#terminology">Section 2</a> provides a short description for the most commonly used terms in this document.</p>
 <p><a href="#the-webid-http-uri">Section 3</a> describes what a WebID URI is.</p>
 <p><a href="#overview">Section 4</a> presents an overview of WebID.</p>
@@ -534,9 +534,9 @@ then his WebID can be <code>https://bob.example.org/profile#me</code>.</p>
 <img src="img/WebID-overview.png" alt="WebID overview" id="webid-diagram" />
 
 <p>The WebID URI - <em><a href="http://www.w3.org/People/Berners-Lee/card#i">http://www.w3.org/People/Berners-Lee/card<strong>#i</strong></a>&quot;</em> (containing the <strong>#i</strong> hash tag) - is an identifier that denotes (refers to) a person or more generally an agent. In the above illustration, the referent is Tim Berners Lee, a real physical person who has a history, who invented the World Wide Web, and who directs the World Web Consortium.
-</p><p>The WebID Profile Document URI - <em>&quot;<a href="http://www.w3.org/People/Berners-Lee/card">http://www.w3.org/People/Berners-Lee/card</a>&quot;</em> (without the <strong>#i</strong> hash tag) - denotes the document describing the person (or more generally any agent) who is the referent of the WebID URI.</p>
+</p><p>The WebID Profile Document URI - <em>&quot;<a href="http://www.w3.org/People/Berners-Lee/card">http://www.w3.org/People/Berners-Lee/card</a>&quot;</em> (without the <strong>#i</strong> hash tag) - denotes the WebID Profile Document describing the person (or more generally any agent) who is the referent of the WebID URI.</p>
 <p>The WebID Profile Document gives the meaning of the WebID: its RDF Graph contains a <a href="http://www.w3.org/Submission/CBD/">Concise Bounded Description</a> of the WebID such that this subgraph forms a definite description of the referent of the WebID, that is, a description that distinguishes the referent of that WebID from all other things in the world.<br />
-The document can, for example, contain relations to other documents depicting the WebID referent, or it can relate the WebID to principals used by different authentication protocols.
+The WebID Profile Document can, for example, contain relations to other documents depicting the WebID referent, or it can relate the WebID to principals used by different authentication protocols.
 (More information on WebID and other authentication protocols can be found on the <a href="http://www.w3.org/2005/Incubator/webid/wiki/Identity_Interoperability">WebID Identity Interoperability</a> page).
 </p>
 </div>
@@ -702,8 +702,8 @@ As security is constantly being challenged by new attacks, to which new response
 <!--OddPage-->
 <h2 id="h2_processing-the-webid-profile"><span class="secno">6. </span>Processing the WebID Profile Document</h2>
 
-<p>The <a class="tref internalDFN" title="Requesting_Agent" href="#dfn-requesting_agent">Requesting Agent</a> needs to fetch the document, if it does not have a valid one in cache.
-The Agent requesting the WebID document <em class="rfc2119" title="MUST">MUST</em> be able to parse documents in Turtle [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>], but <em class="rfc2119" title="MAY">MAY</em> also be able to parse documents in RDF/XML [<cite><a class="bibref" href="#bib-RDF-SYNTAX-GRAMMAR">RDF-SYNTAX-GRAMMAR</a></cite>] and RDFa [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>].
+<p>The <a class="tref internalDFN" title="Requesting_Agent" href="#dfn-requesting_agent">Requesting Agent</a> needs to fetch the WebID Profile Document, if it does not have a valid one in cache.
+The Agent requesting the WebID Profile Document <em class="rfc2119" title="MUST">MUST</em> be able to parse documents in Turtle [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>], but <em class="rfc2119" title="MAY">MAY</em> also be able to parse documents in RDF/XML [<cite><a class="bibref" href="#bib-RDF-SYNTAX-GRAMMAR">RDF-SYNTAX-GRAMMAR</a></cite>] and RDFa [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>].
 The result of this processing should be a graph of RDF relations that is queryable, as explained in the next section.</p>
 
 <div class="note"><div class="note-title" id="h_note_2"><span>Note</span></div><p class="">
