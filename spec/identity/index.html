@@ -732,9 +732,10 @@
         <dt>
           <dfn title="WebID" id="dfn-webid">WebID</dfn>
         </dt>
-        <dd>A WebID is a URI with an HTTP or HTTPS scheme that denotes an Agent (Person, Organization, Group, Device, etc.). For WebIDs with fragment identifiers (e.g., `#me`), the URI without the fragment denotes the WebID Profile Document. For WebIDs without fragment identifiers an HTTP request on the WebID
-          <em class="rfc2119" title="MUST">MUST</em>
-          return a 303 with a Location header URI referring to the WebID Profile Document.
+        <dd>
+          A WebID is a URI with an HTTP or HTTPS scheme that denotes an Agent
+          (Person, Organization, Group, Device, etc.) and can be dereferenced
+          to a WebID Profile Document that describes the Agent.
         </dd>
 
         <dt>
