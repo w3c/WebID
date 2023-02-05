@@ -914,6 +914,13 @@
       </p>
 
       <p>
+        If available in the JSON-LD serialization format, WebID Profile
+        Documents <em class="rfc2119" title="SHOULD">SHOULD</em> be 
+        serialized using the TBD <code>@context</code> and the compacted
+        form, facilitating parsing as simple JSON in addition to JSON-LD.
+      </p>
+
+      <p>
         Clients and Servers <em class="rfc2119" title="MAY">MAY</em>
         use Content Negotiation to agree on a serialization format supported
         by both parties. However, this specification does not require Servers
@@ -939,7 +946,8 @@
 
       <p>
         WebID Profile Documents <em class="rfc2119" title="MAY">MAY</em> refer
-        to other Profile Documents by means of appropriate RDF statements.
+        to other Profile Documents by means of appropriate RDF statements
+        (e.g. <code>rdfs:seeAlso</code>).
         For example, multiple Profile Documents may be used to:
       </p>
       <ul>
