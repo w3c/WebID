@@ -807,10 +807,19 @@
           depends on the situation. Both have advantages and disadvantages,
           as presented in
           [<cite><a class="bibref" href="#bib-COOLURIS">COOLURIS</a></cite>].
+        </p>
+        <p class="">
+          For WebIDs with fragment identifiers (e.g., `#me`), the URI without
+          the fragment denotes the WebID Profile Document. For WebIDs without
+          fragment identifiers an HTTP request on the WebID
+          <em class="rfc2119" title="MUST">MUST</em>
+          return a 303 with a Location header URI referring to the WebID Profile
+          Document.
+        </p>
+        <p class="">
           All examples in this specification will use such hash URIs.
         </p>
       </div>
-
     </div>
 
     <div
