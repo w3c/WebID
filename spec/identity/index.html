@@ -779,20 +779,36 @@
       <h2 id="h2_the-webid-http-uri">
         <span class="secno">3.
         </span>The WebID HTTP URI</h2>
-      <p>When using URIs, it is possible to identify both a thing (which may exist outside of the Web) and a Web document describing the thing. For example, the person Bob is described on his homepage. Alice may not like the look of Bob's homepage, but may want to link to the person Bob. Therefore, two URIs are needed, one for Bob and one for Bob's homepage (or an RDF document describing Bob).</p>
-      <p>The WebID HTTP URI must be one that dereferences to a document the user controls.</p>
-      <p>For example, if a user Bob controls
+      <p>
+        When using URIs, it is possible to identify both a thing (which may
+        exist outside of the Web) and a Web document describing the thing.
+        For example, the person Bob is described on his homepage. Alice may
+        not like the look of Bob's homepage, but may want to link to the person
+        Bob. Therefore, two URIs are needed, one for Bob and one for Bob's
+        homepage (or an RDF document describing Bob).
+      </p>
+      <p>
+        The WebID HTTP URI must be one that dereferences to a document that the
+        user controls.
+      </p>
+      <p>
+        For example, if a user Bob controls
         <code>https://bob.example.org/profile</code>,
-          then his WebID can be
-        <code>https://bob.example.org/profile#me</code>.</p>
-
+        then his WebID can be
+        <code>https://bob.example.org/profile#me</code>.
+      </p>
       <div class="note">
         <div class="note-title" id="h_note_1">
           <span>Note</span>
         </div>
-        <p class="">There are two solutions that meet our requirements for identifying real-world objects: 303 redirects and hash URIs. Which one to use depends on the situation.  Both have advantages and disadvantages, as presented in [<cite>
-            <a class="bibref" href="#bib-COOLURIS">COOLURIS</a>
-          </cite>]. All examples in this specification will use such hash URIs.</p>
+        <p class="">
+          There are two solutions that meet our requirements for identifying
+          real-world objects: 303 redirects and hash URIs. Which one to use
+          depends on the situation. Both have advantages and disadvantages,
+          as presented in
+          [<cite><a class="bibref" href="#bib-COOLURIS">COOLURIS</a></cite>].
+          All examples in this specification will use such hash URIs.
+        </p>
       </div>
 
     </div>
