@@ -880,16 +880,66 @@
         </span>Publishing the WebID Profile Document</h2>
 
       <p>
-        WebID requires that servers
-        <em class="rfc2119" title="MUST">MUST</em>
-        at least be able to provide Turtle representation of WebID Profile Documents, but other serialization formats of the graph are allowed, provided that agents are able to parse that serialization and obtain the graph automatically.
-        HTTP Content Negotiation can be employed to aid in publication and discovery of multiple distinct serializations of the same graph at the same URL, as explained in [<cite>
-          <a class="bibref" href="#bib-COOLURIS">COOLURIS</a>
-        </cite>]</p>
+        WebID Profile Documents <em class="rfc2119" title="MUST">MUST</em>
+        be available in at least one RDF serialization format, whether that be
+        Turtle (`text/turtle`), JSON-LD (`application/ld-json`),
+        RDFa (`text/html`, `application/xhtml+xml`, `image/svg+xml`) 
+        or any other RDF serialization format, optionally embedded into an HTML
+        data island (`<script type="text/turtle"> ... </script>`).
+      </p>
 
-      <p>It is particularly useful to have one of the representations be in HTML
-        even if it is not marked up in RDFa, as this allows people using a
-        web browser to understand what the information at that URI represents.</p>
+      <p>
+        WebID Profile Documents <em class="rfc2119" title="SHOULD">SHOULD</em>
+        be available in at least the Turtle serialization format.
+      </p>
+
+      <p>
+        Clients <em class="rfc2119" title="SHOULD">SHOULD</em> support
+        serialization formats based on HTML, such as RDFa and RDF data
+        islands. These representations can be processed both by humans
+        (through web browsers) and machines alike, making them the only
+        options for publishers restricted to using a single serialization
+        format (such as in the case of WebID Profile Documents published
+        via static file hosting).
+      </p>
+
+      <p>
+        Clients and Servers <em class="rfc2119" title="MAY">MAY</em>
+        use Content Negotiation to agree on a serialization format supported
+        by both parties. However, this specification does not require Servers
+        and Clients to support Content Negotiation. The related headers 
+        <em class="rfc2119" title="MAY">MAY</em> be ignored by either of the 
+        parties.
+        Content Negotiation is considered an orthogonal concern to WebID,
+        although other specifications extending WebID
+        <em class="rfc2119" title="MAY">MAY</em> mandate its support.
+      </p>
+
+      <p>
+        WebID Profile Documents <em class="rfc2119" title="MAY">MAY</em>
+        be writable. However, this specification does not require Servers
+        and Clients to support writability. Servers
+        <em class="rfc2119" title="MAY">MAY</em> handle write requests
+        (`POST`, `PUT`, `DELETE`, `PATCH`) by returning `4xx` status
+        codes.
+        Writability is considered an orthogonal concern to WebID,
+        although other specifications extending WebID
+        <em class="rfc2119" title="MAY">MAY</em> mandate its support.
+      </p>
+
+      <p>
+        WebID Profile Documents <em class="rfc2119" title="MAY">MAY</em> refer
+        to other Profile Documents by means of appropriate RDF statements.
+        For example, multiple Profile Documents may be used to:
+      </p>
+      <ul>
+        <li>Manage visilibity to different sets of RDF statements</li>
+        <li>
+          Facilitate discovery of additional WebID Profile Documents
+          implementing specifications that extend WebID and regulate
+          features considered orthogonal to the latter
+        </li>
+      </ul>
 
       <div class="normative section" id="webid-profile-vocabulary">
         <h3 id="h3_webid-profile-vocabulary">
