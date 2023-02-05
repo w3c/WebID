@@ -662,30 +662,18 @@
       </p>
 
       <p>
-        A WebID is an HTTP URI that refers to an Agent (Person, Organization, Group, Device, etc.). A description of the WebID can be found in the
-        <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a>, a type of web page that would be familiar to any Social Network user.</p>
-      <p>
-        A
-        <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a>
-        is a Web resource that
-        <em class="rfc2119" title="MUST">MUST</em>
-        be available as
-        <code>text/turtle</code>
-        [<cite>
-          <a class="bibref" href="#bib-turtle">turtle</a>
-        </cite>], but
-        <em class="rfc2119" title="MAY">MAY</em>
-        be available in other RDF serialization formats (e.g., [<cite>
-          <a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a>
-        </cite>]) if requested through content negotiation.
+        A WebID is an HTTP URI that denotes ("refers to" or "names") an agent
+        on an HTTP based network such as the Web or an enterprise intranet. 
+        When a WebID is de-referenced ("looked up"), it resolves to a WebID
+        Profile Document that describes its referent (i.e. the agent that the
+        WebID denotes).
       </p>
+
       <p>
-        WebIDs can be used to build a Web of trust using vocabularies such as FOAF [<cite>
-          <a class="bibref" href="#bib-FOAF">FOAF</a>
-        </cite>] by allowing people to link their profiles in a public or protected manner.
-        Such a web of trust can then be used by a
-        <a class="tref internalDFN" title="Service" href="#dfn-service">Service</a>
-        to make authorization decisions, by allowing access to resources depending on the properties of an agent, such as that they are known by some relevant people, employed at a given company, a member of a family or some other group, etc.
+        A WebID Profile document consists of structured data expressed using
+        the RDF model. This data may be used in a number of different ways,
+        such as to make authorization decisions by allowing access to resources
+        depending on the properties of an agent.
       </p>
 
       <div id="outline" class="section">
