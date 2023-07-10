@@ -20,7 +20,7 @@ Source
 You can read, branch and modify the source code for this specification via
 github:
 
-https://github.com/webid-community/webid-spec
+https://github.com/w3c/WebID
 
 Feedback
 --------
@@ -30,7 +30,7 @@ Log bugs if you want to request changes to the spec, it is the only way
 you can make sure that your input will be tracked and considered by
 the group:
 
-https://github.com/webid-community/webid-spec/issues
+https://github.com/w3c/WebID/issues
 
 When logging an issue, be very specific about the problem and the
 exact change and wording that you would like to suggest. The easier
