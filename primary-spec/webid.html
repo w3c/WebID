@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WebID 1.0</title>
+    <script
+      src="https://www.w3.org/Tools/respec/respec-w3c"
+      class="remove"
+      defer
+    ></script>
+    <script class="remove">
+      // All config options at https://respec.org/docs/
+      var respecConfig = {
+        specStatus: "ED",
+        editors: [{ 
+          name: "Jacopo Scazzosi",
+          // url: "https://your-site.com",
+        }],
+        github: "w3c/WebID",
+        shortName: "webid",
+        xref: ["web-platform", "cooluris"],
+        group: "webid",
+        edDraftURI: "https://jacoscaz.com/WebID/primary-spec/webid.html",
+      };
+    </script>
+    <style>
+      /* 
+       * This is a slightly modified version of the .sidenote class from
+       * Tufte's CSS - https://edwardtufte.github.io/tufte-css/ .
+       * Remove before submitting this document.
+       */
+      .sidenote {
+        float: right;
+        clear: right;
+        margin-right: -70%;
+        width: 60%;
+        margin-bottom: 0;
+        line-height: 1.3;
+        vertical-align: baseline;
+        position: relative;
+        font-size: 0.9rem;
+        font-style: italic;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+      }
+      /* 
+       * Small tweaks to ReSpec's default layout to accomodate for sidenotes.
+       * Remove before submitting this document.
+       */
+       body {
+        margin: 0 !important;
+       }
+       section {
+        clear: both;
+       }
+    </style>
+  </head>
+  <body>
+    <section id="abstract">
+      <span class="sidenote">
+        <ul>
+          <li>Bootstrapped from [= Melvin's draft =]</li>
+        </ul>
+      </span>
+      <p>
+        WebID defines a standard means by which user agents and servers
+        interact to establish a user's identity, ensuring a structured,
+        decentralized approach for identity discovery on the web.
+      </p>
+    </section>
+    <section id="sotd">
+      <!-- <p>This is required.</p> -->
+    </section>
+    <section class="informative">
+      <span class="sidenote">
+        <ul>
+          <li>Bootstrapped from [= Melvin's draft =]</li>
+          <li>
+            relationship between format and feature subspecs is being discussed
+            in [= Orthogonality of format subspecs vs. feature subspecs =] and
+            [= Relationship between superspec and subspecs =]
+          </li>
+          <li>
+            Use of IRI as per [= URL vs. URI vs. IRI =]
+          </li>
+        </ul>
+      </span>
+      <h2>Introduction</h2>
+      <p>
+        This specification delineates an HTTP IRI denoting an Agent that, when
+        dereferenced, leads to an RDF document describing such Agent.
+      </p>
+      <p>
+        WebID aims to act as a succinct, adaptable framework, achieving
+        universality and broad applicability without necessitating further
+        modifications to the primary specification. To this end, WebID
+        encompasses an open-ended list of <del>sub-specifications</del>
+        [= Extension Profiles =].
+      </p>
+    </section>
+    <section>
+      <span class="sidenote">
+        <ul>
+          <li>Bootstrapped from [= Basic definitions RFC =]</li>
+          <li>Changed to address [= Circularity concerns =]</li>
+          <li>
+            Usage of <em>unambiguously</em> is being discussed in 
+            [= Use of the term unambiguously =]
+          </li>
+          <li>
+            Use of IRI as per [= URL vs. URI vs. IRI =]
+          </li>
+          <li>
+            Moved further description of what Identity Document should
+            consist of to dedicated section as it was getting to complex
+            to fit here
+          </li>
+          <li>
+            Todo: definition of Agent, currently taken from
+            <a href="http://xmlns.com/foaf/0.1/#term_Agent">foaf:Agent</a>
+          </li>
+        </ul>
+      </span>
+      <h2>Definitions</h2>
+      <dl>
+        <dt><dfn>WebID</dfn></dt>
+        <dd>
+          An identifier in the form of an HTTP IRI for naming an [= Agent =]
+          which, when dereferenced, must always lead to an [= Identity Document =]
+          describing the [= Agent =] named by the WebID itself.
+        </dd>
+        <dt><dfn>Identity Document</dfn></dt>
+        <dd>
+          An RDF document that describes an [= Agent =].
+        </dd>
+        <dt><dfn>Agent</dfn></dt>
+        <dd>
+          A thing that does stuff.
+        </dd>
+      </dl>
+    </section>
+    <section class="conformance">
+      <span class="sidenote">
+        <ul>
+        </ul>
+      </span>
+      <h2>WebIDs and Identity Documents</h2>
+      <p>
+        A WebID denotes an [= Agent =], an entity whose nature is different
+        from that of a document, while ultimately dereferencing to an actual
+        document - an [= Identity Document =] - that describes such [= Agent =].
+        This specification models this relationship according to the guidelines
+        on IRIs for documents and real-world objects defined in [[cooluris]].
+      </p>
+      <p>
+        For WebIDs with fragment identifiers, requests made against each WebID
+        stripped of its fragment identifier MUST dereference to the respective
+        [= Identity Document =]. Client HTTP libraries conforming to the HTTP
+        standard will automatically strip the fragment before sending requests
+        to the server.
+      </p> 
+      <p>
+        For WebIDs without fragment identifiers, requests made against each
+        WebID MUST dereference to the respective [= Identity Document =] by
+        means of redirection. Each request MUST be answered with the 
+        `303 See Other` status code and the `Location` header set to an IRI
+        that MUST dereference to the respective [= Identity Document =].
+    </section>
+    <section class="conformance">
+      <span class="sidenote">
+        <ul>
+          <li>
+            Contents of Identity Documents discussed in
+            [= Ontologies and statements RFC =] and 
+            [= primaryTopic vs isPrimaryTopicOf =]
+          </li>
+          <li>
+            Relationship between the spec, serialization formats and extension
+            profiles touched upon in [= Subsets of the superset =]
+          </li>
+          <li>
+            Serialization formats were the primary topic that started the long
+            discussion thread [= Required RDF serialization of WebID resource =]
+          </li>
+        </ul>
+      </span>
+      <h2>Content and format of Identity Documents</h2>
+      <p>
+        An Identity Document should consist of at least one statement
+        identifying the described [= Agent =] as either the document's
+        `foaf:primaryTopic` or the document's `schema:mainEntity`.
+      </p>
+      <p>
+        Identity Documents MUST be available in at least one RDF format.
+        Implementations of this specifications and/or any of its
+        [= Extension Profiles =] should be qualified according to which RDF
+        formats they support.
+      </p>
+      <aside class="example" title="Language to describe supported serialization formats">
+        <p>
+          A system capable of authenticating users via WebID-TLS and capable of
+          parsing [= Identity Document =]s serialized using the Turtle format
+          is said to implement <em>WebID-TLS over Turtle and JSON-LD</em>.
+        </p>
+      </aside>
+      <p>
+        Identity Documents SHOULD be available in at least one format between
+        Turtle and JSON-LD, optionally embedded within HTML data islands.
+      </p>
+    </section>
+    <section class="conformance">
+      <span class="sidenote">
+        <ul>
+          <li>
+            relationship between format and feature subspecs is being discussed
+            in [= Orthogonality of format subspecs vs. feature subspecs =] and
+            [= Relationship between superspec and subspecs =]
+          </li>
+          <li>
+            format subspecs to be specified by the WebID CG are being discussed
+            in  [= Subsets of the Superset =]
+          </li>
+          <li>todo: link to WebID-TLS</li>
+        </ul>
+      </span>
+      <h2><dfn>Extension Profiles</dfn></h2>
+      <p>Following the <a href="https://www.w3.org/TR/spec-variability/"> note
+        on Spec Variability</a> by the W3C Working Group, sub-specifications
+        may build on top of the WebID specification by defining
+        <em>Extension Profiles</em> in support of specific features, such
+        as in the case of user authentication via WebID-TLS.
+      </p>
+    </section>
+    <section class="informative">
+      <span class="sidenote">
+        <ul>
+          <li>Bootstrapped from [= Melvin's draft =]</li>
+          <li>todo: link to WebID-TLS</li>
+        </ul>
+      </span>
+      <h2>Implementation and examples</h2>
+      <p>
+        The URI `https://webid.example.org/#me` would qualify as a valid
+        implementation of [WebID-Turtle] if a GET request to 
+        `https://webid.example.org/` resulted in a `200 OK` response having
+        the `Content-Type: text/turtle` header and the following payload:
+      </p>
+      <code>
+        <pre>
+        @prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt;.
+        
+        &lt;http://webid.example.org/&gt; foaf:primaryTopic &lt;http://webid.example.org/#me&gt;.
+        </pre>
+      </code>
+    </section>
+    <section class="informative">
+      <span class="sidenote">
+        <ul>
+        </ul>
+      </span>
+      <h2>Acknowledgments</h2>
+      <p>
+        The authors acknowledge the contributions and discussions from the
+        WebID community and related working groups.
+      </p>
+    </section>
+    <section class="informative">
+      <h2>Sources</h2>
+      <p>
+        This section centralizes links to sources, proposals, suggestions and
+        feedbacks mentioned in sidenotes and is not meant to be included in the
+        final document but merely as a support for editing.
+      </p>
+      <ul>
+        <li>
+          <dfn>Melvin's draft</dfn>:
+          <a href="https://lists.w3.org/Archives/Public/public-webid/2023Nov/0052.html">
+            https://lists.w3.org/Archives/Public/public-webid/2023Nov/0052.html
+          </a>
+        </li>
+        <li>
+          <dfn>Basic definitions</dfn>:
+          <a href="https://github.com/w3c/WebID/issues/22#issue-1992942756">
+            https://github.com/w3c/WebID/issues/22#issue-1992942756
+          </a>
+        </li>
+        <li>
+          <dfn>Circularity concerns</dfn>:
+          <ul>
+            <li>
+              Jonas's:
+              <a href="https://github.com/w3c/WebID/issues/22#issuecomment-1810572993">
+                https://github.com/w3c/WebID/issues/22#issuecomment-1810572993
+              </a>
+            </li>
+            <li>
+              Aaron's: 
+              <a href="https://github.com/w3c/WebID/issues/22#issuecomment-1819619179">
+                https://github.com/w3c/WebID/issues/22#issuecomment-1819619179
+              </a>
+            </li>
+            <li>
+              Wouter's:
+              <a href="https://github.com/w3c/WebID/issues/22#issuecomment-1826231760">
+                https://github.com/w3c/WebID/issues/22#issuecomment-1826231760
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <dfn>Ontologies and statements RFC</dfn>
+          <a href="https://github.com/w3c/WebID/issues/23">
+            https://github.com/w3c/WebID/issues/23
+          </a>
+        </li>
+        <li>
+          <dfn>Implementability concerns</dfn>:
+          <ul>
+            <li>
+              Nathan's (echoed by Martynas):
+              <a href="https://github.com/w3c/WebID/issues/17#issuecomment-1806708994">
+                https://github.com/w3c/WebID/issues/17#issuecomment-1806708994
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <dfn>Orthogonality of format subspecs vs. feature subspecs</dfn>:
+          <a href="https://lists.w3.org/Archives/Public/public-webid/2023Nov/0144.html">
+            https://lists.w3.org/Archives/Public/public-webid/2023Nov/0144.html
+          </a>
+        </li>
+        <li>
+          <dfn>Relationship between superspec and subspecs</dfn>
+          <ul>
+            <li>
+              <dfn>Subsets of the Superset</dfn>:
+              <a href="https://github.com/w3c/WebID/issues/21">
+                https://github.com/w3c/WebID/issues/21
+              </a>
+            </li>
+            <li>Wouter's comment on [= Basic definitions =]
+              <a href="https://github.com/w3c/WebID/issues/22#issuecomment-1826231760">
+                https://github.com/w3c/WebID/issues/22#issuecomment-1826231760
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <dfn>primaryTopic vs isPrimaryTopicOf</dfn>
+          <a href="https://github.com/w3c/WebID/issues/24">
+            https://github.com/w3c/WebID/issues/24
+          </a>
+        </li>
+        <li>
+          <dfn>Use of the term unambiguously</dfn>
+          <a href="https://github.com/w3c/WebID/issues/25">
+            https://github.com/w3c/WebID/issues/25
+          </a>
+        </li>
+        <li>
+          <dfn>URL vs. URI vs. IRI</dfn>
+          <ul>
+            <li>
+              Switch from URI to IRI terminology in WebID spec
+              <a href="https://github.com/w3c/WebID/issues/10">
+                https://github.com/w3c/WebID/issues/10
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <dfn>Required RDF serialization of WebID resource</dfn>
+          <a href="https://github.com/w3c/WebID/issues/3">
+            https://github.com/w3c/WebID/issues/3
+          </a>
+        </li>
+      </ul>
+    </section>
+  </body>
+</html>

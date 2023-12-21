@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>WebID-TLS 1.0</title>
+    <script
+      src="https://www.w3.org/Tools/respec/respec-w3c"
+      class="remove"
+      defer
+    ></script>
+    <script class="remove">
+      // All config options at https://respec.org/docs/
+      var respecConfig = {
+        specStatus: "ED",
+        editors: [{ 
+          name: "Jacopo Scazzosi",
+          // url: "https://your-site.com",
+        }],
+        github: "w3c/WebID",
+        shortName: "webid",
+        xref: ["web-platform", "cooluris"],
+        group: "webid",
+        edDraftURI: "https://jacoscaz.com/WebID/extension-profiles/webid-tls.html",
+      };
+    </script>
+    <style>
+      /* 
+       * This is a slightly modified version of the .sidenote class from
+       * Tufte's CSS - https://edwardtufte.github.io/tufte-css/ .
+       * Remove before submitting this document.
+       */
+      .sidenote {
+        float: right;
+        clear: right;
+        margin-right: -70%;
+        width: 60%;
+        margin-bottom: 0;
+        line-height: 1.3;
+        vertical-align: baseline;
+        position: relative;
+        font-size: 0.9rem;
+        font-style: italic;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+      }
+      /* 
+       * Small tweaks to ReSpec's default layout to accomodate for sidenotes.
+       * Remove before submitting this document.
+       */
+       body {
+        margin: 0 !important;
+       }
+       section {
+        clear: both;
+       }
+    </style>
+  </head>
+  <body>
+    <section id="abstract">
+      <span class="sidenote">
+        <ul>
+          <li>Bootstrapped from [= Wouter's definitions =]</li>
+        </ul>
+      </span>
+      <p>
+        This specification defines an extension profile of WebID consisting of a
+        proof-of-posession authentication protocol that authenticates Agents by
+        matching a given private key to the public key declared in their Identity Document.
+      </p>
+    </section>
+    <section id="sotd">
+      <!-- <p>This is required.</p> -->
+    </section>
+    <section class="informative">
+      <h2>Sources</h2>
+      <p>
+        This section centralizes links to sources, proposals, suggestions and
+        feedbacks mentioned in sidenotes and is not meant to be included in the
+        final document but merely as a support for editing.
+      </p>
+      <ul>
+        <li>
+          <dfn>Wouter's definitions</dfn>:
+          <a href="https://github.com/w3c/WebID/issues/22#issuecomment-1826231760">
+            https://github.com/w3c/WebID/issues/22#issuecomment-1826231760
+          </a>
+        </li>
+      </ul>
+    </section>
+  </body>
+</html>
