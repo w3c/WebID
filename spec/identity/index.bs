@@ -130,6 +130,14 @@ manner. Such a web of trust can then be used by a [=Service=] to make
 authorization decisions, by allowing access to resources depending on the
 properties of an agent, such as that they are known by some relevant people,
 employed at a given company, a member of a family or some other group, etc.
+
+This specification is for:
+
+- Anyone that wants to understand the architectural principles and notions underlying WebID.
+- URI owners who want to allocate identifiers to denote agents.
+- Resource server developers who want to enable clients to consume WebIDs and their associated descriptions.
+- Application developers who want to implement a client to consume WebIDs.
+- Specification authors who want to integrate or extend WebID.
   
 ## Outline ## {#outline}
 
