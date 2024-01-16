@@ -1,0 +1,46 @@
+
+name: Process Bikeshed to HTML
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+
+  main:
+
+    runs-on: ubuntu-20.04
+
+    permissions:
+      contents: write
+
+    strategy:
+      max-parallel: 1
+      matrix:
+        include:
+          - source: spec/identity/index.bs
+            destination: spec/identity/index.html
+
+    steps:
+
+      - name: Checkout latest change
+        uses: actions/checkout@v4
+    
+      - name: Run Bikeshed
+        uses: w3c/spec-prod@v2
+        with:
+          TOOLCHAIN: bikeshed
+          SOURCE: ${{ matrix.source }}
+          DESTINATION: ${{ matrix.destination }}
+          VALIDATE_WEBIDL: true
+          VALIDATE_LINKS: false
+          VALIDATE_MARKUP: true
+          BUILD_FAIL_ON: fatal  # "nothing", "fatal", "link-error", "warning", "everything"
+
+      - name: Commit output
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: ${{ matrix.destination }}
+          message: 'chore: process Bikeshed to HTML (CI)'
