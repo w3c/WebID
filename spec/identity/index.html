@@ -1,742 +1,1212 @@
-<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML+RDFa 1.0//EN' 'http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd'>
-<html lang="en" dir="ltr" typeof="bibo:Document " about="" property="dcterms:language" content="en" version="XHTML+RDFa 1.0" prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54# dcterms: http://purl.org/dc/terms/ foaf: http://xmlns.com/foaf/0.1/ xsd: http://www.w3.org/2001/XMLSchema#" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>WebID 1.0</title>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+<!doctype html><html lang="en">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+  <title>Web Identity and Discovery</title>
+  <meta content="w3c/ED" name="w3c-status">
+  <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
+  <meta content="Bikeshed version fcb66286b, updated Wed Jul 19 11:14:33 2023 -0700" name="generator">
+  <link href="http://www.w3.org/TR/webid/" rel="canonical">
+  <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
+  <meta content="6005761ec31b42d1c392e2f3f776dfbd628f3a30" name="document-revision">
+<style>
 
-<!--
-      === NOTA BENE ===
-      For the three scripts below, if your spec resides on dev.w3 you can check them
-      out in the same tree and use relative links so that they'll work offline,
-     -->
+    /* Reset base counters and additional ones */
+    body { counter-reset: example note issue assertion advisement figure !important; }
 
-<style type="text/css">
-#webid-diagram {
-    width: 90%;
-}
+    /* Configure increments for additional counters */
+    .note { counter-increment: note; }
+    .assertion { counter-increment: assertion; }
+    .advisement { counter-increment: advisement; }
 
-code {
-    font-family: monospace;
-}
+    /* Configure display of additional counters */
+    .note:not(.no-marker)::before { content: "Note " counter(note); }
+    .assertion:not(.no-marker)::before { content: "Assertion" counter(assertion); }
+    .advisement:not(.no-marker)::before { content: "Advisement" counter(advisement); }
 
-span.hilite {
-    color: red; /* font-weight: bold */
-}
+    /* Reduce font size of boxes and preformatted blocks */
+    .note,
+    .issue,
+    .example,
+    .assertion,
+    .advisement { font-size: .9em; }
+    pre { font-size: .8em; }
 
-li p {
-    margin-top: 0.3em;
-    margin-bottom: 0.3em;
-}
+    /* Style prefix tables */
+    .prefixes {
+      text-align: left;
+      border-collapse: collapse;
+    }
+    .prefixes th, .prefixes td {
+      padding: 5px;
+      border: 1px solid black;
+    }
 
-div.explanation {
-    background-color: #ADD8E6;
-    width: 80%;
-    margin: 12px; padding: 8px;
-}
+    /* Style RFC2119 conformance terms */
+    em.rfc2119 {
+      text-transform: lowercase;
+      font-variant: small-caps;
+      font-style: normal;
+      font-size: 1.1em;
+      color: darkred;
+    }
 
-div.explanation li { margin-top: 8px; }
-div.explanation dd { margin: 4px; }
+    /* Style <code> as in old WebID drafts */
+    code {
+      color: orangered;
+      font-size: .8em;
+    }
 
-.adef {
-	font-family: monospace;
-	font-weight: bold;
-    color: #ff4500 !important;
-}
+    /* Some temporary style to render without toc */
+    body { 
+      padding-left: 24px !important ;
+      margin: 0 50px;
+      width: 85% !important;
+      max-width: 85% !important;
+    }
 
-.aref {
-	font-family: monospace;
-	font-weight: bold;
-    color: #ff4500 !important;
-}
-
-span.entity { color: red; }
-
-span.element { color: green; }
 </style>
-
-
-
-  <style type="text/css">/*****************************************************************
- * ReSpec 3 CSS
- * Robin Berjon - http://berjon.com/
- *****************************************************************/
-
-/* --- INLINES --- */
-em.rfc2119 {
-    text-transform:     lowercase;
-    font-variant:       small-caps;
-    font-style:         normal;
-    color:              #900;
+<style>/* Boilerplate: style-autolinks */
+.css.css, .property.property, .descriptor.descriptor {
+    color: var(--a-normal-text);
+    font-size: inherit;
+    font-family: inherit;
+}
+.css::before, .property::before, .descriptor::before {
+    content: "‘";
+}
+.css::after, .property::after, .descriptor::after {
+    content: "’";
+}
+.property, .descriptor {
+    /* Don't wrap property and descriptor names */
+    white-space: nowrap;
+}
+.type { /* CSS value <type> */
+    font-style: italic;
+}
+pre .property::before, pre .property::after {
+    content: "";
+}
+[data-link-type="property"]::before,
+[data-link-type="propdesc"]::before,
+[data-link-type="descriptor"]::before,
+[data-link-type="value"]::before,
+[data-link-type="function"]::before,
+[data-link-type="at-rule"]::before,
+[data-link-type="selector"]::before,
+[data-link-type="maybe"]::before {
+    content: "‘";
+}
+[data-link-type="property"]::after,
+[data-link-type="propdesc"]::after,
+[data-link-type="descriptor"]::after,
+[data-link-type="value"]::after,
+[data-link-type="function"]::after,
+[data-link-type="at-rule"]::after,
+[data-link-type="selector"]::after,
+[data-link-type="maybe"]::after {
+    content: "’";
 }
 
-h1 acronym, h2 acronym, h3 acronym, h4 acronym, h5 acronym, h6 acronym, a acronym,
-h1 abbr, h2 abbr, h3 abbr, h4 abbr, h5 abbr, h6 abbr, a abbr {
-    border: none;
+[data-link-type].production::before,
+[data-link-type].production::after,
+.prod [data-link-type]::before,
+.prod [data-link-type]::after {
+    content: "";
 }
 
-dfn {
-    font-weight:    bold;
+[data-link-type=element],
+[data-link-type=element-attr] {
+    font-family: Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    font-size: .9em;
+}
+[data-link-type=element]::before { content: "<" }
+[data-link-type=element]::after  { content: ">" }
+
+[data-link-type=biblio] {
+    white-space: pre;
 }
 
-a.internalDFN {
-    color:  inherit;
-    border-bottom:  1px solid #99c;
-    text-decoration:    none;
+</style>
+<style>/* Boilerplate: style-colors */
+
+/* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
+:root {
+    color-scheme: light dark;
+
+    --text: black;
+    --bg: white;
+
+    --unofficial-watermark: url(https://www.w3.org/StyleSheets/TR/2016/logos/UD-watermark);
+
+    --logo-bg: #1a5e9a;
+    --logo-active-bg: #c00;
+    --logo-text: white;
+
+    --tocnav-normal-text: #707070;
+    --tocnav-normal-bg: var(--bg);
+    --tocnav-hover-text: var(--tocnav-normal-text);
+    --tocnav-hover-bg: #f8f8f8;
+    --tocnav-active-text: #c00;
+    --tocnav-active-bg: var(--tocnav-normal-bg);
+
+    --tocsidebar-text: var(--text);
+    --tocsidebar-bg: #f7f8f9;
+    --tocsidebar-shadow: rgba(0,0,0,.1);
+    --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+    --toclink-text: var(--text);
+    --toclink-underline: #3980b5;
+    --toclink-visited-text: var(--toclink-text);
+    --toclink-visited-underline: #054572;
+
+    --heading-text: #005a9c;
+
+    --hr-text: var(--text);
+
+    --algo-border: #def;
+
+    --del-text: red;
+    --del-bg: transparent;
+    --ins-text: #080;
+    --ins-bg: transparent;
+
+    --a-normal-text: #034575;
+    --a-normal-underline: #bbb;
+    --a-visited-text: var(--a-normal-text);
+    --a-visited-underline: #707070;
+    --a-hover-bg: rgba(75%, 75%, 75%, .25);
+    --a-active-text: #c00;
+    --a-active-underline: #c00;
+
+    --blockquote-border: silver;
+    --blockquote-bg: transparent;
+    --blockquote-text: currentcolor;
+
+    --issue-border: #e05252;
+    --issue-bg: #fbe9e9;
+    --issue-text: var(--text);
+    --issueheading-text: #831616;
+
+    --example-border: #e0cb52;
+    --example-bg: #fcfaee;
+    --example-text: var(--text);
+    --exampleheading-text: #574b0f;
+
+    --note-border: #52e052;
+    --note-bg: #e9fbe9;
+    --note-text: var(--text);
+    --noteheading-text: hsl(120, 70%, 30%);
+    --notesummary-underline: silver;
+
+    --assertion-border: #aaa;
+    --assertion-bg: #eee;
+    --assertion-text: black;
+
+    --advisement-border: orange;
+    --advisement-bg: #fec;
+    --advisement-text: var(--text);
+    --advisementheading-text: #b35f00;
+
+    --warning-border: red;
+    --warning-bg: hsla(40,100%,50%,0.95);
+    --warning-text: var(--text);
+
+    --amendment-border: #330099;
+    --amendment-bg: #F5F0FF;
+    --amendment-text: var(--text);
+    --amendmentheading-text: #220066;
+
+    --def-border: #8ccbf2;
+    --def-bg: #def;
+    --def-text: var(--text);
+    --defrow-border: #bbd7e9;
+
+    --datacell-border: silver;
+
+    --indexinfo-text: #707070;
+
+    --indextable-hover-text: black;
+    --indextable-hover-bg: #f7f8f9;
+
+    --outdatedspec-bg: rgba(0, 0, 0, .5);
+    --outdatedspec-text: black;
+    --outdated-bg: maroon;
+    --outdated-text: white;
+    --outdated-shadow: red;
+
+    --editedrec-bg: darkorange;
 }
 
-a.externalDFN {
-    color:  inherit;
-    border-bottom:  1px dotted #ccc;
-    text-decoration:    none;
+</style>
+<style>/* Boilerplate: style-counters */
+body {
+    counter-reset: example figure issue;
+}
+.issue {
+    counter-increment: issue;
+}
+.issue:not(.no-marker)::before {
+    content: "Issue " counter(issue);
 }
 
-a.bibref {
-    text-decoration:    none;
+.example {
+    counter-increment: example;
+}
+.example:not(.no-marker)::before {
+    content: "Example " counter(example);
+}
+.invalid.example:not(.no-marker)::before,
+.illegal.example:not(.no-marker)::before {
+    content: "Invalid Example" counter(example);
 }
 
-cite .bibref {
-    font-style: normal;
+figcaption {
+    counter-increment: figure;
+}
+figcaption:not(.no-marker)::before {
+    content: "Figure " counter(figure) " ";
+}
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-code {
-    color:  #ff4500;
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
 }
 
-/* --- TOC --- */
-.toc a, .tof a {
-    text-decoration:    none;
+.dfn-paneled[role="button"] { cursor: pointer; }
+</style>
+<style>/* Boilerplate: style-issues */
+a[href].issue-return {
+    float: right;
+    float: inline-end;
+    color: var(--issueheading-text);
+    font-weight: bold;
+    text-decoration: none;
 }
-
-a .secno, a .figno {
-    color:  #000;
-}
-
-ul.tof, ol.tof {
-    list-style: none outside none;
-}
-
-.caption {
-    margin-top: 0.5em;
-    font-style:   italic;
-}
-
-/* --- TABLE --- */
-table.simple {
-    border-spacing: 0;
-    border-collapse:    collapse;
-    border-bottom:  3px solid #005a9c;
-}
-
-.simple th {
-    background: #005a9c;
-    color:  #fff;
-    padding:    3px 5px;
-    text-align: left;
-}
-
-.simple th[scope="row"] {
-    background: inherit;
-    color:  inherit;
-    border-top: 1px solid #ddd;
-}
-
-.simple td {
-    padding:    3px 10px;
-    border-top: 1px solid #ddd;
-}
-
-.simple tr:nth-child(even) {
-    background: #f0f6ff;
-}
-
-/* --- DL --- */
-.section dd > p:first-child {
+</style>
+<style>/* Boilerplate: style-md-lists */
+/* This is a weird hack for me not yet following the commonmark spec
+   regarding paragraph and lists. */
+[data-md] > :first-child {
     margin-top: 0;
 }
-
-.section dd > p:last-child {
+[data-md] > :last-child {
     margin-bottom: 0;
 }
+</style>
+<style>/* Boilerplate: style-selflinks */
 
-.section dd {
-    margin-bottom:  1em;
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
+.heading, .issue, .note, .example, li, dt {
+    position: relative;
+}
+a.self-link {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * (3.5rem - 26px));
+    width: calc(3.5rem - 26px);
+    height: 2em;
+    text-align: center;
+    border: none;
+    transition: opacity .2s;
+    opacity: .5;
+}
+a.self-link:hover {
+    opacity: 1;
+}
+.heading > a.self-link {
+    font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
+}
+li > a.self-link {
+    left: calc(-1 * (3.5rem - 26px) - 2em);
+}
+dfn > a.self-link {
+    top: auto;
+    left: auto;
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
+    font-style: normal;
+    transition: opacity .2s, background-color .2s, color .2s;
+}
+dfn:hover > a.self-link {
+    opacity: 1;
+}
+dfn > a.self-link:hover {
+    color: var(--selflink-hover-text);
 }
 
-.section dl.attrs dd, .section dl.eldef dd {
-    margin-bottom:  0;
-}
+a.self-link::before            { content: "¶"; }
+.heading > a.self-link::before { content: "§"; }
+dfn > a.self-link::before      { content: "#"; }
+</style>
+<style>/* Boilerplate: style-syntax-highlighting */
 
-@media print {
-    .removeOnSave {
-        display: none;
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+</style>
+ <body class="h-entry">
+  <div class="head">
+   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
+   <h1 class="p-name no-ref" id="title">Web Identity and Discovery</h1>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2024-01-16">16 January 2024</time></p>
+   <details open>
+    <summary>More details about this document</summary>
+    <div data-fill-with="spec-metadata">
+     <dl>
+      <dt>This version:
+      <dd><a class="u-url" href="https://www.w3.org/2005/Incubator/webid/spec/identity/">https://www.w3.org/2005/Incubator/webid/spec/identity/</a>
+      <dt>Latest published version:
+      <dd><a href="http://www.w3.org/TR/webid/">http://www.w3.org/TR/webid/</a>
+      <dt>Previous Versions:
+      <dd><a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/" rel="prev">http://www.w3.org/2005/Incubator/webid/spec/drafts/</a>
+      <dt>Feedback:
+      <dd><a href="https://github.com/w3c/WebID/issues/">GitHub</a>
+      <dt class="editor">Editor:
+      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:jacopo@scazzosi.com">Jacopo Scazzosi</a>
+      <dt class="editor">Former Editors:
+      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:andrei@fcns.eu">Andrei Sambra</a>
+      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:scorlosquet@gmail.com">Stéphane Corlosquet</a>
+     </dl>
+    </div>
+   </details>
+   <div data-fill-with="warning"></div>
+   <p class="copyright" data-fill-with="copyright"><a href="https://www.w3.org/policies/#copyright">Copyright</a> © 2024 <a href="https://www.w3.org/">World Wide Web Consortium</a>. <abbr title="World Wide Web Consortium">W3C</abbr><sup>®</sup> <a href="https://www.w3.org/policies/#Legal_Disclaimer">liability</a>, <a href="https://www.w3.org/policies/#W3C_Trademarks">trademark</a> and <a href="https://www.w3.org/copyright/software-license/" rel="license" title="W3C Software and Document License">permissive document license</a> rules apply. </p>
+   <hr title="Separator for header">
+  </div>
+  <div class="p-summary" data-fill-with="abstract">
+   <h2 class="no-num no-toc no-ref heading settled" id="abstract"><span class="content">Abstract</span></h2>
+   <p>A global distributed Social Web requires that each person be able to control
+
+  their identity, that this identity be linkable across sites — placing each
+  person in a Web of relationships — and that it be possible to authenticate
+  globally with such identities.</p>
+   <p>This specification outlines a simple universal identification mechanism that
+
+  is distributed, openly extensible, improves privacy, security and control
+  over how each person can identify themselves in order to allow fine grained
+  access control to their information on the Web. It does this by applying the
+  best practices of Web Architecture whilst building on well established widely
+  deployed protocols and standards including HTML, URIs, HTTP, and RDF
+  Semantics.</p>
+   <h3 class="heading settled" id="how-to-read-this-document"><span class="content">How to Read this Document</span></h3>
+   <p>There are a number of concepts that are covered in this document that the
+
+  reader may want to be aware of before continuing. General knowledge of RDF <a data-link-type="biblio" href="#biblio-rdf-primer" title="RDF Primer">[RDF-PRIMER]</a> is necessary to understand how to implement this
+  specification. WebID uses a number of specific technologies like Turtle <a data-link-type="biblio" href="#biblio-turtle" title="RDF 1.1 Turtle">[TURTLE]</a> and RDFa <a data-link-type="biblio" href="#biblio-rdfa-core" title="RDFa Core 1.1 - Third Edition">[RDFA-CORE]</a>.</p>
+   <p>A general <a href="#introduction">Introduction</a> is provided for all that would like
+
+  to understand why this specification is necessary to simplify usage of the Web.</p>
+   <p>The terms used throughout this specification are listed in the section titled <a href="#terminology">Terminology</a>.</p>
+  </div>
+  <h2 class="no-num no-toc no-ref heading settled" id="sotd"><span class="content">Status of this document</span></h2>
+  <div data-fill-with="status">
+   <p></p>
+   <p><em>This section describes the status of this document at the time of its
+
+publication. Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the
+latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web
+Consortium">W3C</abbr> technical reports index</a> at
+http://www.w3.org/TR/.</em></p>
+   <p>This document is produced from work by the <a href="http://www.w3.org/community/webid/"><abbr title="World Wide Web
+Consortium">W3C</abbr> WebID Community Group</a>. This is an internal draft
+document and may not even end up being officially published. It may also be
+updated, replaced or obsoleted by other documents at any time. It is
+inappropriate to cite this document as other than work in progress. The
+source code for this document is available at the following URI:
+https://dvcs.w3.org/hg/WebID</p>
+   <p>This document was published by the <a href="http://www.w3.org/community/webid/">WebID CG</a> as an Editor’s Draft.
+If you wish to make comments regarding this document, please send them to
+public-webid@w3.org <a href="mailto:public-webid-request@w3.org?subject=subscribe">subscribe</a>, <a href="http://lists.w3.org/Archives/Public/public-webid/">archives</a>. All
+comments are welcome.</p>
+   <p>Publication as an Editor’s Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft
+document and may be updated, replaced or obsoleted by other documents at any
+time. It is inappropriate to cite this document as other than work in
+progress.</p>
+   <p>This document was produced by a group operating under the <a about href="http://www.w3.org/Consortium/Patent-Policy-20040205/" id="sotd_patent" rel="w3p:patentRules">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a href="http://www.w3.org/2004/01/pp-impl/46065/status" rel="disclosure">public list of any
+patent disclosures</a> made in connection with the deliverables of the group;
+that page also includes instructions for disclosing a patent. An individual
+who has actual knowledge of a patent which the individual believes contains <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
+Claim(s)</a> must disclose the information in accordance with <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
+6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent
+Policy</a>.</p>
+  </div>
+  <div data-fill-with="at-risk"></div>
+  <main>
+   <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
+   <p><em>This section is non-normative.</em></p>
+   <p>A WebID is an HTTP URI that refers to an Agent (Person, Organization, Group,
+Device, etc.). A description of the WebID can be found in the <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document">WebID Profile
+Document</a>, a type of web page that would be familiar to any Social Network
+user.</p>
+   <p>A <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document①">WebID Profile Document</a> is a Web resource that <em class="rfc2119">MUST</em> be available as <code>text/turtle</code> <a data-link-type="biblio" href="#biblio-turtle" title="RDF 1.1 Turtle">[TURTLE]</a>, but <em class="rfc2119">MAY</em> be available in other RDF serialization
+formats (e.g., <a data-link-type="biblio" href="#biblio-rdfa-core" title="RDFa Core 1.1 - Third Edition">[RDFA-CORE]</a>) if requested through content negotiation.</p>
+   <p>WebIDs can be used to build a Web of trust using vocabularies such as FOAF <a data-link-type="biblio" href="#biblio-foaf" title="FOAF Vocabulary Specification 0.99 (Paddington Edition)">[FOAF]</a> by allowing people to link their profiles in a public or protected
+manner. Such a web of trust can then be used by a <a data-link-type="dfn" href="#service" id="ref-for-service">Service</a> to make
+authorization decisions, by allowing access to resources depending on the
+properties of an agent, such as that they are known by some relevant people,
+employed at a given company, a member of a family or some other group, etc.</p>
+   <h3 class="heading settled" data-level="1.1" id="outline"><span class="secno">1.1. </span><span class="content">Outline</span><a class="self-link" href="#outline"></a></h3>
+   <p>This specification is divided in the following sections.</p>
+   <p><a href="#introduction">This section</a> gives a high level overview of WebID, and
+presents the organization of the specification and the conventions used
+throughout this document.</p>
+   <p><a href="#terminology">Section 2</a> provides a short description for the most commonly
+used terms in this document.</p>
+   <p><a href="#the-webid-http-uri">Section 3</a> describes what a WebID URI is.</p>
+   <p><a href="#overview">Section 4</a> presents an overview of WebID.</p>
+   <p><a href="#publishing-the-webid-profile-document">Section 5</a> deals with the publishing
+of a <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document②">WebID Profile Document</a>.</p>
+   <p><a href="#processing-the-webid-profile">Section 6</a> describes how a request for a <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document③">WebID Profile Document</a> should be handled.</p>
+   <h2 class="heading settled" data-level="2" id="terminology"><span class="secno">2. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
+   <p>This section provides definitions for several important terms used in this
+document.</p>
+   <dl>
+    <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="requesting-agent">Requesting Agent</dfn>
+    <dd data-md>
+     <p>The Requesting Agent initiates a request to a Service listening on a
+specific port using a given protocol on a given Server.</p>
+    <dt data-md><dfn data-dfn-type="dfn" data-noexport id="server">Server<a class="self-link" href="#server"></a></dfn>
+    <dd data-md>
+     <p>A Server is a physical or virtual machine, contactable at a domain name or
+IP address, that hosts Services which are accessible over the network.</p>
+    <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="service">Service</dfn>
+    <dd data-md>
+     <p>A Service is an agent listening for requests at a particular domain name or
+IP address on a given Server.</p>
+    <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="webid">WebID</dfn>
+    <dd data-md>
+     <p>A WebID is a URI with an HTTP or HTTPS scheme that denotes an Agent (Person,
+Organization, Group, Device, etc.). For WebIDs with fragment identifiers
+(e.g., <code>#me</code>), the URI without the fragment denotes the WebID Profile
+Document. For WebIDs without fragment identifiers an HTTP request on the
+WebID <em class="rfc2119">MUST</em> return a 303 with a Location header URI referring to the WebID
+Profile Document.</p>
+    <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="webid-profile-document">WebID Profile Document</dfn>
+    <dd data-md>
+     <p>A WebID Profile Document is an RDF document that uniquely describes the
+Agent denoted by the WebID in relation to that WebID. The server <em class="rfc2119">MUST</em> provide a <code>text/turtle</code> <a data-link-type="biblio" href="#biblio-turtle" title="RDF 1.1 Turtle">[TURTLE]</a> representation of the requested
+profile. This document <em class="rfc2119">MAY</em> be available in other RDF serialization
+formats, such as RDFa <a data-link-type="biblio" href="#biblio-rdfa-core" title="RDFa Core 1.1 - Third Edition">[RDFA-CORE]</a>, or <a data-link-type="biblio" href="#biblio-rdf-syntax-grammar" title="RDF Test Cases">[RDF-SYNTAX-GRAMMAR]</a> if so
+requested through content negotiation.</p>
+   </dl>
+   <h3 class="heading settled" data-level="2.1" id="namespaces"><span class="secno">2.1. </span><span class="content">Namespaces</span><a class="self-link" href="#namespaces"></a></h3>
+   <p>Examples assume the following namespace prefix bindings unless otherwise
+stated:</p>
+   <table class="prefixes">
+    <thead>
+     <tr>
+      <th>Prefix
+      <th>IRI
+    <tbody>
+     <tr>
+      <td><code>foaf</code>
+      <td>http://xmlns.com/foaf/0.1/
+   </table>
+   <h2 class="heading settled" data-level="3" id="the-webid-http-uri"><span class="secno">3. </span><span class="content">The WebID HTTP URI</span><a class="self-link" href="#the-webid-http-uri"></a></h2>
+   <p>When using URIs, it is possible to identify both a thing (which may exist
+outside of the Web) and a Web document describing the thing. For example, the
+person Bob is described on his homepage. Alice may not like the look of Bob’s
+homepage, but may want to link to the person Bob. Therefore, two URIs are
+needed, one for Bob and one for Bob’s homepage (or an RDF document describing
+Bob).</p>
+   <p>The WebID HTTP URI must be one that dereferences to a document the user
+controls.</p>
+   <p>For example, if a user Bob controls <code>https://bob.example.org/profile</code>, then his
+WebID can be <code>https://bob.example.org/profile#me</code>.</p>
+   <div class="note" id="h_note_1" role="note">
+    <a class="self-link" href="#h_note_1"></a> 
+    <p>There are two solutions that meet our requirements for identifying real-world
+  objects: 303 redirects and hash URIs. Which one to use depends on the
+  situation. Both have advantages and disadvantages, as presented in <a data-link-type="biblio" href="#biblio-cooluris" title="Cool URIs for the Semantic Web">[COOLURIS]</a>. All examples in this specification will use such hash URIs.</p>
+   </div>
+   <h2 class="heading settled" data-level="4" id="overview"><span class="secno">4. </span><span class="content">Overview</span><a class="self-link" href="#overview"></a></h2>
+   <p><em>This section is non-normative.</em></p>
+   <p>The relation between the <a data-link-type="dfn" href="#webid" id="ref-for-webid">WebID</a> URI and the <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document④">WebID Profile Document</a> is
+illustrated below.</p>
+   <p><img alt id="webid-diagram" src="img/WebID-overview.png" width="100%"></p>
+   <p>The WebID URI — <em>"<a href="http://www.w3.org/People/Berners-Lee/card#i">http://www.w3.org/People/Berners-Lee/card<strong>#i</strong></a>"</em> (containing the <strong>#i</strong> hash tag) — is an identifier that denotes (refers to) a
+person or more generally an agent. In the above illustration, the referent is
+Tim Berners Lee, a real physical person who has a history, who invented the
+World Wide Web, and who directs the World Web Consortium.</p>
+   <p>The WebID Profile Document URI — <em>"<a href="http://www.w3.org/People/Berners-Lee/card">http://www.w3.org/People/Berners-Lee/card</a>"</em> (without the <strong>#i</strong> hash
+tag) — denotes the document describing the person (or more generally any agent)
+who is the referent of the WebID URI.</p>
+   <p>The WebID Profile Document gives the meaning of the WebID: its RDF Graph
+contains a <a href="http://www.w3.org/Submission/CBD/">Concise Bounded Description</a> of
+the WebID such that this subgraph forms a definite description of the referent
+of the WebID, that is, a description that distinguishes the referent of that
+WebID from all other things in the world. <br> The WebID Profile Document
+can, for example, contain relations to other documents depicting the WebID
+referent, or it can relate the WebID to principals used by different
+authentication protocols. (More information on WebID and other authentication
+protocols can be found on the <a href="http://www.w3.org/2005/Incubator/webid/wiki/Identity_Interoperability">WebID Identity
+Interoperability</a> page).</p>
+   <h2 class="heading settled" data-level="5" id="publishing-the-webid-profile-document"><span class="secno">5. </span><span class="content">Publishing the WebID Profile Document</span><a class="self-link" href="#publishing-the-webid-profile-document"></a></h2>
+   <p>WebID requires that servers <em class="rfc2119">MUST</em> at least be able to provide Turtle
+representation of WebID Profile Documents, but other serialization formats of
+the graph are allowed, provided that agents are able to parse that
+serialization and obtain the graph automatically. HTTP Content Negotiation can
+be employed to aid in publication and discovery of multiple distinct
+serializations of the same graph at the same URL, as explained in <a data-link-type="biblio" href="#biblio-cooluris" title="Cool URIs for the Semantic Web">[COOLURIS]</a></p>
+   <p>It is particularly useful to have one of the representations be in HTML even if
+it is not marked up in RDFa, as this allows people using a web browser to
+understand what the information at that URI represents.</p>
+   <h3 class="heading settled" data-level="5.1" id="webid-profile-vocabulary"><span class="secno">5.1. </span><span class="content">WebID Profile Document Vocabulary</span><a class="self-link" href="#webid-profile-vocabulary"></a></h3>
+   <p>WebID RDF graphs are built using vocabularies identified by URIs, that can be
+placed in subject, predicate or object position of the relations constituting
+the graph. The definition of each URI should be found at the namespace of the
+URI, by dereferencing it.</p>
+   <h4 class="heading settled" data-level="5.1.1" id="personal-information"><span class="secno">5.1.1. </span><span class="content">Personal Information</span><a class="self-link" href="#personal-information"></a></h4>
+   <p><em>This section is non-normative.</em></p>
+   <p>Personal details are the most common requirement when registering an account
+with a website. Some of these pieces of information include an e-mail address,
+a name and perhaps an avatar image, expressed using the FOAF <a data-link-type="biblio" href="#biblio-foaf" title="FOAF Vocabulary Specification 0.99 (Paddington Edition)">[FOAF]</a> vocabulary. This section includes properties that <em class="rfc2119">SHOULD</em> be used when
+conveying key pieces of personal information but are <em class="rfc2119" title="NOT REQUIRED">NOT REQUIRED</em> to be present in a <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑤">WebID Profile
+Document</a>:</p>
+   <dl>
+    <dt data-md>foaf:name :: The name of the individual or agent.
+    <dt data-md>foaf:knows :: The WebID URI of a known person.
+    <dt data-md>foaf:img :: An image representing a person.
+   </dl>
+   <h3 class="heading settled" data-level="5.2" id="publishing-a-webid-profile-using-turtle"><span class="secno">5.2. </span><span class="content">Publishing a WebID Profile using Turtle ##</span><a class="self-link" href="#publishing-a-webid-profile-using-turtle"></a></h3>
+    {#publishing-a-webid-profile-using-turtle} 
+   <p><em>This section is non-normative.</em></p>
+   <p>A widely used format for writing RDF graphs by hand is the <a href="http://www.w3.org/TR/turtle/">Turtle</a> <a data-link-type="biblio" href="#biblio-turtle" title="RDF 1.1 Turtle">[TURTLE]</a> notation. It is easy to
+learn, and very handy for communicating over e-mail and on mailing lists. The
+syntax is very similar to the <a href="http://www.w3.org/TR/rdf-sparql-query/">SPARQL</a> query language. WebID Profile Documents in Turtle should be served with the <code>text/turtle</code> content type.</p>
+   <p>Take for example the WebID <em>https://bob.example.org/profile#me</em>, for which the
+WebID Profile Document contains the following Turtle representation:</p>
+   <div class="example" id="ex-webid-profile-turtle">
+    <a class="self-link" href="#ex-webid-profile-turtle"></a> 
+<pre class="highlight"><c- k>@prefix</c-> <c- nn>foaf:</c-> <c- g>&lt;http://xmlns.com/foaf/0.1/></c-> <c- p>.</c->
+
+<c- g>&lt;></c-> <c- b>a</c-> <c- nn>foaf</c-><c- p>:</c-><c- f>PersonalProfileDocument</c-> <c- p>;</c->
+  <c- nn>foaf</c-><c- p>:</c-><c- f>maker</c-> <c- g>&lt;#me></c-> <c- p>;</c->
+  <c- nn>foaf</c-><c- p>:</c-><c- f>primaryTopic</c-> <c- g>&lt;#me></c-> <c- p>.</c->
+
+<c- g>&lt;#me></c-> <c- b>a</c-> <c- nn>foaf</c-><c- p>:</c-><c- f>Person</c-> <c- p>;</c->
+  <c- nn>foaf</c-><c- p>:</c-><c- f>name</c-> <c- s>"Bob"</c-> <c- p>;</c->
+  <c- nn>foaf</c-><c- p>:</c-><c- f>knows</c-> <c- g>&lt;https://example.edu/p/Alice#MSc></c-> <c- p>;</c->
+  <c- nn>foaf</c-><c- p>:</c-><c- f>img</c-> <c- g>&lt;https://bob.example.org/picture.jpg></c-> <c- p>.</c->
+</pre>
+   </div>
+   <h3 class="heading settled" data-level="5.3" id="publishing-a-webid-profile-using-the-rdfa-html-notation"><span class="secno">5.3. </span><span class="content">Publishing a WebID Profile Document using the RDFa HTML notation</span><a class="self-link" href="#publishing-a-webid-profile-using-the-rdfa-html-notation"></a></h3>
+   <p><em>This section is non-normative.</em></p>
+   <p>RDFa in HTML <a data-link-type="biblio" href="#biblio-rdfa-core" title="RDFa Core 1.1 - Third Edition">[RDFA-CORE]</a> is a way to markup HTML with relations that have a
+well defined semantics and mapping to an RDF graph. There are many ways of
+writing out the above graph using RDFa in HTML. Here is just one example of
+what a WebID Profile Document could look like.</p>
+   <div class="example" id="ex-webid-profile-rdfa">
+    <a class="self-link" href="#ex-webid-profile-rdfa"></a> 
+<pre class="highlight"><c- p>&lt;</c-><c- f>div</c-> <c- e>vocab</c-><c- o>=</c-><c- s>"http://xmlns.com/foaf/0.1/"</c-> <c- e>about</c-><c- o>=</c-><c- s>"#me"</c-> <c- e>typeof</c-><c- o>=</c-><c- s>"foaf:Person"</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>p</c-><c- p>></c->My name is <c- p>&lt;</c-><c- f>span</c-> <c- e>property</c-><c- o>=</c-><c- s>"name"</c-><c- p>></c->Bob<c- p>&lt;/</c-><c- f>span</c-><c- p>></c-> and this is how I look like: <c- p>&lt;</c-><c- f>img</c-> <c- e>property</c-><c- o>=</c-><c- s>"img"</c-> <c- e>src</c-><c- o>=</c-><c- s>"https://bob.example.org/picture.jpg"</c-> <c- e>title</c-><c- o>=</c-><c- s>"Bob"</c-> <c- e>alt</c-><c- o>=</c-><c- s>"Bob"</c-> <c- p>/>&lt;/</c-><c- f>p</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>h2</c-><c- p>></c->My Good Friends<c- p>&lt;/</c-><c- f>h2</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>ul</c-><c- p>></c->
+    <c- p>&lt;</c-><c- f>li</c-> <c- e>property</c-><c- o>=</c-><c- s>"knows"</c-> <c- e>href</c-><c- o>=</c-><c- s>"https://example.edu/p/Alice#MSc"</c-><c- p>></c->Alice<c- p>&lt;/</c-><c- f>li</c-><c- p>></c->
+  <c- p>&lt;/</c-><c- f>ul</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>div</c-><c- p>></c->
+</pre>
+   </div>
+   <p>If a WebID provider would prefer not to mark up his WebID Profile Document in
+HTML+RDFa, but just provide a human readable format for users in plain HTML and
+have the RDF graph appear in a machine readable format such as Turtle, then he <em class="rfc2119">SHOULD</em> provide a link of type <code>alternate</code> to a machine readable format <a data-link-type="biblio" href="#biblio-rfc5988" title="Web Linking">[RFC5988]</a>. This can be placed in the HTTP header or in the html as shown
+here:</p>
+   <div class="example" id="webid-profile-link">
+    <a class="self-link" href="#webid-profile-link"></a> 
+<pre class="highlight"><c- p>&lt;</c-><c- f>html</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>head</c-><c- p>></c->
+    <c- p>&lt;</c-><c- f>link</c-> <c- e>rel</c-><c- o>=</c-><c- s>"alternate"</c-> <c- e>type</c-><c- o>=</c-><c- s>"text/turtle"</c-> <c- e>href</c-><c- o>=</c-><c- s>"profile.ttl"</c-><c- p>/></c->
+  <c- p>&lt;/</c-><c- f>head</c-><c- p>></c->
+  <c- p>&lt;</c-><c- f>body</c-><c- p>></c-> ... <c- p>&lt;/</c-><c- f>body</c-><c- p>></c->
+<c- p>&lt;/</c-><c- f>html</c-><c- p>></c->
+</pre>
+   </div>
+   <h3 class="heading settled" data-level="5.4" id="privacy"><span class="secno">5.4. </span><span class="content">Privacy</span><a class="self-link" href="#privacy"></a></h3>
+   <p><em>This section is non-normative.</em></p>
+   <p>A WebID Profile Document may contain public as well as private information
+about the agent identified by the WebID. As some agents may not want to reveal
+a lot of information about themselves, RDF and Linked Data principles allows
+them to choose how much information they wish to make publicly available. This
+can be achieved by separating parts of the profile information into separate
+documents, each protected by access control policies.</p>
+   <p>On the other hand, some agents may want to publish more information about
+themselves, but only to a select group of trusted agents. In the following
+example, Bob is limiting access to his list of friends, by placing all <em>foaf:knows</em> relations into a separate document.</p>
+   <div class="example" id="ex-privacy-profile">
+    <a class="self-link" href="#ex-privacy-profile"></a> 
+<pre class="highlight"><c- k>@prefix</c-> <c- nn>foaf:</c-> <c- g>&lt;http://xmlns.com/foaf/0.1/></c-> <c- p>.</c->
+<c- k>@prefix</c-> <c- nn>rdfs:</c-> <c- g>&lt;http://www.w3.org/2000/01/rdf-schema#></c-> <c- p>.</c->
+
+<c- g>&lt;></c-> <c- b>a</c-> <c- nn>foaf</c-><c- p>:</c-><c- f>PersonalProfileDocument</c-> <c- p>;</c->
+  <c- nn>foaf</c-><c- p>:</c-><c- f>maker</c-> <c- g>&lt;#me></c-> <c- p>;</c->
+  <c- nn>foaf</c-><c- p>:</c-><c- f>primaryTopic</c-> <c- g>&lt;#me></c-> <c- p>.</c->
+
+<c- g>&lt;#me></c-> <c- b>a</c-> <c- nn>foaf</c-><c- p>:</c-><c- f>Person</c-> <c- p>;</c->
+  <c- nn>foaf</c-><c- p>:</c-><c- f>name</c-> <c- s>"Bob"</c-> <c- p>;</c->
+  <strong><c- nn>rdfs</c-><c- p>:</c-><c- f>seeAlso</c-> <c- g>&lt;https://bob.example.org/friends></c-> <c- p>;</c-></strong>
+  <c- nn>foaf</c-><c- p>:</c-><c- f>img</c-> <c- g>&lt;https://bob.example.org/picture.jpg></c-> <c- p>.</c->
+</pre>
+   </div>
+   <p>Where https://bob.example.org/friends is a reference to an Access Control List
+(ACL) protected document containing:</p>
+   <div class="example" id="ex-privacy-seeAlso">
+    <a class="self-link" href="#ex-privacy-seeAlso"></a> 
+<pre class="highlight"><c- k>@prefix</c-> <c- nn>foaf:</c-> <c- g>&lt;http://xmlns.com/foaf/0.1/></c-> <c- p>.</c->
+
+<c- g>&lt;></c-> <c- b>a</c-> <c- nn>foaf</c-><c- p>:</c-><c- f>PersonalProfileDocument</c-> <c- p>;</c->
+  <c- nn>foaf</c-><c- p>:</c-><c- f>maker</c-> <c- g>&lt;https://bob.example.org/profile#me></c-> <c- p>;</c->
+  <c- nn>foaf</c-><c- p>:</c-><c- f>primaryTopic</c-> <c- g>&lt;https://bob.example.org/profile#me></c-> <c- p>.</c->
+
+<c- g>&lt;https://bob.example.org/profile#me></c-> <c- b>a</c-> <c- nn>foaf</c-><c- p>:</c-><c- f>Person</c-> <c- p>;</c->
+  <c- nn>foaf</c-><c- p>:</c-><c- f>knows</c-> <c- g>&lt;https://example.edu/p/Alice#MSc></c-> <c- p>;</c->
+  <c- nn>foaf</c-><c- p>:</c-><c- f>knows</c-> <c- g>&lt;https://example.com/people/Mary/card#me></c-> <c- p>.</c->
+</pre>
+   </div>
+   <p>and having the following corresponding ACL rule, expressed using the <a href="http://www.w3.org/wiki/WebAccessControl">WebAccessControl</a> ontology:</p>
+   <div class="example" id="ex-privacy-acl">
+    <a class="self-link" href="#ex-privacy-acl"></a> 
+<pre class="highlight"><c- k>@prefix</c-> <c- nn>acl:</c-> <c- g>&lt;http://www.w3.org/ns/auth/acl#></c-> <c- p>.</c->
+
+<c- g>&lt;#FriendsOnly></c-> <c- p>;</c->
+  <c- nn>acl</c-><c- p>:</c-><c- f>accessTo</c-> <c- g>&lt;https://bob.example.org/friends></c-> <c- p>;</c->
+  <c- nn>acl</c-><c- p>:</c-><c- f>agent</c-> <c- g>&lt;http://example.edu/p/Alice#Msc></c-><c- p>,</c-> <c- g>&lt;http://example.com/people/Mary/card#me></c-> <c- p>;</c->
+  <c- nn>acl</c-><c- p>:</c-><c- f>mode</c-> <c- nn>acl</c-><c- p>:</c-><c- f>Read</c-> <c- p>.</c->
+</pre>
+   </div>
+   <h3 class="heading settled" data-level="5.5" id="security-considerations"><span class="secno">5.5. </span><span class="content">Security Considerations</span><a class="self-link" href="#security-considerations"></a></h3>
+   <p><em>This section is non-normative.</em></p>
+   <p>A <a data-link-type="dfn" href="#webid" id="ref-for-webid①">WebID</a> identifies an agent via a description found in the associated <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑥">WebID Profile Document</a>. An agent that wishes to know what a WebID refers
+to, must rely on the description found in the WebID Profile. An attack on the
+relation between the <a data-link-type="dfn" href="#webid" id="ref-for-webid②">WebID</a> and the <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑦">WebID Profile Document</a> can thus be
+used to subvert the meaning of the WebID, and to make agents following links
+within the <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑧">WebID Profile Document</a> come to different conclusions from those
+intended by profile owners.</p>
+   <p>The standard way of overcoming such attacks is to rely on the cryptographic
+security protocols within the HTTPS <a data-link-type="biblio" href="#biblio-http-tls" title="HTTP Semantics">[HTTP-TLS]</a> stack. HTTPS servers are
+identified by a certificate either signed by a well known Certification
+Authority or whose public key is listed in the DNSSEC as specified by the DANE
+protocol <a data-link-type="biblio" href="#biblio-rfc6698" title="The DNS-Based Authentication of Named Entities (DANE) Transport Layer Security (TLS) Protocol: TLSA">[RFC6698]</a>, or both. This makes it much more difficult to set up a
+fake server by DNS Poisoning attacks. Resources served over HTTPS are
+furthermore signed and encrypted removing all the simple man-in-the-middle
+attacks. Applying the above security measure does not remove the burden from
+server administrators to take the appropriate security measures, in order to
+avoid compromising their servers. Similarly, clients that fetch documents on
+the web also need to make sure their work environment has not bee
+compromised.</p>
+   <p>As security is constantly being challenged by new attacks, to which new
+responses are found, a collection of security considerations will be made
+available on the <a href="http://www.w3.org/2005/Incubator/webid/wiki/Identity_Security">WebID
+Wiki</a>.</p>
+   <h2 class="heading settled" data-level="6" id="processing-the-webid-profile"><span class="secno">6. </span><span class="content">Processing the WebID Profile</span><a class="self-link" href="#processing-the-webid-profile"></a></h2>
+   <p>The <a data-link-type="dfn" href="#requesting-agent" id="ref-for-requesting-agent">Requesting Agent</a> needs to fetch the WebID Profile Document, if it does
+not have a valid one in cache. The Agent requesting the WebID Profile Document <em class="rfc2119">MUST</em> be able to parse documents in Turtle <a data-link-type="biblio" href="#biblio-turtle" title="RDF 1.1 Turtle">[TURTLE]</a>, but <em class="rfc2119">MAY</em> also be able
+to parse documents in RDF/XML <a data-link-type="biblio" href="#biblio-rdf-syntax-grammar" title="RDF Test Cases">[RDF-SYNTAX-GRAMMAR]</a> and RDFa <a data-link-type="biblio" href="#biblio-rdfa-core" title="RDFa Core 1.1 - Third Edition">[RDFA-CORE]</a>.
+The result of this processing should be a graph of RDF relations that is
+queryable, as explained in the next section.</p>
+   <div class="note" id="note-qvalue" role="note">
+    <a class="self-link" href="#note-qvalue"></a> 
+    <p>It is recommended that the <a data-link-type="dfn" href="#requesting-agent" id="ref-for-requesting-agent①">Requesting Agent</a> sets a <em>qvalue</em> for <code>text/turtle</code> in the HTTP <code>Accept-Header</code> with a higher priority than in the
+  case of <code>application/xhtml+xml</code> or <code>text/html</code>, as sites may produce HTML
+  without RDFa markup but with a link to graph encoded in a pure RDF format
+  such as Turtle. For an agent that can parse Turtle, rdf/xml and RDFa, the
+  following would be a reasonable Accept header: <br> <code>Accept: text/turtle,application/rdf+xml,application/xhtml+xml;q=0.8,text/html;q=0.7</code></p>
+   </div>
+   <p>If the <a data-link-type="dfn" href="#requesting-agent" id="ref-for-requesting-agent②">Requesting Agent</a> wishes to have the most up-to-date WebID Profile
+Document for an HTTP URL, it can use the HTTP cache control headers to get the
+latest versions.</p>
+   <h2 class="heading settled" data-level="7" id="acknowledgments"><span class="secno">7. </span><span class="content">Acknowledgments</span><a class="self-link" href="#acknowledgments"></a></h2>
+   <p><em>This section is non-normative.</em></p>
+   <p>The following people have been instrumental in providing thoughts, feedback,
+reviews, criticism and input in the creation of this specification:</p>
+   <p>Stéphane Corlosquet, Erich Bremer, Kingsley Idehen, Ted Thibodeau, Alexandre
+Bertails, Thomas Bergwinkl.</p>
+  </main>
+<script src="https://www.w3.org/scripts/TR/2021/fixup.js"></script>
+  <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
+  <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
+  <dl>
+   <dt id="biblio-cooluris">[COOLURIS]
+   <dd>Leo Sauermann; Richard Cyganiak. <a href="https://www.w3.org/TR/cooluris/"><cite>Cool URIs for the Semantic Web</cite></a>. 3 December 2008. NOTE. URL: <a href="https://www.w3.org/TR/cooluris/">https://www.w3.org/TR/cooluris/</a>
+   <dt id="biblio-foaf">[FOAF]
+   <dd>Dan Brickley; Libby Miller. <a href="http://xmlns.com/foaf/spec"><cite>FOAF Vocabulary Specification 0.99 (Paddington Edition)</cite></a>. 14 January 2014. URL: <a href="http://xmlns.com/foaf/spec">http://xmlns.com/foaf/spec</a>
+   <dt id="biblio-http-tls">[HTTP-TLS]
+   <dd>R. Fielding, Ed.; M. Nottingham, Ed.; J. Reschke, Ed.. <a href="https://httpwg.org/specs/rfc9110.html"><cite>HTTP Semantics</cite></a>. June 2022. Internet Standard. URL: <a href="https://httpwg.org/specs/rfc9110.html">https://httpwg.org/specs/rfc9110.html</a>
+   <dt id="biblio-rdf-primer">[RDF-PRIMER]
+   <dd>Frank Manola; Eric Miller. <a href="https://w3c.github.io/rdf-primer/spec/"><cite>RDF Primer</cite></a>. URL: <a href="https://w3c.github.io/rdf-primer/spec/">https://w3c.github.io/rdf-primer/spec/</a>
+   <dt id="biblio-rdf-syntax-grammar">[RDF-SYNTAX-GRAMMAR]
+   <dd>jan grant; Dave Beckett. <a href="https://www.w3.org/TR/rdf-testcases/"><cite>RDF Test Cases</cite></a>. 10 February 2004. REC. URL: <a href="https://www.w3.org/TR/rdf-testcases/">https://www.w3.org/TR/rdf-testcases/</a>
+   <dt id="biblio-rdfa-core">[RDFA-CORE]
+   <dd>Ben Adida; et al. <a href="https://www.w3.org/TR/rdfa-core/"><cite>RDFa Core 1.1 - Third Edition</cite></a>. 17 March 2015. REC. URL: <a href="https://www.w3.org/TR/rdfa-core/">https://www.w3.org/TR/rdfa-core/</a>
+   <dt id="biblio-rfc5988">[RFC5988]
+   <dd>M. Nottingham. <a href="https://httpwg.org/specs/rfc8288.html"><cite>Web Linking</cite></a>. October 2017. Proposed Standard. URL: <a href="https://httpwg.org/specs/rfc8288.html">https://httpwg.org/specs/rfc8288.html</a>
+   <dt id="biblio-rfc6698">[RFC6698]
+   <dd>P. Hoffman; J. Schlyter. <a href="https://www.rfc-editor.org/rfc/rfc6698"><cite>The DNS-Based Authentication of Named Entities (DANE) Transport Layer Security (TLS) Protocol: TLSA</cite></a>. August 2012. Proposed Standard. URL: <a href="https://www.rfc-editor.org/rfc/rfc6698">https://www.rfc-editor.org/rfc/rfc6698</a>
+   <dt id="biblio-turtle">[TURTLE]
+   <dd>Eric Prud'hommeaux; Gavin Carothers. <a href="https://w3c.github.io/rdf-turtle/spec/"><cite>RDF 1.1 Turtle</cite></a>. URL: <a href="https://w3c.github.io/rdf-turtle/spec/">https://w3c.github.io/rdf-turtle/spec/</a>
+  </dl>
+<script>/* Boilerplate: script-dfn-panel */
+"use strict";
+{
+    const dfnsJson = window.dfnsJson || {};
+
+    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
+        return mk.aside({
+            class: "dfn-panel",
+            id: `infopanel-for-${dfnID}`,
+            "data-for": dfnID,
+            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+            },
+            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+                `Info about the '${dfnText}' ${external?"external":""} reference.`),
+            mk.a({href:url}, url),
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({
+                                    href: `#${ref.id}`
+                                    },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    function genAllDfnPanels() {
+        for(const panelData of Object.values(window.dfnpanelData)) {
+            const dfnID = panelData.dfnID;
+            const dfn = document.getElementById(dfnID);
+            if(!dfn) {
+                console.log(`Can't find dfn#${dfnID}.`, panelData);
+            } else {
+                const panel = genDfnPanel(panelData);
+                append(document.body, panel);
+                insertDfnPopupAction(dfn, panel)
+            }
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+        genAllDfnPanels();
+
+        // Add popup behavior to all dfns to show the corresponding dfn-panel.
+        var dfns = queryAll('.dfn-paneled');
+        for(let dfn of dfns) { ; }
+
+        document.body.addEventListener("click", (e) => {
+            // If not handled already, just hide all dfn panels.
+            hideAllDfnPanels();
+        });
+    })
+
+
+    function hideAllDfnPanels() {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
+    }
+
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn, dfnPanel) {
+        // Find dfn panel
+        const panelWrapper = document.createElement('span');
+        panelWrapper.appendChild(dfnPanel);
+        panelWrapper.style.position = "relative";
+        panelWrapper.style.height = "0px";
+        dfn.insertAdjacentElement("afterend", panelWrapper);
+        dfn.setAttribute('role', 'button');
+        dfn.setAttribute('aria-expanded', 'false')
+        dfn.tabIndex = 0;
+        dfn.classList.add('has-dfn-panel');
+        dfn.addEventListener('click', (event) => {
+            showDfnPanel(dfnPanel, dfn);
+            event.stopPropagation();
+        });
+        dfn.addEventListener('keypress', (event) => {
+            const kc = event.keyCode;
+            // 32->Space, 13->Enter
+            if(kc == 32 || kc == 13) {
+                toggleDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
+
+        dfnPanel.addEventListener('click', (event) => {
+            if (event.target.nodeName == 'A') {
+                pinDfnPanel(dfnPanel);
+            }
+            event.stopPropagation();
+        });
+
+        dfnPanel.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27) { // Escape key
+                hideDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        })
     }
 }
-</style><style type="text/css">/* --- EXAMPLES --- */
-div.example-title {
-    min-width: 7.5em;
-    color: #b9ab2d;
-}
-div.example-title span {
-    text-transform: uppercase;
-}
-aside.example, div.example, div.illegal-example {
-    padding: 0.5em;
-    margin: 1em 0;
-    position: relative;
-    clear: both;
-}
-div.illegal-example { color: red }
-div.illegal-example p { color: black }
-aside.example, div.example {
-    padding: .5em;
-    border-left-width: .5em;
-    border-left-style: solid;
-    border-color: #e0cb52;
-    background: #fcfaee;
+</script>
+<script>/* Boilerplate: script-dfn-panel-json */
+window.dfnpanelData = {};
+window.dfnpanelData['requesting-agent'] = {"dfnID": "requesting-agent", "url": "#requesting-agent", "dfnText": "Requesting Agent", "refSections": [{"refs": [{"id": "ref-for-requesting-agent"}, {"id": "ref-for-requesting-agent\u2460"}, {"id": "ref-for-requesting-agent\u2461"}], "title": "6. Processing the WebID Profile"}], "external": false};
+window.dfnpanelData['service'] = {"dfnID": "service", "url": "#service", "dfnText": "Service", "refSections": [{"refs": [{"id": "ref-for-service"}], "title": "1. Introduction"}], "external": false};
+window.dfnpanelData['webid'] = {"dfnID": "webid", "url": "#webid", "dfnText": "WebID", "refSections": [{"refs": [{"id": "ref-for-webid"}], "title": "4. Overview"}, {"refs": [{"id": "ref-for-webid\u2460"}, {"id": "ref-for-webid\u2461"}], "title": "5.5. Security Considerations"}], "external": false};
+window.dfnpanelData['webid-profile-document'] = {"dfnID": "webid-profile-document", "url": "#webid-profile-document", "dfnText": "WebID Profile Document", "refSections": [{"refs": [{"id": "ref-for-webid-profile-document"}, {"id": "ref-for-webid-profile-document\u2460"}], "title": "1. Introduction"}, {"refs": [{"id": "ref-for-webid-profile-document\u2461"}, {"id": "ref-for-webid-profile-document\u2462"}], "title": "1.1. Outline"}, {"refs": [{"id": "ref-for-webid-profile-document\u2463"}], "title": "4. Overview"}, {"refs": [{"id": "ref-for-webid-profile-document\u2464"}], "title": "5.1.1. Personal Information"}, {"refs": [{"id": "ref-for-webid-profile-document\u2465"}, {"id": "ref-for-webid-profile-document\u2466"}, {"id": "ref-for-webid-profile-document\u2467"}], "title": "5.5. Security Considerations"}], "external": false};
+</script>
+<script>/* Boilerplate: script-dom-helper */
+function query(sel) { return document.querySelector(sel); }
+
+function queryAll(sel) { return [...document.querySelectorAll(sel)]; }
+
+function iter(obj) {
+	if(!obj) return [];
+	var it = obj[Symbol.iterator];
+	if(it) return it;
+	return Object.entries(obj);
 }
 
-aside.example div.example {
-    border-left-width: .1em;
-    border-color: #999;
-    background: #fff;
-}
-aside.example div.example div.example-title {
-    color: #999;
-}
-</style><style type="text/css">/* --- ISSUES/NOTES --- */
-div.issue-title, div.note-title {
-    padding-right:  1em;
-    min-width: 7.5em;
-    color: #b9ab2d;
-}
-div.issue-title { color: #e05252; }
-div.note-title { color: #2b2; }
-div.issue-title span, div.note-title span {
-    text-transform: uppercase;
-}
-div.note, div.issue {
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-.note > p:first-child, .issue > p:first-child { margin-top: 0 }
-.issue, .note {
-    padding: .5em;
-    border-left-width: .5em;
-    border-left-style: solid;
-}
-div.issue, div.note {
-    padding: 1em 1.2em 0.5em;
-    margin: 1em 0;
-    position: relative;
-    clear: both;
-}
-span.note, span.issue { padding: .1em .5em .15em; }
-
-.issue {
-    border-color: #e05252;
-    background: #fbe9e9;
-}
-.note {
-    border-color: #52e052;
-    background: #e9fbe9;
+function mk(tagname, attrs, ...children) {
+	const el = document.createElement(tagname);
+	for(const [k,v] of iter(attrs)) {
+		if(k.slice(0,3) == "_on") {
+			const eventName = k.slice(3);
+			el.addEventListener(eventName, v);
+		} else if(k[0] == "_") {
+			// property, not attribute
+			el[k.slice(1)] = v;
+		} else {
+			if(v === false || v == null) {
+        continue;
+      } else if(v === true) {
+        el.setAttribute(k, "");
+        continue;
+      } else {
+  			el.setAttribute(k, v);
+      }
+		}
+	}
+	append(el, children);
+	return el;
 }
 
-
-</style><link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/W3C-ED" />
-<!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]-->
-</head>
-  <body class="h-entry" id="respecDocument"><div class="head" id="respecHeader">
-  <p>
-
-      <a href="http://www.w3.org/"><img width="72" height="48" alt="W3C" src="https://www.w3.org/Icons/w3c_home" /></a>
-
-  </p>
-  <h1 property="dcterms:title" id="title" class="title p-name">WebID 1.0</h1>
-
-    <h2 id="subtitle" property="bibo:subtitle">Web Identity and Discovery</h2>
-
-  <h2 content="2014-03-05T16:46:18.000Z" datatype="xsd:dateTime" property="dcterms:issued" id="w3c-editor-s-draft-05-march-2014"><abbr title="World Wide Web Consortium">W3C</abbr> Editor's Draft <span class="dt-published time">05 March 2014</span></h2>
-  <dl>
-
-      <dt>This version:</dt>
-      <dd><a href="http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20140305/identity" class="u-url">http://www.w3.org/2005/Incubator/webid/spec/drafts/ED-webid-20140305/identity</a></dd>
-      <dt>Latest published version:</dt>
-      <dd><a href="http://www.w3.org/TR/webid/">http://www.w3.org/TR/webid/</a></dd>
-
-
-      <dt>Latest editor's draft:</dt>
-      <dd><a href="https://dvcs.w3.org/hg/WebID/raw-file/tip/spec/identity-respec.html">https://dvcs.w3.org/hg/WebID/raw-file/tip/spec/identity-respec.html</a></dd>
-
-
-
-
-
-
-
-
-
-    <dt>Editors:</dt>
-    <dd inlist="" rel="bibo:editor" class="p-author h-card vcard"><span typeof="foaf:Person"><a href="https://my-profile.eu/people/deiu/card#me" content="Andrei Sambra" property="foaf:name" rel="foaf:homepage" class="u-url url p-name fn">Andrei Sambra</a>, <span class="ed_mailto"><a href="mailto:andrei@fcns.eu" rel="foaf:mbox" class="u-email email">andrei@fcns.eu</a></span></span>
-</dd>
-<dd inlist="" rel="bibo:editor" class="p-author h-card vcard"><span typeof="foaf:Person"><span class="p-name fn" property="foaf:name">Stéphane Corlosquet</span>, <span class="ed_mailto"><a href="mailto:scorlosquet@gmail.com" rel="foaf:mbox" class="u-email email">scorlosquet@gmail.com</a></span></span>
-</dd>
-
-
-      <dt>Authors:</dt>
-      <dd rel="dcterms:contributor" class="p-author h-card vcard"><span typeof="foaf:Person"><a href="https://my-profile.eu/people/deiu/card#me" content="Andrei Sambra" property="foaf:name" rel="foaf:homepage" class="u-url url p-name fn">Andrei Sambra</a></span>
-</dd>
-<dd rel="dcterms:contributor" class="p-author h-card vcard"><span typeof="foaf:Person"><a href="http://bblfish.net/people/henry/card#me" content="Henry Story" property="foaf:name" rel="foaf:homepage" class="u-url url p-name fn">Henry Story</a></span>
-</dd>
-<dd rel="dcterms:contributor" class="p-author h-card vcard"><span typeof="foaf:Person"><a href="http://www.w3.org/People/Berners-Lee/card#i" content="Tim Berners-Lee" property="foaf:name" rel="foaf:homepage" class="u-url url p-name fn">Tim Berners-Lee</a></span>
-</dd>
-
-
-
-  </dl>
-
-
-
-
-
-      <p class="copyright">
-        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> ©
-        2010-2014
-
-        <a href="http://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup>
-        (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
-        <a href="http://www.ercim.eu/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
-        <a href="http://www.keio.ac.jp/">Keio</a>, <a href="http://ev.buaa.edu.cn/">Beihang</a>),
-
-        All Rights Reserved.
-
-        <abbr title="World Wide Web Consortium">W3C</abbr> <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Legal_Disclaimer">liability</a>,
-        <a href="http://www.w3.org/Consortium/Legal/ipr-notice#W3C_Trademarks">trademark</a> and
-
-          <a href="http://www.w3.org/Consortium/Legal/copyright-documents">document use</a>
-
-        rules apply.
-      </p>
-
-
-  <hr />
-</div>
-    <div id="abstract" class="introductory section" property="dcterms:abstract" datatype="" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter"><h2 id="h2_abstract">Abstract</h2>
-
-    <p>A global distributed Social Web requires that each person be able to
-    control their identity, that this identity be linkable across sites —
-    placing each person in a Web of relationships — and that it be possible to
-    authenticate globally with such identities.
-    </p>
-    <p>This specification outlines a simple universal identification mechanism
-    that is distributed, openly extensible, improves privacy, security and
-    control over how each person can identify themselves in order to allow fine
-    grained  access control to their information on the Web.
-    It does this by applying the best practices of Web Architecture whilst
-    building on well established widely deployed protocols and standards
-    including HTML, URIs, HTTP, and RDF Semantics.
-    </p>
-
-    <div class="section">
-    <h3 id="how-to-read-this-document">How to Read this Document</h3>
-
-    <p>There are a number of concepts that are covered in this document that the
-    reader may want to be aware of before continuing. General knowledge of RDF
-    [<cite><a class="bibref" href="#bib-RDF-PRIMER">RDF-PRIMER</a></cite>] is necessary to understand how to implement this specification.
-    WebID uses a number of specific technologies like Turtle [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>] and RDFa
-    [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>].</p>
-
-    <p>A general <a href="#introduction">Introduction</a> is provided for all that
-    would like to understand why this specification is necessary to simplify usage
-    of the Web.</p>
-
-    <p>The terms used throughout this specification are listed in the section
-    titled <a href="#terminology">Terminology</a>.</p>
-
-    </div>
-</div><div class="introductory section" id="sotd" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter"><h2 id="h2_sotd">Status of This Document</h2>
-
-
-
-        <p>
-          <em>This section describes the status of this document at the time of its publication.
-          Other documents may supersede this document. A list of current <abbr title="World Wide Web Consortium">W3C</abbr> publications and the
-          latest revision of this technical report can be found in the <a href="http://www.w3.org/TR/"><abbr title="World Wide Web Consortium">W3C</abbr> technical reports index</a> at
-          http://www.w3.org/TR/.</em>
-        </p>
-
-
-<!-- <p>This document has been reviewed by W3C Members, by software
-developers, and by other W3C groups and interested parties, and is
-endorsed by the Director as a W3C Recommendation. It is a stable
-document and may be used as reference material or cited from another
-document. W3C's role in making the Recommendation is to draw attention
-to the specification and to promote its widespread deployment. This
-enhances the functionality and interoperability of the Web.</p> -->
-
-
-This document is produced from work by the
-<a href="http://www.w3.org/community/webid/"><abbr title="World Wide Web Consortium">W3C</abbr> WebID Community Group</a>.
-This is an internal draft document and may not even end up being officially
-published. It may also be updated, replaced or obsoleted by other documents
-at any time. It is inappropriate to cite this document as other than work in progress.
-The source code for this document is available at the following
-URI: <a href="https://dvcs.w3.org/hg/WebID">https://dvcs.w3.org/hg/WebID</a>
-
-
-        <p>
-          This document was published by the <a href="http://www.w3.org/community/webid/">WebID CG</a> as an Editor's Draft.
-
-
-            If you wish to make comments regarding this document, please send them to
-            <a href="mailto:public-webid@w3.org">public-webid@w3.org</a>
-            (<a href="mailto:public-webid-request@w3.org?subject=subscribe">subscribe</a>,
-            <a href="http://lists.w3.org/Archives/Public/public-webid/">archives</a>).
-
-
-
-
-            All comments are welcome.
-
-        </p>
-
-
-          <p>
-            Publication as an Editor's Draft does not imply endorsement by the <abbr title="World Wide Web Consortium">W3C</abbr>
-            Membership. This is a draft document and may be updated, replaced or obsoleted by other
-            documents at any time. It is inappropriate to cite this document as other than work in
-            progress.
-          </p>
-
-
-
-        <p>
-
-            This document was produced by a group operating under the
-            <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/" rel="w3p:patentRules" about="" id="sotd_patent">5 February 2004 <abbr title="World Wide Web Consortium">W3C</abbr> Patent
-            Policy</a>.
-
-
-
-
-              <abbr title="World Wide Web Consortium">W3C</abbr> maintains a <a rel="disclosure" href="http://www.w3.org/2004/01/pp-impl/46065/status">public list of any patent
-              disclosures</a>
-
-            made in connection with the deliverables of the group; that page also includes
-            instructions for disclosing a patent. An individual who has actual knowledge of a patent
-            which the individual believes contains
-            <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
-            Claim(s)</a> must disclose the information in accordance with
-            <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
-            6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>.
-
-
-        </p>
-
-
-
-
-</div><div id="toc" class="section"><h2 class="introductory" id="h2_toc">Table of Contents</h2><ul class="toc" id="respecContents"><li class="tocline"><a href="#introduction" class="tocxref"><span class="secno">1. </span>Introduction</a><ul class="toc"><li class="tocline"><a href="#outline" class="tocxref"><span class="secno">1.1 </span>Outline</a></li></ul></li><li class="tocline"><a href="#terminology" class="tocxref"><span class="secno">2. </span>Terminology</a><ul class="toc"><li class="tocline"><a href="#namespaces" class="tocxref"><span class="secno">2.1 </span>Namespaces</a></li></ul></li><li class="tocline"><a href="#the-webid-http-uri" class="tocxref"><span class="secno">3. </span>The WebID HTTP URI</a></li><li class="tocline"><a href="#overview" class="tocxref"><span class="secno">4. </span>Overview</a></li><li class="tocline"><a href="#publishing-the-webid-profile-document" class="tocxref"><span class="secno">5. </span>Publishing the WebID Profile Document</a><ul class="toc"><li class="tocline"><a href="#webid-profile-vocabulary" class="tocxref"><span class="secno">5.1 </span>WebID Profile Document Vocabulary</a><ul class="toc"><li class="tocline"><a href="#personal-information" class="tocxref"><span class="secno">5.1.1 </span>Personal Information</a></li></ul></li><li class="tocline"><a href="#publishing-a-webid-profile-using-turtle" class="tocxref"><span class="secno">5.2 </span>Publishing a WebID Profile Document using Turtle</a></li><li class="tocline"><a href="#publishing-a-webid-profile-using-the-rdfa-html-notation" class="tocxref"><span class="secno">5.3 </span>Publishing a WebID Profile Document using the RDFa HTML notation</a></li><li class="tocline"><a href="#privacy" class="tocxref"><span class="secno">5.4 </span>Privacy</a></li><li class="tocline"><a href="#security-considerations" class="tocxref"><span class="secno">5.5 </span>Security Considerations</a></li></ul></li><li class="tocline"><a href="#processing-the-webid-profile" class="tocxref"><span class="secno">6. </span>Processing the WebID Profile Document</a></li><li class="tocline"><a href="#acknowledgements" class="tocxref"><span class="secno">7. </span>Acknowledgments</a></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">A. </span>References</a><ul class="toc"><li class="tocline"><a href="#normative-references" class="tocxref"><span class="secno">A.1 </span>Normative references</a></li></ul></li></ul></div>
-
-
-
-<div class="informative section" id="introduction">
-
-<!--OddPage-->
-<h2 id="h2_introduction"><span class="secno">1. </span>Introduction</h2><p><em>This section is non-normative.</em></p>
-
-<p>
-A WebID is an HTTP URI that refers to an Agent (Person, Organization, Group, Device, etc.). A description of the WebID can be found in the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a>, a type of web page that would be familiar to any Social Network user.</p>
-<p>
-A <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a> is a Web resource that <em class="rfc2119" title="MUST">MUST</em> be available as <code>text/turtle</code> [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>], but <em class="rfc2119" title="MAY">MAY</em> be available in other RDF serialization formats (e.g., [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>]) if requested through content negotiation.
-</p>
-<p>
-WebIDs can be used to build a Web of trust using vocabularies such as FOAF [<cite><a class="bibref" href="#bib-FOAF">FOAF</a></cite>] by allowing people to link their profiles in a public or protected manner.
-Such a web of trust can then be used by a <a class="tref internalDFN" title="Service" href="#dfn-service">Service</a> to make authorization decisions, by allowing access to resources depending on the properties of an agent, such as that they are known by some relevant people, employed at a given company, a member of a family or some other group, etc.
-</p>
-
-<div id="outline" class="section">
-<h3 id="h3_outline"><span class="secno">1.1 </span>Outline</h3>
-<p>This specification is divided in the following sections.</p>
-<p><a href="#introduction">This section</a> gives a high level overview of WebID, and presents the organization of the specification and the conventions used throughout this document.</p>
-<p><a href="#terminology">Section 2</a> provides a short description for the most commonly used terms in this document.</p>
-<p><a href="#the-webid-http-uri">Section 3</a> describes what a WebID URI is.</p>
-<p><a href="#overview">Section 4</a> presents an overview of WebID.</p>
-<p><a href="#publishing-the-webid-profile-document">Section 5</a> deals with the publishing of a <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a>.</p>
-<p><a href="#processing-the-webid-profile">Section 6</a> describes how a request for a <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a> should be handled.</p>
-</div>
-</div>
-
-<div id="terminology" class="section">
-
-<!--OddPage-->
-<h2 id="h2_terminology"><span class="secno">2. </span>Terminology</h2>
-<p>This section provides definitions for several important terms used in this document.</p>
-<dl>
-<dt><dfn title="Requesting_Agent" id="dfn-requesting_agent">Requesting Agent</dfn></dt>
-<dd>The Requesting Agent initiates a request to a Service listening on a specific port using a given protocol on a given Server.</dd>
-
-<dt><dfn title="Server" id="dfn-server">Server</dfn></dt>
-<dd>A Server is a physical or virtual machine, contactable at a domain name or IP address, that hosts Services which are accessible over the network.</dd>
-
-<dt><dfn title="Service" id="dfn-service">Service</dfn></dt>
-<dd>A Service is an agent listening for requests at a particular domain name or IP address on a given Server.</dd>
-
-<dt><dfn title="WebID" id="dfn-webid">WebID</dfn></dt>
-<dd>A WebID is a URI with an HTTP or HTTPS scheme that denotes an Agent (Person, Organization, Group, Device, etc.). For WebIDs with fragment identifiers (e.g., `#me`), the URI without the fragment denotes the WebID Profile Document. For WebIDs without fragment identifiers an HTTP request on the WebID <em class="rfc2119" title="MUST">MUST</em> return a 303 with a Location header URI referring to the WebID Profile Document.
-</dd>
-
-<dt><dfn title="WebID_Profile" id="dfn-webid_profile">WebID Profile Document</dfn></dt>
-<dd>
-A WebID Profile Document is an RDF document that uniquely describes the Agent denoted by the WebID in relation to that WebID. The server <em class="rfc2119" title="MUST">MUST</em> provide a <code>text/turtle</code> [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>] representation of the requested profile. This document <em class="rfc2119" title="MAY">MAY</em> be available in other RDF serialization formats, such as RDFa [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>], or [<cite><a class="bibref" href="#bib-RDF-SYNTAX-GRAMMAR">RDF-SYNTAX-GRAMMAR</a></cite>] if so requested through content negotiation.
-</dd>
-</dl>
-
-
-<div class="normative section" id="namespaces">
-<h3 id="h3_namespaces"><span class="secno">2.1 </span>Namespaces</h3>
-<p>Examples assume the following namespace prefix bindings unless otherwise stated:</p>
-<table cellpadding="5" border="1" style="text-align: left; border-color: rgb(0, 0, 0); border-collapse: collapse;">
- <thead>
-  <tr>
-    <th>Prefix</th>
-    <th>IRI</th>
-  </tr>
- </thead>
- <tbody>
-  <tr>
-    <td><code>foaf</code></td>
-    <td>http://xmlns.com/foaf/0.1/</td>
-  </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-<div class="normative section" id="the-webid-http-uri">
-
-<!--OddPage-->
-<h2 id="h2_the-webid-http-uri"><span class="secno">3. </span>The WebID HTTP URI</h2>
-<p>When using URIs, it is possible to identify both a thing (which may exist outside of the Web) and a Web document describing the thing. For example, the person Bob is described on his homepage. Alice may not like the look of Bob's homepage, but may want to link to the person Bob. Therefore, two URIs are needed, one for Bob and one for Bob's homepage (or an RDF document describing Bob).</p>
-<p>The WebID HTTP URI must be one that dereferences to a document the user controls.</p>
-<p>For example, if a user Bob controls <code>https://bob.example.org/profile</code>,
-then his WebID can be <code>https://bob.example.org/profile#me</code>.</p>
-
-<div class="note"><div class="note-title" id="h_note_1"><span>Note</span></div><p class="">There are two solutions that meet our requirements for identifying real-world objects: 303 redirects and hash URIs. Which one to use depends on the situation.  Both have advantages and disadvantages, as presented in [<cite><a class="bibref" href="#bib-COOLURIS">COOLURIS</a></cite>]. All examples in this specification will use such hash URIs.</p></div>
-
-</div>
-
-<div class="informative section" id="overview">
-
-<!--OddPage-->
-<h2 id="h2_overview"><span class="secno">4. </span>Overview</h2><p><em>This section is non-normative.</em></p>
-
-<p>The relation between the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> URI and the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a> is illustrated below.</p>
-<img src="img/WebID-overview.png" alt="WebID overview" id="webid-diagram" />
-
-<p>The WebID URI — <em><a href="http://www.w3.org/People/Berners-Lee/card#i">http://www.w3.org/People/Berners-Lee/card<strong>#i</strong></a>&quot;</em> (containing the <strong>#i</strong> hash tag) — is an identifier that denotes (refers to) a person or more generally an agent. In the above illustration, the referent is Tim Berners Lee, a real physical person who has a history, who invented the World Wide Web, and who directs the World Web Consortium.
-</p><p>The WebID Profile Document URI — <em>&quot;<a href="http://www.w3.org/People/Berners-Lee/card">http://www.w3.org/People/Berners-Lee/card</a>&quot;</em> (without the <strong>#i</strong> hash tag) — denotes the document describing the person (or more generally any agent) who is the referent of the WebID URI.</p>
-<p>The WebID Profile Document gives the meaning of the WebID: its RDF Graph contains a <a href="http://www.w3.org/Submission/CBD/">Concise Bounded Description</a> of the WebID such that this subgraph forms a definite description of the referent of the WebID, that is, a description that distinguishes the referent of that WebID from all other things in the world.<br />
-The WebID Profile Document can, for example, contain relations to other documents depicting the WebID referent, or it can relate the WebID to principals used by different authentication protocols.
-(More information on WebID and other authentication protocols can be found on the <a href="http://www.w3.org/2005/Incubator/webid/wiki/Identity_Interoperability">WebID Identity Interoperability</a> page).
-</p>
-</div>
-
-<div class="normative section" id="publishing-the-webid-profile-document">
-
-<!--OddPage-->
-<h2 id="h2_publishing-the-webid-profile-document"><span class="secno">5. </span>Publishing the WebID Profile Document</h2>
-
-<p>
-WebID requires that servers <em class="rfc2119" title="MUST">MUST</em> at least be able to provide Turtle representation of WebID Profile Documents, but other serialization formats of the graph are allowed, provided that agents are able to parse that serialization and obtain the graph automatically.
-HTTP Content Negotiation can be employed to aid in publication and discovery of multiple distinct serializations of the same graph at the same URL, as explained in [<cite><a class="bibref" href="#bib-COOLURIS">COOLURIS</a></cite>]</p>
-
-<p>It is particularly useful to have one of the representations be in HTML
-even if it is not marked up in RDFa, as this allows people using a
-web browser to understand what the information at that URI represents.</p>
-
-<div class="normative section" id="webid-profile-vocabulary">
-<h3 id="h3_webid-profile-vocabulary"><span class="secno">5.1 </span>WebID Profile Document Vocabulary</h3>
-
-<p>WebID RDF graphs are built using vocabularies identified by URIs, that can be placed in subject, predicate or object position of the relations constituting the graph.
-    The definition of each URI should be found at the namespace of the URI, by dereferencing it.
-</p>
-
-<div class="informative section" id="personal-information">
-<h4 id="h4_personal-information"><span class="secno">5.1.1 </span>Personal Information</h4><p><em>This section is non-normative.</em></p>
-
-<p>Personal details are the most common requirement when registering an
-account with a website. Some of these pieces of information include an e-mail
-address, a name and perhaps an avatar image, expressed using the FOAF [<cite><a class="bibref" href="#bib-FOAF">FOAF</a></cite>] vocabulary. This section includes
-properties that <em class="rfc2119" title="SHOULD">SHOULD</em> be used when conveying key pieces of personal information
-but are <em class="rfc2119" title="NOT REQUIRED">NOT REQUIRED</em> to be present in a <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a>:</p>
-<dl>
-  <dt>foaf:name</dt>
-  <dd>The name of the individual or agent.</dd>
-  <dt>foaf:knows</dt>
-  <dd>The WebID URI of a known person.</dd>
-  <dt>foaf:img</dt>
-  <dd>An image representing a person.</dd>
-</dl>
-</div>
-</div>
-
-<div class="informative section" id="publishing-a-webid-profile-using-turtle">
-<h3 id="h3_publishing-a-webid-profile-using-turtle"><span class="secno">5.2 </span>Publishing a WebID Profile using Turtle</h3><p><em>This section is non-normative.</em></p>
-<p>A widely used format for writing RDF graphs by hand is the <a href="http://www.w3.org/TR/turtle/">Turtle</a> [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>] notation.
-    It is easy to learn, and very handy for communicating over e-mail and on mailing lists.
-    The syntax is very similar to the <a href="http://www.w3.org/TR/rdf-sparql-query/">SPARQL</a> query language.
-    WebID Profile Documents in Turtle should be served with the <code>text/turtle</code> content type.
-</p>
-<p>
-Take for example the WebID <em>https://bob.example.org/profile#me</em>, for which the WebID Profile Document contains the following Turtle representation:
-</p>
-<div class="example"><div class="example-title"><span>Example 1</span></div><pre style="word-wrap: break-word; white-space: pre-wrap;" class="example">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
-
-&lt;&gt; a foaf:PersonalProfileDocument ;
-   foaf:maker &lt;#me&gt; ;
-   foaf:primaryTopic &lt;#me&gt; .
-
-&lt;#me&gt; a foaf:Person ;
-   foaf:name &quot;Bob&quot; ;
-   foaf:knows &lt;https://example.edu/p/Alice#MSc&gt; ;
-   foaf:img &lt;https://bob.example.org/picture.jpg&gt; .</pre></div>
-</div>
-<div class="informative section" id="publishing-a-webid-profile-using-the-rdfa-html-notation">
-<h3 id="h3_publishing-a-webid-profile-using-the-rdfa-html-notation"><span class="secno">5.3 </span>Publishing a WebID Profile Document using the RDFa HTML notation</h3><p><em>This section is non-normative.</em></p>
-<p>RDFa in HTML [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>] is a way to markup HTML with relations that have a well defined semantics and
-    mapping to an RDF graph.  There are many ways of writing out the above graph using RDFa in
-HTML. Here is just one example of what a WebID Profile Document could look like.
-</p>
-<div class="example"><div class="example-title"><span>Example 2</span></div><pre style="word-wrap: break-word; white-space: pre-wrap;" class="example">&lt;div vocab=&quot;http://xmlns.com/foaf/0.1/&quot; about=&quot;#me&quot; typeof=&quot;foaf:Person&quot;&gt;
-  &lt;p&gt;My name is &lt;span property=&quot;name&quot;&gt;Bob&lt;/span&gt; and this is how I look like: &lt;img property=&quot;img&quot; src=&quot;https://bob.example.org/picture.jpg&quot; title=&quot;Bob&quot; alt=&quot;Bob&quot; /&gt;&lt;/p&gt;
-  &lt;h2&gt;My Good Friends&lt;/h2&gt;
-  &lt;ul&gt;
-    &lt;li property=&quot;knows&quot; href=&quot;https://example.edu/p/Alice#MSc&quot;&gt;Alice&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/div&gt;</pre></div>
-<p>If a WebID provider would prefer not to mark up his WebID Profile Document in HTML+RDFa, but
-just provide a human readable format for users in plain HTML and have the RDF graph appear
-in a machine readable format such as Turtle, then he <em class="rfc2119" title="SHOULD">SHOULD</em> provide a link of type <code>alternate</code>
-to a machine readable format [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>]. This can be placed in the HTTP header or in the
-html as shown here:</p>
-
-<div class="example"><div class="example-title"><span>Example 3</span></div><pre style="word-wrap: break-word; white-space: pre-wrap;" class="example">&lt;html&gt;
-&lt;head&gt;
-&lt;link rel=&quot;alternate&quot; type=&quot;text/turtle&quot; href=&quot;profile.ttl&quot;/&gt;
-&lt;/head&gt;
-&lt;body&gt; ... &lt;/body&gt;
-&lt;/html&gt;</pre></div>
-</div>
-
-<div class="informative section" id="privacy">
-<h3 id="h3_privacy"><span class="secno">5.4 </span>Privacy</h3><p><em>This section is non-normative.</em></p>
-<p>
-A WebID Profile Document may contain public as well as private information about the agent identified by the WebID.
-As some agents may not want to reveal a lot of information about themselves, RDF and Linked Data principles allows them to choose how much information they wish to make publicly available.
-This can be achieved by separating parts of the profile information into separate documents, each protected by access control policies.
-</p>
-<p>
-On the other hand, some agents may want to publish more information about themselves, but only to a select group of trusted agents.
-In the following example, Bob is limiting access to his list of friends, by placing all <em>foaf:knows</em> relations into a separate document.
-</p>
-
-<div class="example"><div class="example-title"><span>Example 4</span></div><pre style="word-wrap: break-word; white-space: pre-wrap;" class="example">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
-@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
-
-&lt;&gt; a foaf:PersonalProfileDocument ;
-  foaf:maker &lt;#me&gt; ;
-  foaf:primaryTopic &lt;#me&gt; .
-
-&lt;#me&gt; a foaf:Person ;
-  foaf:name &quot;Bob&quot; ;
-  <strong>rdfs:seeAlso &lt;https://bob.example.org/friends&gt; ;</strong>
-  foaf:img &lt;https://bob.example.org/picture.jpg&gt; .</pre></div>
-
-<p>Where https://bob.example.org/friends is a reference to an Access Control List (ACL) protected document containing:</p>
-
-<div class="example"><div class="example-title"><span>Example 5</span></div><pre style="word-wrap: break-word; white-space: pre-wrap;" class="example">@prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
-
-&lt;&gt; a foaf:PersonalProfileDocument ;
-  foaf:maker &lt;https://bob.example.org/profile#me&gt; ;
-  foaf:primaryTopic &lt;https://bob.example.org/profile#me&gt; .
-
-&lt;https://bob.example.org/profile#me&gt; a foaf:Person ;
-  foaf:knows &lt;https://example.edu/p/Alice#MSc&gt; ;
-  foaf:knows &lt;https://example.com/people/Mary/card#me&gt; .</pre></div>
-
-<p>and having the following corresponding ACL rule, expressed using the <a href="http://www.w3.org/wiki/WebAccessControl">WebAccessControl</a> ontology:</p>
-
-<div class="example"><div class="example-title"><span>Example 6</span></div><pre style="word-wrap: break-word; white-space: pre-wrap;" class="example">@prefix acl: &lt;http://www.w3.org/ns/auth/acl#&gt; .
-
-&lt;#FriendsOnly&gt; ;
-   acl:accessTo &lt;https://bob.example.org/friends&gt; ;
-   acl:agent &lt;http://example.edu/p/Alice#Msc&gt;, &lt;http://example.com/people/Mary/card#me&gt; ;
-   acl:mode acl:Read .</pre></div>
-</div>
-
-<div class="informative section" id="security-considerations">
-<h3 id="h3_security-considerations"><span class="secno">5.5 </span>Security Considerations</h3><p><em>This section is non-normative.</em></p>
-<p>A <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> identifies an agent via a description found in the associated <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a>.
-An agent that wishes to know what a WebID refers to, must rely on the description found in the WebID Profile.
-An attack on the relation between the <a class="tref internalDFN" title="WebID" href="#dfn-webid">WebID</a> and the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a> can thus be used
-to subvert the meaning of the WebID, and to make agents following links within the <a class="tref internalDFN" title="WebID_Profile" href="#dfn-webid_profile">WebID Profile Document</a> come to different conclusions from those intended by profile owners.
-</p>
-<p>
-The standard way of overcoming such attacks is to rely on the cryptographic security protocols within the HTTPS [<cite><a class="bibref" href="#bib-HTTP-TLS">HTTP-TLS</a></cite>] stack.
-HTTPS servers are identified by a certificate either signed by a well known Certification Authority or whose public key is listed in the DNSSEC as specified by the DANE protocol [<cite><a class="bibref" href="#bib-DANE">DANE</a></cite>], or both.
-This makes it much more difficult to set up a fake server by DNS Poisoning attacks.
-Resources served over HTTPS are furthermore signed and encrypted removing all the simple man-in-the-middle attacks.
-</p>
-<p>Applying the above security measure does not remove the burden from server administrators to take the appropriate security measures, in order to avoid compromising their servers.
-Similarly, clients that fetch documents on the web also need to make sure their work environment has not been compromised.
-</p>
-<p>
-As security is constantly being challenged by new attacks, to which new responses are found, a collection of security considerations will be made available on the <a href="http://www.w3.org/2005/Incubator/webid/wiki/Identity_Security">WebID Wiki</a>.</p>
-</div>
-
-</div>
-
-
-<div class="normative section" id="processing-the-webid-profile">
-
-<!--OddPage-->
-<h2 id="h2_processing-the-webid-profile"><span class="secno">6. </span>Processing the WebID Profile Document</h2>
-
-<p>The <a class="tref internalDFN" title="Requesting_Agent" href="#dfn-requesting_agent">Requesting Agent</a> needs to fetch the WebID Profile Document, if it does not have a valid one in cache.
-The Agent requesting the WebID Profile Document <em class="rfc2119" title="MUST">MUST</em> be able to parse documents in Turtle [<cite><a class="bibref" href="#bib-turtle">turtle</a></cite>], but <em class="rfc2119" title="MAY">MAY</em> also be able to parse documents in RDF/XML [<cite><a class="bibref" href="#bib-RDF-SYNTAX-GRAMMAR">RDF-SYNTAX-GRAMMAR</a></cite>] and RDFa [<cite><a class="bibref" href="#bib-RDFA-CORE">RDFA-CORE</a></cite>].
-The result of this processing should be a graph of RDF relations that is queryable, as explained in the next section.</p>
-
-<div class="note"><div class="note-title" id="h_note_2"><span>Note</span></div><p class="">
-It is recommended that the <a class="tref internalDFN" title="Requesting_Agent" href="#dfn-requesting_agent">Requesting Agent</a> sets a <i>qvalue</i> for <code>text/turtle</code> in the HTTP <code>Accept-Header</code> with a higher priority than in the case of <code>application/xhtml+xml</code> or <code>text/html</code>, as sites may produce HTML without RDFa markup but with a link to graph encoded in a pure RDF format such as Turtle.
-For an agent that can parse Turtle, rdf/xml and RDFa, the following would be a reasonable Accept header:<br />
-<code>Accept: text/turtle,application/rdf+xml,application/xhtml+xml;q=0.8,text/html;q=0.7</code>
-</p></div>
-
-<p>If the <a class="tref internalDFN" title="Requesting_Agent" href="#dfn-requesting_agent">Requesting Agent</a> wishes to have the most up-to-date WebID Profile Document for an HTTP URL, it can use the HTTP cache control headers to get the latest versions.</p>
-</div>
-
-<div id="acknowledgements" class="informative section" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter">
-
-<!--OddPage-->
-<h2 id="h2_acknowledgements"><span class="secno">7. </span>Acknowledgments</h2><p><em>This section is non-normative.</em></p>
-
-<p>The following people have been instrumental in providing thoughts, feedback,
-reviews, criticism and input in the creation of this specification:</p>
-<p>Stéphane Corlosquet, Erich Bremer, Kingsley Idehen, Ted Thibodeau, Alexandre Bertails, Thomas Bergwinkl.</p>
-
-</div>
-
-
-
-<div class="appendix section" id="references" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter">
-<!--OddPage-->
-<h2 id="h2_references"><span class="secno">A. </span>References</h2><div id="normative-references" typeof="bibo:Chapter" resource="#ref" rel="bibo:Chapter" class="section"><h3 id="h3_normative-references"><span class="secno">A.1 </span>Normative references</h3><dl class="bibliography" about=""><dt id="bib-COOLURIS">[COOLURIS]</dt><dd rel="dcterms:requires">Leo Sauermann; Richard Cyganiak. <a href="http://www.w3.org/TR/cooluris"><cite>Cool URIs for the Semantic Web</cite></a>. 3 December 2008. W3C Note. URL: <a href="http://www.w3.org/TR/cooluris">http://www.w3.org/TR/cooluris</a>
-</dd><dt id="bib-DANE">[DANE]</dt><dd rel="dcterms:requires">P. Hoffman, J. Schlyter, <a href="http://tools.ietf.org/html/rfc6698">RFC6698: The DNS-Based Authentication of Named Entities (DANE) Transport Layer Security (TLS) Protocol: TLSA</a>
-</dd><dt id="bib-FOAF">[FOAF]</dt><dd rel="dcterms:requires">Dan Brickley, Libby Miller. <a href="http://xmlns.com/foaf/spec/"><cite>FOAF Vocabulary Specification 0.98.</cite></a> 9 August 2010. URL: <a href="http://xmlns.com/foaf/spec/">http://xmlns.com/foaf/spec/</a>
-</dd><dt id="bib-HTTP-TLS">[HTTP-TLS]</dt><dd rel="dcterms:requires">E. Rescorla. <a href="http://www.ietf.org/rfc/rfc2818.txt"><cite>HTTP Over TLS</cite></a>. May 2000. RFC. URL: <a href="http://www.ietf.org/rfc/rfc2818.txt">http://www.ietf.org/rfc/rfc2818.txt</a>
-</dd><dt id="bib-RDF-PRIMER">[RDF-PRIMER]</dt><dd rel="dcterms:requires">Frank Manola; Eric Miller. <a href="http://www.w3.org/TR/rdf-primer/"><cite>RDF Primer</cite></a>. 10 February 2004. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdf-primer/">http://www.w3.org/TR/rdf-primer/</a>
-</dd><dt id="bib-RDF-SYNTAX-GRAMMAR">[RDF-SYNTAX-GRAMMAR]</dt><dd rel="dcterms:requires">Fabien Gandon; Guus Schreiber. <a href="http://www.w3.org/TR/rdf-syntax-grammar/"><cite>RDF 1.1 XML Syntax</cite></a>. 9 January 2014. W3C Proposed Edited Recommendation. URL: <a href="http://www.w3.org/TR/rdf-syntax-grammar/">http://www.w3.org/TR/rdf-syntax-grammar/</a>
-</dd><dt id="bib-RDFA-CORE">[RDFA-CORE]</dt><dd rel="dcterms:requires">Ben Adida; Mark Birbeck; Shane McCarron; Ivan Herman et al. <a href="http://www.w3.org/TR/rdfa-core/"><cite>RDFa Core 1.1 - Second Edition</cite></a>. 22 August 2013. W3C Recommendation. URL: <a href="http://www.w3.org/TR/rdfa-core/">http://www.w3.org/TR/rdfa-core/</a>
-</dd><dt id="bib-RFC5988">[RFC5988]</dt><dd rel="dcterms:requires">Mark Nottingham. <a href="http://www.ietf.org/rfc/rfc5988.txt"><cite>Web Linking (RFC 5988)</cite></a>. October 2010. RFC. URL: <a href="http://www.ietf.org/rfc/rfc5988.txt">http://www.ietf.org/rfc/rfc5988.txt</a>
-</dd><dt id="bib-turtle">[turtle]</dt><dd rel="dcterms:requires">Eric Prud'hommeaux; Gavin Carothers. <a href="http://www.w3.org/TR/turtle/"><cite>RDF 1.1 Turtle</cite></a>. 9 January 2014. W3C Proposed Recommendation. URL: <a href="http://www.w3.org/TR/turtle/">http://www.w3.org/TR/turtle/</a>
-</dd></dl></div></div></body></html>
+/* Create shortcuts for every known HTML element */
+[
+  "a",
+  "abbr",
+  "acronym",
+  "address",
+  "applet",
+  "area",
+  "article",
+  "aside",
+  "audio",
+  "b",
+  "base",
+  "basefont",
+  "bdo",
+  "big",
+  "blockquote",
+  "body",
+  "br",
+  "button",
+  "canvas",
+  "caption",
+  "center",
+  "cite",
+  "code",
+  "col",
+  "colgroup",
+  "datalist",
+  "dd",
+  "del",
+  "details",
+  "dfn",
+  "dialog",
+  "div",
+  "dl",
+  "dt",
+  "em",
+  "embed",
+  "fieldset",
+  "figcaption",
+  "figure",
+  "font",
+  "footer",
+  "form",
+  "frame",
+  "frameset",
+  "head",
+  "header",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "hr",
+  "html",
+  "i",
+  "iframe",
+  "img",
+  "input",
+  "ins",
+  "kbd",
+  "label",
+  "legend",
+  "li",
+  "link",
+  "main",
+  "map",
+  "mark",
+  "meta",
+  "meter",
+  "nav",
+  "nobr",
+  "noscript",
+  "object",
+  "ol",
+  "optgroup",
+  "option",
+  "output",
+  "p",
+  "param",
+  "pre",
+  "progress",
+  "q",
+  "s",
+  "samp",
+  "script",
+  "section",
+  "select",
+  "small",
+  "source",
+  "span",
+  "strike",
+  "strong",
+  "style",
+  "sub",
+  "summary",
+  "sup",
+  "table",
+  "tbody",
+  "td",
+  "template",
+  "textarea",
+  "tfoot",
+  "th",
+  "thead",
+  "time",
+  "title",
+  "tr",
+  "u",
+  "ul",
+  "var",
+  "video",
+  "wbr",
+  "xmp",
+].forEach(tagname=>{
+	mk[tagname] = (...args) => mk(tagname, ...args);
+});
+
+function* nodesFromChildList(children) {
+	for(const child of children.flat(Infinity)) {
+		if(child instanceof Node) {
+			yield child;
+		} else {
+			yield new Text(child);
+		}
+	}
+}
+function append(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		if(el instanceof Node) el.appendChild(child);
+		else el.push(child);
+	}
+	return el;
+}
+
+function insertAfter(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		el.parentNode.insertBefore(child, el.nextSibling);
+	}
+	return el;
+}
+
+function clearContents(el) {
+	el.innerHTML = "";
+	return el;
+}
+
+function parseHTML(markup) {
+	if(markup.toLowerCase().trim().indexOf('<!doctype') === 0) {
+		const doc = document.implementation.createHTMLDocument("");
+		doc.documentElement.innerHTML = markup;
+		return doc;
+	} else {
+		const el = mk.template({});
+		el.innerHTML = markup;
+		return el.content;
+	}
+}
+</script>
