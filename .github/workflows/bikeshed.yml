@@ -2,10 +2,8 @@
 name: Process Bikeshed to HTML
 
 on:
-  workflow_dispatch:
-  pull_request:
   push:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
 
@@ -16,31 +14,35 @@ jobs:
     permissions:
       contents: write
 
-    strategy:
-      max-parallel: 1
-      matrix:
-        include:
-          - source: spec/identity/index.bs
-            destination: spec/identity/index.html
-
     steps:
 
       - name: Checkout latest change
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
     
-      - name: Run Bikeshed
-        uses: w3c/spec-prod@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
         with:
-          TOOLCHAIN: bikeshed
-          SOURCE: ${{ matrix.source }}
-          DESTINATION: ${{ matrix.destination }}
-          VALIDATE_WEBIDL: true
-          VALIDATE_LINKS: false
-          VALIDATE_MARKUP: true
-          BUILD_FAIL_ON: fatal  # "nothing", "fatal", "link-error", "warning", "everything"
+          python-version: '3.8'
 
-      - name: Commit output
-        uses: EndBug/add-and-commit@v9
+      - name: Install Bikeshed
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install --upgrade bikeshed
+          bikeshed update
+
+      - name: Run Bikeshed
+        run: |
+          bikeshed spec spec/identity/index.bs
+
+      - name: Check for changed files
+        uses: tj-actions/verify-changed-files@v17
+        id: verify-changed-files
+
+      - name: Commit changed files
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          add: ${{ matrix.destination }}
-          message: 'chore: process Bikeshed to HTML (CI)'
+          commit_message: 'chore: process Bikeshed to HTML (CI)'
