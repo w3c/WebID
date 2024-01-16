@@ -5,10 +5,10 @@
   <title>Web Identity and Discovery</title>
   <meta content="w3c/ED" name="w3c-status">
   <link href="https://www.w3.org/StyleSheets/TR/2021/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version fcb66286b, updated Wed Jul 19 11:14:33 2023 -0700" name="generator">
+  <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="http://www.w3.org/TR/webid/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="6005761ec31b42d1c392e2f3f776dfbd628f3a30" name="document-revision">
+  <meta content="ebccd4a9b0b75ce9a1d34f980eb1943b9247ef71" name="document-revision">
 <style>
 
     /* Reset base counters and additional ones */
@@ -55,6 +55,10 @@
     code {
       color: orangered;
       font-size: .8em;
+    }
+
+    #webid-diagram {
+      width: 100%;
     }
 
     /* Some temporary style to render without toc */
@@ -633,7 +637,7 @@ WebID can be <code>https://bob.example.org/profile#me</code>.</p>
    <p><em>This section is non-normative.</em></p>
    <p>The relation between the <a data-link-type="dfn" href="#webid" id="ref-for-webid">WebID</a> URI and the <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document④">WebID Profile Document</a> is
 illustrated below.</p>
-   <p><img alt id="webid-diagram" src="img/WebID-overview.png" width="100%"></p>
+   <p><img alt="WebID overview" height="851" id="webid-diagram" src="img/WebID-overview.png" width="1311"></p>
    <p>The WebID URI — <em>"<a href="http://www.w3.org/People/Berners-Lee/card#i">http://www.w3.org/People/Berners-Lee/card<strong>#i</strong></a>"</em> (containing the <strong>#i</strong> hash tag) — is an identifier that denotes (refers to) a
 person or more generally an agent. In the above illustration, the referent is
 Tim Berners Lee, a real physical person who has a history, who invented the
@@ -674,9 +678,15 @@ a name and perhaps an avatar image, expressed using the FOAF <a data-link-type="
 conveying key pieces of personal information but are <em class="rfc2119" title="NOT REQUIRED">NOT REQUIRED</em> to be present in a <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑤">WebID Profile
 Document</a>:</p>
    <dl>
-    <dt data-md>foaf:name :: The name of the individual or agent.
-    <dt data-md>foaf:knows :: The WebID URI of a known person.
-    <dt data-md>foaf:img :: An image representing a person.
+    <dt data-md>foaf:name
+    <dd data-md>
+     <p>The name of the individual or agent.</p>
+    <dt data-md>foaf:knows
+    <dd data-md>
+     <p>The WebID URI of a known person.</p>
+    <dt data-md>foaf:img
+    <dd data-md>
+     <p>An image representing a person.</p>
    </dl>
    <h3 class="heading settled" data-level="5.2" id="publishing-a-webid-profile-using-turtle"><span class="secno">5.2. </span><span class="content">Publishing a WebID Profile using Turtle ##</span><a class="self-link" href="#publishing-a-webid-profile-using-turtle"></a></h3>
     {#publishing-a-webid-profile-using-turtle} 
