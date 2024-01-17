@@ -59,7 +59,8 @@ the problem you want to fix.
 
 If you find an issue to work on, you are welcome to open a PR with a fix.
 The group will then decide whether to reject it, merge it or ask for further
-modifications.
+modifications. Regardless of your standing within the WebID CG or the W3C 
+organization, PRs must always originate from forks of this repository.
 
 Issues are tracked and discussed on [GitHub](https://github.com/w3c/WebID/issues).
 
