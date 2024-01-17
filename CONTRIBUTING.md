@@ -64,6 +64,25 @@ organization, PRs must always originate from forks of this repository.
 
 Issues are tracked and discussed on [GitHub](https://github.com/w3c/WebID/issues).
 
+## Processing PRs
+
+It is the chair's responsibility to ensure that each PR is adequately discussed
+before merging or rejecting it.
+
+The chair must, for each PR, call upon members to provide their feedback and
+let their objections known, if any. The chair must do so in a broad manner,
+such that even a casual participant of the CG is likely to participate in the
+process. While it is up to the chair to define the date by which members should
+let their objections known on a case by case basis, this date must be clearly
+communicated to the group in writing.
+
+Though lazy consensus considers lack of dissent as implicit assent, the chair
+must weigh the amount of feedback against the number of _active participants_.
+At any given point in time, active partipants are defined as members who
+actively participated in the group's operations within the six months prior.
+The chair must not consider merging a PR unless it has received feedback from
+at least half of the group's active participants.
+
 ## Communication
 
 The opinions of CG members may carry particular weight, whether they are
