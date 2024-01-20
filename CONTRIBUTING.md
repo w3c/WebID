@@ -72,16 +72,27 @@ before merging or rejecting it.
 The chair must, for each PR, call upon members to provide their feedback and
 let their objections known, if any. The chair must do so in a broad manner,
 such that even a casual participant of the CG is likely to participate in the
-process. While it is up to the chair to define the date by which members should
-let their objections known on a case by case basis, this date must be clearly
-communicated to the group in writing.
+process. 
+
+For any given PR, the chair must clearly communicate the date by which members
+must let their objections known. This date, to be communicated in writing as a
+comment to the PR itself, must be either 2 weeks or 4 weeks after the PR's
+opening date, depending on the extent and significance of the proposed change.
+
+In addition, the chair must, on a weekly basis, provide the group with an
+overview of the issues, PRs and discussions to be reviewed during the following
+week. These overviews must be shared via the CG's mailing list.
 
 Though lazy consensus considers lack of dissent as implicit assent, the chair
 must weigh the amount of feedback against the number of _active participants_.
 At any given point in time, active partipants are defined as members who
-actively participated in the group's operations within the six months prior.
+actively participated in the group's operations within the three months prior.
 The chair must not consider merging a PR unless it has received feedback from
-at least half of the group's active participants.
+at least one third of the group's active participants.
+
+The chair must always document the decisions and disagreements leading to the
+merging or rejection of a PR. The chair must do so through _chair's notes_
+documents living within this repository.
 
 ## Communication
 
