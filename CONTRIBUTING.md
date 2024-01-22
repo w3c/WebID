@@ -59,9 +59,33 @@ the problem you want to fix.
 
 If you find an issue to work on, you are welcome to open a PR with a fix.
 The group will then decide whether to reject it, merge it or ask for further
-modifications.
+modifications. Regardless of your standing within the WebID CG or the W3C 
+organization, PRs must always originate from forks of this repository.
 
 Issues are tracked and discussed on [GitHub](https://github.com/w3c/WebID/issues).
+
+## Processing PRs
+
+It is the chair's responsibility to ensure that each PR is adequately discussed
+before merging or rejecting it.
+
+The chair must, for each PR, call upon members to provide their feedback and
+let their objections known, if any. The chair must do so in a broad manner,
+such that even a casual participant of the CG is likely to participate in the
+process. 
+
+For any given PR, the chair must clearly communicate the date by which members
+must let their objections known. This date, to be communicated in writing as a
+comment to the PR itself, must be either 2 weeks or 4 weeks after the PR's
+opening date, depending on the extent and significance of the proposed change.
+
+In addition, the chair must, on a weekly basis, provide the group with an
+overview of the issues, PRs and discussions to be reviewed during the following
+week. These overviews must be shared via the CG's mailing list.
+
+The chair must always document the decisions and disagreements leading to the
+merging or rejection of a PR. The chair must do so through _chair's notes_
+documents living within this repository.
 
 ## Communication
 
