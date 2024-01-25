@@ -61,13 +61,13 @@ Most metadata about the specification is included in the specification's header.
 
 ### Definitions
 
-A crucial part of a specification is the definition of its terminology. Definitions can easily be indicated by surrounding the term with `<dnf>` tags; Bikeshed will automatically add a fragment identifier. Alternatively, Bikeshed provides a shorthand for definition lists:
+A crucial part of a specification is the definition of its terminology. Definitions can easily be indicated by surrounding the term with `<dnf>` tags; Bikeshed will automatically add a fragment identifier. Bikeshed provides a shorthand for definition lists:
 
 ```html
-: Foo
+: <dfn>Foo</dfn>
 :: To Foo means to do something with a Bar.
 
-: Bar
+: <dfn>Bar</dfn>
 :: A Bar is something that is used when Fooing. 
 ```
 
@@ -80,7 +80,9 @@ Bikeshed facilitates referencing to both internal and external terminology throu
 This document defines [=AcmeCorp=], and what it means to be [=Fooing=] with [=Bars=].
 ```
 
-Autolinks will also be created for terms exported by any of the specifications in the [SpecRef](https://specref.org) database (including W3C and IETF documents). To make sure Bikeshed links to the correct definition, in case multiple documents define the same term differently, preferences can be configured in a `<pre class='link-defaults'>` block, or in a file called `link-defaults.infotree`, according to the [InfoTree](https://speced.github.io/bikeshed/#infotree) syntax. For example:
+Autolinks will also be created for terms exported by any of the specifications in the [SpecRef](https://specref.org) database (including W3C and IETF documents). Similarly, your specification can mark definitions to be exported by adding the `export` attributed: `<dfn export>Term</dfn>`.
+
+To make sure Bikeshed links to the correct definition, in case multiple documents define the same term differently, preferences can be configured in a `<pre class='link-defaults'>` block, or in a file called `link-defaults.infotree`, according to the [InfoTree](https://speced.github.io/bikeshed/#infotree) syntax. For example:
 
 ```
 info: link-defaults
@@ -178,15 +180,11 @@ Text in `<code></code>` elements and `<pre></pre>` blocks are automatically form
 Syntax highlighting is supported for most [Pygment lexers](http://pygments.org/docs/lexers/), using the `highlight` attribute, and line numbers can be added using the `line-numbers` attribute or with the `Line Numbers` metadata field. Moreover, specific lines of a code block can be highlighted using the `line-highlight` attribute. Here's an example:
 
 ```html
-<div class='example'>
-  A code block in an example:
-
-  <pre highlight="js" line-numbers line-highlight="1,3">
-    const x = "Hello World!";
-    // less interesting comment ...
-    console.log(x);
-  </pre>
-</div>
+<pre highlight="js" line-numbers line-highlight="1,3">
+  const x = "Hello World!";
+  // less interesting comment ...
+  console.log(x);
+</pre>
 ```
 
 Code snippets can also be imported from other files as follows:
@@ -204,3 +202,101 @@ line-highlight: 1,3
 #### Validation checks
 
 A number of typical pitfalls that specifications can bump into can be checked by the Bikeshed processor on transpilation. These include checks for broken links, and whether conformance language is used in non-normative sections. They are enabled with the `Complain About` metadata field.
+
+
+## Appendix A: aggregated example
+
+Below you find a more elaborate example constructed from the different snippets throughout the guide. Try and paste it in the [Bikeshed Web Form](https://api.csswg.org/bikeshed/) to see how it looks like!
+
+```html
+<pre class='metadata'>
+Title: Web Identity and Discovery 1.0
+Shortname: WebID 1.0
+
+Group: w3c
+Status: w3c/ED
+Level: none
+
+Editor: Wouter Termont
+
+URL: https://example.org/spec
+
+Abstract: 
+
+  A global distributed Social Web requires that each person be able to control their identity [...]
+
+Dark Mode: off
+Markup Shorthands: markdown yes
+Informative Classes: informative
+Complain About: accidental-2119 yes, broken-links yes
+</pre>
+
+
+# Introduction #  {#sec-intro}
+
+[NO-NORM]
+
+<div class="informative">
+
+This is an aggregated example of a specification written in Bikeshed. After defining some terms in [[#sec-terms]], we make use of them in [[#sec-main]].
+
+Since this is a non-normative section, we *should not* use conformance terms here. Doing so will raise a warning.
+
+</div>
+
+
+# Terminology #  {#sec-terms}
+
+This example specification defines the following terms.
+
+: <dfn export>Foo</dfn>
+:: To Foo means to do something with a Bar.
+
+: <dfn>Bar</dfn>
+:: A Bar is something that is used when Fooing. 
+
+Additionally, we call a term <dfn lt="Well-Definedness">Well-Defined</dfn> if it is listed in this section.
+
+
+# Main content #  {#sec-main}
+
+After an uninteresting paragraph that has asbolutely nothing to do with [=Well-Definedness=] of [=Bar=], nor with the <{div}> element [[HTML]], we give a traditional *Hello World* example. 
+
+<div class='example'>
+  A code block in an example:
+
+  <pre highlight="js" line-numbers line-highlight="1,3">
+    const x = "Hello World!";
+    // less interesting comment ...
+    console.log(x);
+  </pre>
+</div>
+
+NOTE: The above example contains a code block. Note how Bikeshed strips redundant indentation, so the code looks good both in the source file and in the resulting HTML.
+
+Furthermore, this specification wants to point out the fascinating link between [=foaf:Agent=] [[!FOAF]] and a certain non-existent document [[!FICTION]] here.
+
+
+<pre class="metadata">
+Text Macro: NO-NORM *This section is non-normative.*
+Text Macro: SHOULD-NOT <em class="rfc2119">SHOULD NOT</em>
+</pre>
+
+<pre class="anchors">
+spec: FOAF; urlPrefix: http://xmlns.com/foaf/0.1/#term_; 
+    type: dfn;
+        text: foaf:Agent; url: Agent
+</pre>
+
+<pre class="biblio">
+{
+  "FICTION": {
+    "title": "Fiction: the non-existent referenced document",
+    "date": "2024",
+    "authors": [
+      "Wouter Termont"
+    ]
+  }
+}
+</pre>
+```
