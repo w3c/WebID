@@ -16,6 +16,8 @@
  guide](https://github.com/w3c/WebID/blob/main/CONTRIBUTING.md) for detailed
  instructions on how to get started with our project.
 
+ The work items are written using [Bikeshed](https://speced.github.io/bikeshed/), a preprocessor that automates a lot of modern spec-writing. [BUILD.md](https://github.com/w3c/WebID/blob/main/BUILD.md) contains a short guide on its usage.
+
  ## Code of Conduct
 
  All documentation, code and communication under this repository are covered by

@@ -1,0 +1,657 @@
+
+
+<!---- GENERAL METADATA ------------------------------------------------------>
+
+<pre class="metadata">
+
+Title: Web Identity and Discovery
+Shortname: WebID
+
+Editor: Jacopo Scazzosi, jacopo@scazzosi.com
+Former Editor: Andrei Sambra, andrei@fcns.eu
+Former Editor: Stéphane Corlosquet, scorlosquet@gmail.com
+
+Group: w3c
+Status: w3c/ED
+Revision: 1
+
+ED: https://www.w3.org/2005/Incubator/webid/spec/identity/
+TR: http://www.w3.org/TR/webid/
+
+Previous Version: http://www.w3.org/2005/Incubator/webid/spec/drafts/
+
+Repository: https://github.com/w3c/WebID/
+
+
+Abstract:
+
+  A global distributed Social Web requires that each person be able to control
+  their identity, that this identity be linkable across sites — placing each
+  person in a Web of relationships — and that it be possible to authenticate
+  globally with such identities.
+
+  This specification outlines a simple universal identification mechanism that
+  is distributed, openly extensible, improves privacy, security and control
+  over how each person can identify themselves in order to allow fine grained
+  access control to their information on the Web. It does this by applying the
+  best practices of Web Architecture whilst building on well established widely
+  deployed protocols and standards including HTML, URIs, HTTP, and RDF
+  Semantics.
+
+  <h3 id="how-to-read-this-document">How to Read this Document</h3>
+
+  There are a number of concepts that are covered in this document that the
+  reader may want to be aware of before continuing. General knowledge of RDF
+  [[!RDF-PRIMER]] is necessary to understand how to implement this
+  specification. WebID uses a number of specific technologies like Turtle
+  [[!TURTLE]] and RDFa [[!RDFA-CORE]].
+
+  A general [[#introduction|Introduction]] is provided for all that would like
+  to understand why this specification is necessary to simplify usage of the Web.
+
+  The terms used throughout this specification are listed in the section titled
+  [[#terminology|Terminology]].
+
+Status Text:
+
+  <em>This section describes the status of this document at the time of its
+  publication. Other documents may supersede this document. A list of current
+  <abbr title="World Wide Web Consortium">W3C</abbr> publications and the
+  latest revision of this technical report can be found in the <a
+  href="http://www.w3.org/TR/"><abbr title="World Wide Web
+  Consortium">W3C</abbr> technical reports index</a> at
+  http://www.w3.org/TR/.</em>
+
+  <!-- This document has been reviewed by W3C Members, by software developers,
+  and by other W3C groups and interested parties, and is endorsed by the
+  Director as a W3C Recommendation. It is a stable document and may be used as
+  reference material or cited from another document. W3C's role in making the
+  Recommendation is to draw attention to the specification and to promote its
+  widespread deployment. This enhances the functionality and interoperability
+  of the Web. -->
+
+  This document is produced from work by the <a
+  href="http://www.w3.org/community/webid/"><abbr title="World Wide Web
+  Consortium">W3C</abbr> WebID Community Group</a>. This is an internal draft
+  document and may not even end up being officially published. It may also be
+  updated, replaced or obsoleted by other documents at any time. It is
+  inappropriate to cite this document as other than work in progress. The
+  source code for this document is available at the following URI:
+  https://dvcs.w3.org/hg/WebID
+
+  This document was published by the <a
+  href="http://www.w3.org/community/webid/">WebID CG</a> as an Editor's Draft.
+  If you wish to make comments regarding this document, please send them to
+  public-webid@w3.org <a
+  href="mailto:public-webid-request@w3.org?subject=subscribe">subscribe</a>, <a
+  href="http://lists.w3.org/Archives/Public/public-webid/">archives</a>. All
+  comments are welcome.
+
+  Publication as an Editor's Draft does not imply endorsement by the <abbr
+  title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft
+  document and may be updated, replaced or obsoleted by other documents at any
+  time. It is inappropriate to cite this document as other than work in
+  progress.
+
+  This document was produced by a group operating under the <a
+  href="http://www.w3.org/Consortium/Patent-Policy-20040205/"
+  rel="w3p:patentRules" about="" id="sotd_patent">5 February 2004 <abbr
+  title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. <abbr
+  title="World Wide Web Consortium">W3C</abbr> maintains a <a rel="disclosure"
+  href="http://www.w3.org/2004/01/pp-impl/46065/status">public list of any
+  patent disclosures</a> made in connection with the deliverables of the group;
+  that page also includes instructions for disclosing a patent. An individual
+  who has actual knowledge of a patent which the individual believes contains <a 
+  href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
+  Claim(s)</a> must disclose the information in accordance with <a
+  href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
+  6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent 
+  Policy</a>.
+
+</pre>
+
+
+<!---- MAIN CONTENT ---------------------------------------------------------->
+
+# Introduction # {#introduction}
+
+[NO-NORM]
+
+A WebID is an HTTP URI that refers to an Agent (Person, Organization, Group,
+Device, etc.). A description of the WebID can be found in the [=WebID Profile
+Document=], a type of web page that would be familiar to any Social Network
+user.
+
+A [=WebID Profile Document=] is a Web resource that [MUST] be available as
+`text/turtle` [[!TURTLE]], but [MAY] be available in other RDF serialization
+formats (e.g., [[!RDFA-CORE]]) if requested through content negotiation.
+
+WebIDs can be used to build a Web of trust using vocabularies such as FOAF
+[[!FOAF]] by allowing people to link their profiles in a public or protected
+manner. Such a web of trust can then be used by a [=Service=] to make
+authorization decisions, by allowing access to resources depending on the
+properties of an agent, such as that they are known by some relevant people,
+employed at a given company, a member of a family or some other group, etc.
+  
+## Outline ## {#outline}
+
+This specification is divided in the following sections.
+
+[[#introduction|This section]] gives a high level overview of WebID, and
+presents the organization of the specification and the conventions used
+throughout this document.
+
+[[#terminology|Section 2]] provides a short description for the most commonly
+used terms in this document.
+
+[[#the-webid-http-uri|Section 3]] describes what a WebID URI is.
+
+[[#overview|Section 4]] presents an overview of WebID.
+
+[[#publishing-the-webid-profile-document|Section 5]] deals with the publishing
+of a [=WebID Profile Document=].
+
+[[#processing-the-webid-profile|Section 6]] describes how a request for a
+[=WebID Profile Document=] should be handled.
+
+
+# Terminology # {#terminology}
+
+This section provides definitions for several important terms used in this
+document.
+
+: <dfn>Requesting Agent</dfn>
+
+:: The Requesting Agent initiates a request to a Service listening on a
+    specific port using a given protocol on a given Server.
+
+: <dfn>Server</dfn>
+
+:: A Server is a physical or virtual machine, contactable at a domain name or
+    IP address, that hosts Services which are accessible over the network.
+
+: <dfn>Service</dfn>
+
+:: A Service is an agent listening for requests at a particular domain name or
+    IP address on a given Server.
+
+: <dfn>WebID</dfn>
+
+:: A WebID is a URI with an HTTP or HTTPS scheme that denotes an Agent (Person,
+    Organization, Group, Device, etc.). For WebIDs with fragment identifiers
+    (e.g., `#me`), the URI without the fragment denotes the WebID Profile
+    Document. For WebIDs without fragment identifiers an HTTP request on the
+    WebID [MUST] return a 303 with a Location header URI referring to the WebID
+    Profile Document.    
+
+: <dfn>WebID Profile Document</dfn>
+
+:: A WebID Profile Document is an RDF document that uniquely describes the
+    Agent denoted by the WebID in relation to that WebID. The server [MUST]
+    provide a `text/turtle` [[!TURTLE]] representation of the requested
+    profile. This document [MAY] be available in other RDF serialization
+    formats, such as RDFa [[!RDFA-CORE]], or [[!RDF-SYNTAX-GRAMMAR]] if so
+    requested through content negotiation.
+
+
+## Namespaces ## {#namespaces}
+
+Examples assume the following namespace prefix bindings unless otherwise
+stated:
+
+<table class="prefixes">
+  <thead>
+    <tr>
+      <th>Prefix</th>
+      <th>IRI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>foaf</code></td>
+      <td>http://xmlns.com/foaf/0.1/</td>
+    </tr>
+  </tbody>
+</table>
+
+
+# The WebID HTTP URI # {#the-webid-http-uri}
+
+When using URIs, it is possible to identify both a thing (which may exist
+outside of the Web) and a Web document describing the thing. For example, the
+person Bob is described on his homepage. Alice may not like the look of Bob's
+homepage, but may want to link to the person Bob. Therefore, two URIs are
+needed, one for Bob and one for Bob's homepage (or an RDF document describing
+Bob).
+
+The WebID HTTP URI must be one that dereferences to a document the user
+controls.
+
+For example, if a user Bob controls `https://bob.example.org/profile`, then his
+WebID can be `https://bob.example.org/profile#me`.
+
+<div class="note" id="h_note_1">
+
+  There are two solutions that meet our requirements for identifying real-world
+  objects: 303 redirects and hash URIs. Which one to use depends on the
+  situation. Both have advantages and disadvantages, as presented in
+  [[!COOLURIS]]. All examples in this specification will use such hash URIs.
+
+</div>
+
+
+# Overview # {#overview}
+
+[NO-NORM]
+
+The relation between the [=WebID=] URI and the [=WebID Profile Document=] is
+illustrated below.
+
+<img src="img/WebID-overview.png" alt="WebID overview" id="webid-diagram">
+
+The WebID URI — <em>"<a href="http://www.w3.org/People/Berners-Lee/card#i"
+>http://www.w3.org/People/Berners-Lee/card<strong>#i</strong></a>"</em>
+(containing the **#i** hash tag) — is an identifier that denotes (refers to) a
+person or more generally an agent. In the above illustration, the referent is
+Tim Berners Lee, a real physical person who has a history, who invented the
+World Wide Web, and who directs the World Web Consortium.
+
+The WebID Profile Document URI — <em>"<a 
+href="http://www.w3.org/People/Berners-Lee/card"
+>http://www.w3.org/People/Berners-Lee/card</a>"</em> (without the **#i** hash
+tag) — denotes the document describing the person (or more generally any agent)
+who is the referent of the WebID URI.
+
+The WebID Profile Document gives the meaning of the WebID: its RDF Graph
+contains a [Concise Bounded Description](http://www.w3.org/Submission/CBD/) of
+the WebID such that this subgraph forms a definite description of the referent
+of the WebID, that is, a description that distinguishes the referent of that
+WebID from all other things in the world. <br /> The WebID Profile Document
+can, for example, contain relations to other documents depicting the WebID
+referent, or it can relate the WebID to principals used by different
+authentication protocols. (More information on WebID and other authentication
+protocols can be found on the [WebID Identity
+Interoperability](http://www.w3.org/2005/Incubator/webid/wiki/Identity_Interoperability)
+page).
+
+
+# Publishing the WebID Profile Document # {#publishing-the-webid-profile-document}
+
+WebID requires that servers [MUST] at least be able to provide Turtle
+representation of WebID Profile Documents, but other serialization formats of
+the graph are allowed, provided that agents are able to parse that
+serialization and obtain the graph automatically. HTTP Content Negotiation can
+be employed to aid in publication and discovery of multiple distinct
+serializations of the same graph at the same URL, as explained in [[!COOLURIS]]
+
+It is particularly useful to have one of the representations be in HTML even if
+it is not marked up in RDFa, as this allows people using a web browser to
+understand what the information at that URI represents.
+
+
+## WebID Profile Document Vocabulary ## {#webid-profile-vocabulary}
+
+WebID RDF graphs are built using vocabularies identified by URIs, that can be
+placed in subject, predicate or object position of the relations constituting
+the graph. The definition of each URI should be found at the namespace of the
+URI, by dereferencing it.
+
+
+### Personal Information ### {#personal-information}
+
+[NO-NORM]
+
+Personal details are the most common requirement when registering an account
+with a website. Some of these pieces of information include an e-mail address,
+a name and perhaps an avatar image, expressed using the FOAF [[!FOAF]]
+vocabulary. This section includes properties that [SHOULD] be used when
+conveying key pieces of personal information but are <em class="rfc2119"
+title="NOT REQUIRED">NOT REQUIRED</em> to be present in a [=WebID Profile
+Document=]:
+
+: foaf:name
+
+:: The name of the individual or agent.
+
+: foaf:knows
+
+:: The WebID URI of a known person.
+
+: foaf:img
+
+:: An image representing a person.
+
+
+## Publishing a WebID Profile using Turtle ## 
+{#publishing-a-webid-profile-using-turtle}
+
+[NO-NORM]
+
+A widely used format for writing RDF graphs by hand is the
+[Turtle](http://www.w3.org/TR/turtle/) [[!TURTLE]] notation. It is easy to
+learn, and very handy for communicating over e-mail and on mailing lists. The
+syntax is very similar to the \[SPARQL](http://www.w3.org/TR/rdf-sparql-query/)
+query language. WebID Profile Documents in Turtle should be served with the
+`text/turtle` content type.
+
+Take for example the WebID *https://bob.example.org/profile#me*, for which the
+WebID Profile Document contains the following Turtle representation:
+
+<div class="example" id="ex-webid-profile-turtle">
+  <pre highlight="turtle">
+    @prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+
+    &lt;&gt; a foaf:PersonalProfileDocument ;
+      foaf:maker &lt;#me&gt; ;
+      foaf:primaryTopic &lt;#me&gt; .
+
+    &lt;#me&gt; a foaf:Person ;
+      foaf:name &quot;Bob&quot; ;
+      foaf:knows &lt;https://example.edu/p/Alice#MSc&gt; ;
+      foaf:img &lt;https://bob.example.org/picture.jpg&gt; .
+  </pre>
+</div>
+
+## Publishing a WebID Profile Document using the RDFa HTML notation ## {#publishing-a-webid-profile-using-the-rdfa-html-notation}
+
+[NO-NORM]
+
+RDFa in HTML [[!RDFA-CORE]] is a way to markup HTML with relations that have a
+well defined semantics and mapping to an RDF graph. There are many ways of
+writing out the above graph using RDFa in HTML. Here is just one example of
+what a WebID Profile Document could look like.
+
+<div class="example" id="ex-webid-profile-rdfa">
+  <pre highlight="html">
+    &lt;div vocab=&quot;http://xmlns.com/foaf/0.1/&quot; about=&quot;#me&quot; typeof=&quot;foaf:Person&quot;&gt;
+      &lt;p&gt;My name is &lt;span property=&quot;name&quot;&gt;Bob&lt;/span&gt; and this is how I look like: &lt;img property=&quot;img&quot; src=&quot;https://bob.example.org/picture.jpg&quot; title=&quot;Bob&quot; alt=&quot;Bob&quot; /&gt;&lt;/p&gt;
+      &lt;h2&gt;My Good Friends&lt;/h2&gt;
+      &lt;ul&gt;
+        &lt;li property=&quot;knows&quot; href=&quot;https://example.edu/p/Alice#MSc&quot;&gt;Alice&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  </pre>
+</div>
+
+If a WebID provider would prefer not to mark up his WebID Profile Document in
+HTML+RDFa, but just provide a human readable format for users in plain HTML and
+have the RDF graph appear in a machine readable format such as Turtle, then he
+[SHOULD] provide a link of type `alternate` to a machine readable format
+[[!RFC5988]]. This can be placed in the HTTP header or in the html as shown
+here:
+
+<div class="example" id="webid-profile-link">
+  <pre highlight="html">
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;link rel=&quot;alternate&quot; type=&quot;text/turtle&quot; href=&quot;profile.ttl&quot;/&gt;
+      &lt;/head&gt;
+      &lt;body&gt; ... &lt;/body&gt;
+    &lt;/html&gt;
+  </pre>
+</div>
+
+
+## Privacy ## {#privacy}
+
+[NO-NORM]
+
+A WebID Profile Document may contain public as well as private information
+about the agent identified by the WebID. As some agents may not want to reveal
+a lot of information about themselves, RDF and Linked Data principles allows
+them to choose how much information they wish to make publicly available. This
+can be achieved by separating parts of the profile information into separate
+documents, each protected by access control policies. 
+
+On the other hand, some agents may want to publish more information about
+themselves, but only to a select group of trusted agents. In the following
+example, Bob is limiting access to his list of friends, by placing all
+*foaf:knows* relations into a separate document.
+
+<div class="example" id="ex-privacy-profile">
+  <pre highlight="turtle">
+    @prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+    @prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+
+    &lt;&gt; a foaf:PersonalProfileDocument ;
+      foaf:maker &lt;#me&gt; ;
+      foaf:primaryTopic &lt;#me&gt; .
+
+    &lt;#me&gt; a foaf:Person ;
+      foaf:name &quot;Bob&quot; ;
+      <strong>rdfs:seeAlso &lt;https://bob.example.org/friends&gt; ;</strong>
+      foaf:img &lt;https://bob.example.org/picture.jpg&gt; .
+  </pre>
+</div>
+
+Where https://bob.example.org/friends is a reference to an Access Control List
+(ACL) protected document containing:
+
+<div class="example" id="ex-privacy-seeAlso">
+  <pre highlight="turtle">
+    @prefix foaf: &lt;http://xmlns.com/foaf/0.1/&gt; .
+
+    &lt;&gt; a foaf:PersonalProfileDocument ;
+      foaf:maker &lt;https://bob.example.org/profile#me&gt; ;
+      foaf:primaryTopic &lt;https://bob.example.org/profile#me&gt; .
+
+    &lt;https://bob.example.org/profile#me&gt; a foaf:Person ;
+      foaf:knows &lt;https://example.edu/p/Alice#MSc&gt; ;
+      foaf:knows &lt;https://example.com/people/Mary/card#me&gt; .
+  </pre>
+</div>
+
+and having the following corresponding ACL rule, expressed using the
+[WebAccessControl](http://www.w3.org/wiki/WebAccessControl) ontology:
+
+<div class="example" id="ex-privacy-acl">
+  <pre highlight="turtle">
+    @prefix acl: &lt;http://www.w3.org/ns/auth/acl#&gt; .
+
+    &lt;#FriendsOnly&gt; ;
+      acl:accessTo &lt;https://bob.example.org/friends&gt; ;
+      acl:agent &lt;http://example.edu/p/Alice#Msc&gt;, &lt;http://example.com/people/Mary/card#me&gt; ;
+      acl:mode acl:Read .
+  </pre>
+</div>
+
+
+## Security Considerations ## {#security-considerations}
+
+[NO-NORM]
+
+A [=WebID=] identifies an agent via a description found in the associated
+[=WebID Profile Document=]. An agent that wishes to know what a WebID refers
+to, must rely on the description found in the WebID Profile. An attack on the
+relation between the [=WebID=] and the [=WebID Profile Document=] can thus be
+used to subvert the meaning of the WebID, and to make agents following links
+within the [=WebID Profile Document=] come to different conclusions from those
+intended by profile owners.
+
+The standard way of overcoming such attacks is to rely on the cryptographic
+security protocols within the HTTPS [[!HTTP-TLS]] stack. HTTPS servers are
+identified by a certificate either signed by a well known Certification
+Authority or whose public key is listed in the DNSSEC as specified by the DANE
+protocol [[!RFC6698]], or both. This makes it much more difficult to set up a
+fake server by DNS Poisoning attacks. Resources served over HTTPS are
+furthermore signed and encrypted removing all the simple man-in-the-middle
+attacks. Applying the above security measure does not remove the burden from
+server administrators to take the appropriate security measures, in order to
+avoid compromising their servers. Similarly, clients that fetch documents on
+the web also need to make sure their work environment has not bee
+compromised.
+
+As security is constantly being challenged by new attacks, to which new
+responses are found, a collection of security considerations will be made
+available on the [WebID
+Wiki](http://www.w3.org/2005/Incubator/webid/wiki/Identity_Security).
+
+
+# Processing the WebID Profile # {#processing-the-webid-profile}
+
+The [=Requesting Agent=] needs to fetch the WebID Profile Document, if it does
+not have a valid one in cache. The Agent requesting the WebID Profile Document
+[MUST] be able to parse documents in Turtle [[!TURTLE]], but [MAY] also be able
+to parse documents in RDF/XML [[!RDF-SYNTAX-GRAMMAR]] and RDFa [[!RDFA-CORE]].
+The result of this processing should be a graph of RDF relations that is
+queryable, as explained in the next section.
+
+<div class="note" id="note-qvalue">
+
+  It is recommended that the [=Requesting Agent=] sets a *qvalue* for
+  `text/turtle` in the HTTP `Accept-Header` with a higher priority than in the
+  case of `application/xhtml+xml` or `text/html`, as sites may produce HTML
+  without RDFa markup but with a link to graph encoded in a pure RDF format
+  such as Turtle. For an agent that can parse Turtle, rdf/xml and RDFa, the
+  following would be a reasonable Accept header:
+  <br />
+  `Accept: text/turtle,application/rdf+xml,application/xhtml+xml;q=0.8,text/html;q=0.7`
+</div>
+
+If the [=Requesting Agent=] wishes to have the most up-to-date WebID Profile
+Document for an HTTP URL, it can use the HTTP cache control headers to get the
+latest versions.
+
+
+# Acknowledgments # {#acknowledgments}
+
+[NO-NORM]
+
+The following people have been instrumental in providing thoughts, feedback,
+reviews, criticism and input in the creation of this specification: 
+
+Stéphane Corlosquet, Erich Bremer, Kingsley Idehen, Ted Thibodeau, Alexandre
+Bertails, Thomas Bergwinkl.
+
+
+<!---- MACROS ---------------------------------------------------------------->
+
+<pre class="metadata">
+
+Text Macro: W3C <abbr title="World Wide Web Consortium">W3C</abbr>
+
+Text Macro: NO-NORM *This section is non-normative.*
+
+Text Macro: MUST <em class="rfc2119">MUST</em>
+Text Macro: SHALL <em class="rfc2119">SHALL</em>
+Text Macro: REQUIRED <em class="rfc2119">REQUIRED</em>
+
+Text Macro: MUST-NOT <em class="rfc2119">MUST NOT</em>
+Text Macro: SHALL-NOT <em class="rfc2119">SHALL NOT</em>
+
+Text Macro: SHOULD <em class="rfc2119">SHOULD</em>
+Text Macro: RECOMMENDED <em class="rfc2119">RECOMMENDED</em>
+
+Text Macro: SHOULD-NOT <em class="rfc2119">SHOULD NOT</em>
+Text Macro: NOT-RECOMMENDED <em class="rfc2119">NOT RECOMMENDED</em>
+
+Text Macro: MAY <em class="rfc2119">MAY</em>
+Text Macro: OPTIONAL <em class="rfc2119">OPTIONAL</em>
+
+</pre>
+
+
+<!---- CHECKS TO RUN --------------------------------------------------------->
+
+<pre class="metadata">
+
+Complain About: accidental-2119 yes
+Complain About: broken-links yes
+Complain About: missing-example-ids yes
+Complain About: mixed-indents yes
+
+</pre>
+
+
+<!---- REFERENCE ANCHORS ----------------------------------------------------->
+
+<pre class="metadata">
+
+External Infotrees: anchors.bsdata no
+External Infotrees: link-defaults.infotree no
+
+</pre>
+
+
+<!---- BIBLIOGRAPHY ---------------------------------------------------------->
+
+<!-- Includes
+  https://www.specref.org
+  https://drafts.csswg.org/biblio.ref
+  ./biblio.json
+-->
+
+
+<!---- CUSTOM STYLING -------------------------------------------------------->
+
+<pre class="metadata">
+
+Dark Mode: no
+Boilerplate: table-of-contents no, conformance no, index no
+Max ToC Depth: 4
+Markup Shorthands: markdown yes
+Inline Github Issues: title
+
+</pre>
+
+<style>
+
+    /* Reset base counters and additional ones */
+    body { counter-reset: example note issue assertion advisement figure !important; }
+
+    /* Configure increments for additional counters */
+    .note { counter-increment: note; }
+    .assertion { counter-increment: assertion; }
+    .advisement { counter-increment: advisement; }
+
+    /* Configure display of additional counters */
+    .note:not(.no-marker)::before { content: "Note " counter(note); }
+    .assertion:not(.no-marker)::before { content: "Assertion" counter(assertion); }
+    .advisement:not(.no-marker)::before { content: "Advisement" counter(advisement); }
+
+    /* Reduce font size of boxes and preformatted blocks */
+    .note,
+    .issue,
+    .example,
+    .assertion,
+    .advisement { font-size: .9em; }
+    pre { font-size: .8em; }
+
+    /* Style prefix tables */
+    .prefixes {
+      text-align: left;
+      border-collapse: collapse;
+    }
+    .prefixes th, .prefixes td {
+      padding: 5px;
+      border: 1px solid black;
+    }
+
+    /* Style RFC2119 conformance terms */
+    em.rfc2119 {
+      text-transform: lowercase;
+      font-variant: small-caps;
+      font-style: normal;
+      font-size: 1.1em;
+      color: darkred;
+    }
+
+    /* Style <code> as in old WebID drafts */
+    code {
+      color: orangered;
+      font-size: .8em;
+    }
+
+    #webid-diagram {
+      width: 100%;
+    }
+
+    /* Some temporary style to render without toc */
+    body { 
+      padding-left: 24px !important ;
+      margin: 0 50px;
+      width: 85% !important;
+      max-width: 85% !important;
+    }
+
+</style>

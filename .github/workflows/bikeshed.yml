@@ -1,0 +1,48 @@
+
+name: Process Bikeshed to HTML
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+
+  main:
+
+    runs-on: ubuntu-20.04
+
+    permissions:
+      contents: write
+
+    steps:
+
+      - name: Checkout latest change
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
+    
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install Bikeshed
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install --upgrade bikeshed
+          bikeshed update
+
+      - name: Run Bikeshed
+        run: |
+          bikeshed spec spec/identity/index.bs
+
+      - name: Check for changed files
+        uses: tj-actions/verify-changed-files@v17
+        id: verify-changed-files
+
+      - name: Commit changed files
+        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: process Bikeshed to HTML (CI)'
