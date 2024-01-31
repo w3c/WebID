@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-20.04
   
     outputs:
-      changes: ${{ steps.changes.outputs.changes }}
+      changes: ${{ steps.changes.outputs.any_modified }}
     
     steps:
 
