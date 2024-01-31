@@ -641,6 +641,7 @@ Inline Github Issues: title
       font-size: .8em;
     }
 
+    /* Resize the full-width diagram */
     #webid-diagram {
       width: 100%;
     }
