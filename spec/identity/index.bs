@@ -245,7 +245,8 @@ WebID can be `https://bob.example.org/profile#me`.
 The relation between the [=WebID=] URI and the [=WebID Profile Document=] is
 illustrated below.
 
-<img src="img/WebID-overview.png" alt="WebID overview" id="webid-diagram">
+<img src="img/WebID-overview.png" alt="WebID overview" id="webid-diagram"
+class="full-width">
 
 The WebID URI — <em>"<a href="http://www.w3.org/People/Berners-Lee/card#i"
 >http://www.w3.org/People/Berners-Lee/card<strong>#i</strong></a>"</em>
@@ -642,7 +643,7 @@ Inline Github Issues: title
     }
 
     /* Resize the full-width diagram */
-    #webid-diagram {
+    .full-width {
       width: 100%;
     }
 
