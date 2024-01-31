@@ -37,7 +37,7 @@ jobs:
         name: Check for changed files
         uses: tj-actions/changed-files@v42
         with:
-          sha: ${{ steps.previous.outputs.commit_hash }}
+          base_sha: ${{ steps.previous.outputs.commit_hash }}
           files: |
             spec/identity/index.bs
 
