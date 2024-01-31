@@ -7,12 +7,47 @@ on:
 
 jobs:
 
+  changes:
+  
+    runs-on: ubuntu-20.04
+  
+    outputs:
+      changes: ${{ steps.changes.outputs.changes }}
+    
+    steps:
+
+      - name: Checkout latest change
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.ref }}
+    
+      - id: previous
+        name: Discover last checked commit
+        uses: nrwl/last-successful-commit-action@v1
+        with:
+          branch: ${{ github.ref_name }}
+          workflow_id: 'bikeshed.yml'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+    
+      - id: changes
+        name: Check for changed files
+        uses: tj-actions/changed-files@v42
+        with:
+          since: ${{ steps.previous.outputs.commit_hash }}
+          files: |
+            spec/identity/index.bs
+
   main:
 
     runs-on: ubuntu-20.04
 
     permissions:
       contents: write
+  
+    needs: changes
+    
+    if: ${{ needs.changes.outputs.changes == 'true' }}
 
     steps:
 
@@ -37,12 +72,7 @@ jobs:
         run: |
           bikeshed spec spec/identity/index.bs
 
-      - name: Check for changed files
-        uses: tj-actions/verify-changed-files@v17
-        id: verify-changed-files
-
       - name: Commit changed files
-        if: steps.verify-changed-files.outputs.files_changed == 'true'
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: 'chore: process Bikeshed to HTML (CI)'
