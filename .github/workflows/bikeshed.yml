@@ -2,7 +2,7 @@
 name: Process Bikeshed to HTML
 
 on:
-  push:
+  pull_request:
 
 jobs:
 
@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event.push.ref }}
+          ref: ${{ github.event.pull_request.head.ref }}
     
       - id: branches
         name: Get branch names.
@@ -58,7 +58,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event.push.ref }}
+          ref: ${{ github.event.pull_request.head.ref }}
     
       - name: Setup Python
         uses: actions/setup-python@v2
