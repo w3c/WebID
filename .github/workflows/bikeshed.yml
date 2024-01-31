@@ -2,7 +2,7 @@
 name: Process Bikeshed to HTML
 
 on:
-  pull_request:
+  push:
 
 jobs:
 
@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.push.ref }}
     
       - id: branches
         name: Get branch names.
@@ -37,7 +37,7 @@ jobs:
         name: Check for changed files
         uses: tj-actions/changed-files@v42
         with:
-          since: ${{ steps.previous.outputs.commit_hash }}
+          sha: ${{ steps.previous.outputs.commit_hash }}
           files: |
             spec/identity/index.bs
 
@@ -58,7 +58,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.ref }}
+          ref: ${{ github.event.push.ref }}
     
       - name: Setup Python
         uses: actions/setup-python@v2
