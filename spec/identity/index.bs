@@ -350,6 +350,7 @@ WebID Profile Document contains the following Turtle representation:
   </pre>
 </div>
 
+
 ## Publishing a WebID Profile Document using the RDFa HTML notation ## {#publishing-a-webid-profile-using-the-rdfa-html-notation}
 
 [NO-NORM]
