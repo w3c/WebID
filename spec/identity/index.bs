@@ -21,7 +21,6 @@ Previous Version: http://www.w3.org/2005/Incubator/webid/spec/drafts/
 
 Repository: https://github.com/w3c/WebID/
 
-
 Abstract:
 
   A global distributed Social Web requires that each person be able to control
