@@ -25,19 +25,20 @@ jobs:
         name: Get branch names.
         uses: tj-actions/branch-names@v8
     
-      - id: previous
+      - id: affected
         name: Discover last checked commit
-        uses: nrwl/last-successful-commit-action@v1
+        uses: nrwl/nx-set-shas@v4
         with:
-          branch: ${{ steps.branches.outputs.current_branch }}
-          workflow_id: 'bikeshed.yml'
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          main-branch-name: ${{ steps.branches.outputs.current_branch }}
+          error-on-no-successful-workflow: "true"
+          last-successful-event: "push"
+          workflow-id: "bikeshed.yml"
     
       - id: changes
         name: Check for changed files
         uses: tj-actions/changed-files@v42
         with:
-          base_sha: ${{ steps.previous.outputs.commit_hash }}
+          base_sha: ${{ steps.affected.outputs.base }}
           files: |
             spec/identity/index.bs
 
