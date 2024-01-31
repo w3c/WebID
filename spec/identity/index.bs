@@ -133,11 +133,11 @@ employed at a given company, a member of a family or some other group, etc.
 
 This specification is for:
 
-- Anyone that wants to understand the architectural principles and notions underlying WebID.
-- URI owners who want to allocate identifiers to denote agents.
-- Resource server developers who want to enable clients to consume WebIDs and their associated descriptions.
-- Application developers who want to implement a client to consume WebIDs.
-- Specification authors who want to integrate or extend WebID.
+- Anyone who wants to understand the architectural principles and notions underlying WebID
+- Content publishers who want to allocate identifiers to unambiguously name agents
+- Server application developers who want to provide client applications with WebIDs and associated agent descriptions
+- Client application developers who want to use a WebID to unambiguously identify their applications as agents
+- Specification authors who want to extend WebID via additional specifications, e.g., identity authentication protocols
   
 ## Outline ## {#outline}
 
