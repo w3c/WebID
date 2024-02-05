@@ -22,3 +22,20 @@
   discussed and agreed upon.
 
 [20240131_1]: https://github.com/w3c/WebID/pull/55
+
+## 2023-02-05
+
+- Merged [#52][20240205_1] as today was the deadline for its review, no
+  objections have been raised and it has been reviewed and ack'ed by members of
+  the group.
+- Merged [#56][20240205_2] as today was the deadline for its review, no
+  objections have been raised and multiple participants have contributed to it.
+    - Note that @melvincarvalho might have a strong objection.
+    - Note that @webr3 would rather we focus on creating new documents rather
+      than iterating on the current ones. However, the majority of this group
+      prefers the latter.
+- Sent out [new instance of chair's overview][20240205_3] to the mailing list.
+
+[20240205_1]: https://github.com/w3c/WebID/pull/52
+[20240205_2]: https://github.com/w3c/WebID/pull/56
+[20240205_3]: https://lists.w3.org/Archives/Public/public-webid/2024Feb/0004.html
