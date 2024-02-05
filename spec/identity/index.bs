@@ -137,7 +137,7 @@ This specification is for:
 - Content publishers who want to allocate identifiers to unambiguously name agents
 - Server application developers who want to provide client applications with WebIDs and associated agent descriptions
 - Client application developers who want to use a WebID to unambiguously identify their applications as agents
-- Specification authors who want to extend WebID via additional specifications, e.g., identity authentication protocols
+- Specification authors who want to extend any of the WebID specifications via Extension Profiles, e.g., identity authentication protocols
   
 ## Outline ## {#outline}
 
