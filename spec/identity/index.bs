@@ -41,7 +41,7 @@ Abstract:
   There are a number of concepts that are covered in this document that the
   reader may want to be aware of before continuing. General knowledge of RDF
   [[!RDF-PRIMER]] is necessary to understand how to implement this
-  specification. This specificaiton uses a number of specific technologies like
+  specification. This specification uses a number of specific technologies like
   Turtle [[!TURTLE]] and RDFa [[!RDFA-CORE]].
 
   A general [[#introduction|Introduction]] is provided for all that would like
@@ -283,7 +283,7 @@ page).
 
 # Publishing the WebID Profile Document # {#publishing-the-webid-profile-document}
 
-This specification requires that servers [MUST] at least be able to provide
+This specification requires that servers [MUST] at least be able to provide a
 Turtle representation of WebID Profile Documents, but other serialization
 formats of the graph are allowed, provided that agents are able to parse that
 serialization and obtain the graph automatically. HTTP Content Negotiation can
