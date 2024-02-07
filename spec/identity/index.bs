@@ -157,10 +157,10 @@ used terms in this document.
 [[#webid-profile-contents|Section 5]] defines the required and suggested
 contents of a [=WebID Profile Document=] 
 
-[[#publishing-the-webid-profile-document|Section 5]] deals with the publishing
+[[#publishing-the-webid-profile-document|Section 6]] deals with the publishing
 of a [=WebID Profile Document=].
 
-[[#processing-the-webid-profile|Section 6]] describes how a request for a
+[[#processing-the-webid-profile|Section 7]] describes how a request for a
 [=WebID Profile Document=] should be handled.
 
 
