@@ -154,6 +154,9 @@ used terms in this document.
 
 [[#overview|Section 4]] presents an overview of WebID.
 
+[[#webid-profile-contents|Section 5]] defines the required and suggested
+contents of a [=WebID Profile Document=] 
+
 [[#publishing-the-webid-profile-document|Section 5]] deals with the publishing
 of a [=WebID Profile Document=].
 
@@ -183,22 +186,17 @@ document.
 
 : <dfn>WebID</dfn>
 
-:: A WebID is a URI with an HTTP or HTTPS scheme that denotes an Agent (Person,
-    Organization, Group, Device, etc.). For WebIDs with fragment identifiers
-    (e.g., `#me`), the URI without the fragment denotes the WebID Profile
-    Document. For WebIDs without fragment identifiers an HTTP request on the
-    WebID [MUST] return a 303 with a Location header URI referring to the WebID
-    Profile Document.    
+:: An identifier in the form of an HTTP IRI for unambiguously naming an Agent
+    which, when dereferenced, must always lead to a [=WebID Profile Document=]
+    describing the Agent named by the WebID itself.    
 
 : <dfn>WebID Profile Document</dfn>
 
-:: A WebID Profile Document is an RDF document that uniquely describes the
-    Agent denoted by the WebID in relation to that WebID. The server [MUST]
-    provide a `text/turtle` [[!TURTLE]] representation of the requested
-    profile. This document [MAY] be available in other RDF serialization
-    formats, such as RDFa [[!RDFA-CORE]], or [[!RDF-SYNTAX-GRAMMAR]] if so
-    requested through content negotiation.
+:: An RDF document that describes an Agent.
 
+: <dfn>Agent</dfn>
+
+:: A thing that does stuff.
 
 ## Namespaces ## {#namespaces}
 
@@ -304,9 +302,11 @@ the graph. The definition of each URI should be found at the namespace of the
 URI, by dereferencing it.
 
 
-### Personal Information ### {#personal-information}
+### Contents of a WebID Profile Document ### {#webid-profile-contents}
 
-[NO-NORM]
+A [=WebID Profile Document=] [MUST] qualify the described Agent as the
+document's `foaf:primaryTopic`. Furthermore, a [=WebID Profile Document=]
+[SHOULD] also qualify the described Agent as having type `foaf:Agent`.
 
 Personal details are the most common requirement when registering an account
 with a website. Some of these pieces of information include an e-mail address,
