@@ -116,8 +116,8 @@ Status Text:
 [NO-NORM]
 
 A WebID is an HTTP URI that refers to an Agent (Person, Organization, Group,
-Device, etc.). A description of the Agent named by a WebID can be found in the
-respective [=WebID Profile Document=], a type of web page that would be
+Device, etc.); a description of the Agent named by the WebID can be found in 
+the respective [=WebID Profile Document=], a type of web page that would be
 familiar to any Social Network user.
 
 A [=WebID Profile Document=] is a Web resource that [MUST] be available as
