@@ -155,7 +155,7 @@ used terms in this document.
 [[#overview|Section 4]] illustrates the relationship between a WebID, the Agent
 that is named by it, and the respective [=WebID Profile Document=].
 
-[[#webid-profile-contents|Section 5]] defines the required and suggested
+[[#webid-profile-contents|Section 5]] defines the required and some suggested
 contents of a [=WebID Profile Document=] 
 
 [[#publishing-the-webid-profile-document|Section 6]] deals with the publishing
