@@ -153,7 +153,7 @@ used terms in this document.
 [[#the-webid-http-uri|Section 3]] describes what a WebID is.
 
 [[#overview|Section 4]] illustrates the relationship between a WebID, the Agent
-that is named by it and the respective [=WebID Profile Document=].
+that is named by it, and the respective [=WebID Profile Document=].
 
 [[#webid-profile-contents|Section 5]] defines the required and suggested
 contents of a [=WebID Profile Document=] 
