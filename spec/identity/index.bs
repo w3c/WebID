@@ -196,7 +196,7 @@ document.
 
 : <dfn>Agent</dfn>
 
-:: An entity that performs or can perform an action, e.g. a person, an organization, a device.
+:: An entity that performs or can perform an action, e.g., a person, an organization, a device.
 
 ## Namespaces ## {#namespaces}
 
