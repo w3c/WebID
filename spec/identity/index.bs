@@ -117,8 +117,7 @@ Status Text:
 
 A WebID is an HTTP URI that refers to an Agent (Person, Organization, Group,
 Device, etc.); a description of the Agent named by the WebID can be found in 
-the respective [=WebID Profile Document=], a type of web page that would be
-familiar to any Social Network user.
+the respective [=WebID Profile Document=].
 
 A [=WebID Profile Document=] is a Web resource that [MUST] be available as
 `text/turtle` [[!TURTLE]], but [MAY] be available in other RDF serialization
