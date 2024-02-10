@@ -187,7 +187,7 @@ document.
 : <dfn>WebID</dfn>
 
 :: An identifier in the form of an HTTP URI that unambiguously names an Agent
-    and, when dereferenced, must always lead to a [=WebID Profile Document=]
+    and, when dereferenced, always leads to a [=WebID Profile Document=]
     which itself indicates that it describes the Agent named by the WebID.
 
 : <dfn>WebID Profile Document</dfn>
