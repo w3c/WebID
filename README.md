@@ -23,3 +23,18 @@
  All documentation, code and communication under this repository are covered by
  the [W3C Code of Ethics and Professional
  Conduct](https://www.w3.org/Consortium/cepc/).
+
+ ## Working items
+
+- Working draft of the core specification (written using [BikeShed](bikeshed))
+  - source file: [./spec/identity/index.bs]()
+  - compiled file served as HTML: [https://w3c.github.io/WebID/spec/identity/index.html]()
+
+## Other relevant documents
+
+- 2014 ED of the core specification (written using [ReSpec](respec))
+  - source file: [./spec/drafts/ED-webid-20140305/identity/index.html]()
+  - source file served as HTML: [https://w3c.github.io/WebID/spec/drafts/ED-webid-20140305/identity/index.html]()
+
+[respec]: https://respec.org/docs/
+[bikeshed]: https://speced.github.io/bikeshed/
