@@ -41,8 +41,8 @@ Abstract:
   There are a number of concepts that are covered in this document that the
   reader may want to be aware of before continuing. General knowledge of RDF
   [[!RDF-PRIMER]] is necessary to understand how to implement this
-  specification. WebID uses a number of specific technologies like Turtle
-  [[!TURTLE]] and RDFa [[!RDFA-CORE]].
+  specification. This specification uses a number of specific technologies like
+  Turtle [[!TURTLE]] and RDFa [[!RDFA-CORE]].
 
   A general [[#introduction|Introduction]] is provided for all that would like
   to understand why this specification is necessary to simplify usage of the Web.
@@ -116,9 +116,8 @@ Status Text:
 [NO-NORM]
 
 A WebID is an HTTP URI that refers to an Agent (Person, Organization, Group,
-Device, etc.). A description of the WebID can be found in the [=WebID Profile
-Document=], a type of web page that would be familiar to any Social Network
-user.
+Device, etc.); a description of the Agent named by the WebID can be found in 
+the respective [=WebID Profile Document=].
 
 A [=WebID Profile Document=] is a Web resource that [MUST] be available as
 `text/turtle` [[!TURTLE]], but [MAY] be available in other RDF serialization
@@ -133,7 +132,7 @@ employed at a given company, a member of a family or some other group, etc.
 
 This specification is for:
 
-- Anyone who wants to understand the architectural principles and notions underlying WebID
+- Anyone who wants to understand the architectural principles and notions underlying WebIDs
 - Content publishers who want to allocate identifiers to unambiguously name agents
 - Server application developers who want to provide client applications with WebIDs and associated agent descriptions
 - Client application developers who want to use a WebID to unambiguously identify their applications as agents
@@ -143,21 +142,25 @@ This specification is for:
 
 This specification is divided in the following sections.
 
-[[#introduction|This section]] gives a high level overview of WebID, and
-presents the organization of the specification and the conventions used
-throughout this document.
+[[#introduction|This section]] gives a high level overview of this
+specification, and presents the organization of the specification and the
+conventions used throughout this document.
 
 [[#terminology|Section 2]] provides a short description for the most commonly
 used terms in this document.
 
-[[#the-webid-http-uri|Section 3]] describes what a WebID URI is.
+[[#the-webid-http-uri|Section 3]] describes what a WebID is.
 
-[[#overview|Section 4]] presents an overview of WebID.
+[[#overview|Section 4]] illustrates the relationship between a WebID, the Agent
+that is named by it, and the respective [=WebID Profile Document=].
 
-[[#publishing-the-webid-profile-document|Section 5]] deals with the publishing
+[[#webid-profile-contents|Section 5]] defines the required and some suggested
+contents of a [=WebID Profile Document=] 
+
+[[#publishing-the-webid-profile-document|Section 6]] deals with the publishing
 of a [=WebID Profile Document=].
 
-[[#processing-the-webid-profile|Section 6]] describes how a request for a
+[[#processing-the-webid-profile|Section 7]] describes how a request for a
 [=WebID Profile Document=] should be handled.
 
 
@@ -183,22 +186,17 @@ document.
 
 : <dfn>WebID</dfn>
 
-:: A WebID is a URI with an HTTP or HTTPS scheme that denotes an Agent (Person,
-    Organization, Group, Device, etc.). For WebIDs with fragment identifiers
-    (e.g., `#me`), the URI without the fragment denotes the WebID Profile
-    Document. For WebIDs without fragment identifiers an HTTP request on the
-    WebID [MUST] return a 303 with a Location header URI referring to the WebID
-    Profile Document.    
+:: An identifier in the form of an HTTP URI that unambiguously names an Agent
+    and, when dereferenced, always leads to a [=WebID Profile Document=]
+    which itself indicates that it describes the Agent named by the WebID.
 
 : <dfn>WebID Profile Document</dfn>
 
-:: A WebID Profile Document is an RDF document that uniquely describes the
-    Agent denoted by the WebID in relation to that WebID. The server [MUST]
-    provide a `text/turtle` [[!TURTLE]] representation of the requested
-    profile. This document [MAY] be available in other RDF serialization
-    formats, such as RDFa [[!RDFA-CORE]], or [[!RDF-SYNTAX-GRAMMAR]] if so
-    requested through content negotiation.
+:: An RDF document that describes an Agent.
 
+: <dfn>Agent</dfn>
+
+:: An entity that performs or can perform an action, e.g., a person, an organization, a device.
 
 ## Namespaces ## {#namespaces}
 
@@ -284,9 +282,9 @@ page).
 
 # Publishing the WebID Profile Document # {#publishing-the-webid-profile-document}
 
-WebID requires that servers [MUST] at least be able to provide Turtle
-representation of WebID Profile Documents, but other serialization formats of
-the graph are allowed, provided that agents are able to parse that
+This specification requires that servers [MUST] at least be able to provide a
+Turtle representation of WebID Profile Documents, but other serialization
+formats of the graph are allowed, provided that agents are able to parse that
 serialization and obtain the graph automatically. HTTP Content Negotiation can
 be employed to aid in publication and discovery of multiple distinct
 serializations of the same graph at the same URL, as explained in [[!COOLURIS]]
@@ -295,7 +293,6 @@ It is particularly useful to have one of the representations be in HTML even if
 it is not marked up in RDFa, as this allows people using a web browser to
 understand what the information at that URI represents.
 
-
 ## WebID Profile Document Vocabulary ## {#webid-profile-vocabulary}
 
 WebID RDF graphs are built using vocabularies identified by URIs, that can be
@@ -303,10 +300,11 @@ placed in subject, predicate or object position of the relations constituting
 the graph. The definition of each URI should be found at the namespace of the
 URI, by dereferencing it.
 
+### Contents of a WebID Profile Document ### {#webid-profile-contents}
 
-### Personal Information ### {#personal-information}
-
-[NO-NORM]
+A [=WebID Profile Document=] [MUST] qualify the described Agent as the
+document's `foaf:primaryTopic`. Furthermore, a [=WebID Profile Document=]
+[SHOULD] also qualify the described Agent as having type `foaf:Agent`.
 
 Personal details are the most common requirement when registering an account
 with a website. Some of these pieces of information include an e-mail address,
@@ -405,7 +403,7 @@ here:
 [NO-NORM]
 
 A WebID Profile Document may contain public as well as private information
-about the agent identified by the WebID. As some agents may not want to reveal
+about the agent named by the WebID. As some agents may not want to reveal
 a lot of information about themselves, RDF and Linked Data principles allows
 them to choose how much information they wish to make publicly available. This
 can be achieved by separating parts of the profile information into separate
