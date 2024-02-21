@@ -8,7 +8,7 @@
   <meta content="Bikeshed version d5d58a306, updated Fri Jan 26 16:12:28 2024 -0800" name="generator">
   <link href="http://www.w3.org/TR/webid/" rel="canonical">
   <link href="https://www.w3.org/2008/site/images/favicon.ico" rel="icon">
-  <meta content="9d8d69583047bc30436168bd78456e1869301930" name="revision">
+  <meta content="53e1b86dbfa86f3ba3264112c79df37cc58ded69" name="revision">
 <style>
 
     /* Reset base counters and additional ones */
@@ -557,7 +557,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">Web Identity and Discovery</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2024-02-05">5 February 2024</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#ED">Editor’s Draft</a>, <time class="dt-updated" datetime="2024-02-21">21 February 2024</time></p>
    <details open>
     <summary>More details about this document</summary>
     <div data-fill-with="spec-metadata">
@@ -598,7 +598,8 @@ Semantics.</p>
    <h3 class="heading settled" id="how-to-read-this-document"><span class="content">How to Read this Document</span></h3>
    <p>There are a number of concepts that are covered in this document that the
 reader may want to be aware of before continuing. General knowledge of RDF <a data-link-type="biblio" href="#biblio-rdf-primer" title="RDF Primer">[RDF-PRIMER]</a> is necessary to understand how to implement this
-specification. WebID uses a number of specific technologies like Turtle <a data-link-type="biblio" href="#biblio-turtle" title="RDF 1.1 Turtle">[TURTLE]</a> and RDFa <a data-link-type="biblio" href="#biblio-rdfa-core" title="RDFa Core 1.1 - Third Edition">[RDFA-CORE]</a>.</p>
+specification. This specification uses a number of specific technologies like
+Turtle <a data-link-type="biblio" href="#biblio-turtle" title="RDF 1.1 Turtle">[TURTLE]</a> and RDFa <a data-link-type="biblio" href="#biblio-rdfa-core" title="RDFa Core 1.1 - Third Edition">[RDFA-CORE]</a>.</p>
    <p>A general <a href="#introduction">Introduction</a> is provided for all that would like
 to understand why this specification is necessary to simplify usage of the Web.</p>
    <p>The terms used throughout this specification are listed in the section titled <a href="#terminology">Terminology</a>.</p>
@@ -639,9 +640,8 @@ Policy</a>.</p>
    <h2 class="heading settled" data-level="1" id="introduction"><span class="secno">1. </span><span class="content">Introduction</span><a class="self-link" href="#introduction"></a></h2>
    <p><em>This section is non-normative.</em></p>
    <p>A WebID is an HTTP URI that refers to an Agent (Person, Organization, Group,
-Device, etc.). A description of the WebID can be found in the <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document">WebID Profile
-Document</a>, a type of web page that would be familiar to any Social Network
-user.</p>
+Device, etc.); a description of the Agent named by the WebID can be found in 
+the respective <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document">WebID Profile Document</a>.</p>
    <p>A <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document①">WebID Profile Document</a> is a Web resource that <em class="rfc2119">MUST</em> be available as <code>text/turtle</code> <a data-link-type="biblio" href="#biblio-turtle" title="RDF 1.1 Turtle">[TURTLE]</a>, but <em class="rfc2119">MAY</em> be available in other RDF serialization
 formats (e.g., <a data-link-type="biblio" href="#biblio-rdfa-core" title="RDFa Core 1.1 - Third Edition">[RDFA-CORE]</a>) if requested through content negotiation.</p>
    <p>WebIDs can be used to build a Web of trust using vocabularies such as FOAF <a data-link-type="biblio" href="#biblio-foaf" title="FOAF Vocabulary Specification 0.99 (Paddington Edition)">[FOAF]</a> by allowing people to link their profiles in a public or protected
@@ -652,7 +652,7 @@ employed at a given company, a member of a family or some other group, etc.</p>
    <p>This specification is for:</p>
    <ul>
     <li data-md>
-     <p>Anyone who wants to understand the architectural principles and notions underlying WebID</p>
+     <p>Anyone who wants to understand the architectural principles and notions underlying WebIDs</p>
     <li data-md>
      <p>Content publishers who want to allocate identifiers to unambiguously name agents</p>
     <li data-md>
@@ -664,16 +664,19 @@ employed at a given company, a member of a family or some other group, etc.</p>
    </ul>
    <h3 class="heading settled" data-level="1.1" id="outline"><span class="secno">1.1. </span><span class="content">Outline</span><a class="self-link" href="#outline"></a></h3>
    <p>This specification is divided in the following sections.</p>
-   <p><a href="#introduction">This section</a> gives a high level overview of WebID, and
-presents the organization of the specification and the conventions used
-throughout this document.</p>
+   <p><a href="#introduction">This section</a> gives a high level overview of this
+specification, and presents the organization of the specification and the
+conventions used throughout this document.</p>
    <p><a href="#terminology">Section 2</a> provides a short description for the most commonly
 used terms in this document.</p>
-   <p><a href="#the-webid-http-uri">Section 3</a> describes what a WebID URI is.</p>
-   <p><a href="#overview">Section 4</a> presents an overview of WebID.</p>
-   <p><a href="#publishing-the-webid-profile-document">Section 5</a> deals with the publishing
-of a <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document②">WebID Profile Document</a>.</p>
-   <p><a href="#processing-the-webid-profile">Section 6</a> describes how a request for a <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document③">WebID Profile Document</a> should be handled.</p>
+   <p><a href="#the-webid-http-uri">Section 3</a> describes what a WebID is.</p>
+   <p><a href="#overview">Section 4</a> illustrates the relationship between a WebID, the Agent
+that is named by it, and the respective <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document②">WebID Profile Document</a>.</p>
+   <p><a href="#webid-profile-contents">Section 5</a> defines the required and some suggested
+contents of a <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document③">WebID Profile Document</a></p>
+   <p><a href="#publishing-the-webid-profile-document">Section 6</a> deals with the publishing
+of a <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document④">WebID Profile Document</a>.</p>
+   <p><a href="#processing-the-webid-profile">Section 7</a> describes how a request for a <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑤">WebID Profile Document</a> should be handled.</p>
    <h2 class="heading settled" data-level="2" id="terminology"><span class="secno">2. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <p>This section provides definitions for several important terms used in this
 document.</p>
@@ -692,19 +695,14 @@ IP address, that hosts Services which are accessible over the network.</p>
 IP address on a given Server.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="webid">WebID</dfn>
     <dd data-md>
-     <p>A WebID is a URI with an HTTP or HTTPS scheme that denotes an Agent (Person,
-Organization, Group, Device, etc.). For WebIDs with fragment identifiers
-(e.g., <code>#me</code>), the URI without the fragment denotes the WebID Profile
-Document. For WebIDs without fragment identifiers an HTTP request on the
-WebID <em class="rfc2119">MUST</em> return a 303 with a Location header URI referring to the WebID
-Profile Document.</p>
+     <p>An identifier in the form of an HTTP URI that unambiguously names an Agent
+and, when dereferenced, always leads to a <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑥">WebID Profile Document</a> which itself indicates that it describes the Agent named by the WebID.</p>
     <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="webid-profile-document">WebID Profile Document</dfn>
     <dd data-md>
-     <p>A WebID Profile Document is an RDF document that uniquely describes the
-Agent denoted by the WebID in relation to that WebID. The server <em class="rfc2119">MUST</em> provide a <code>text/turtle</code> <a data-link-type="biblio" href="#biblio-turtle" title="RDF 1.1 Turtle">[TURTLE]</a> representation of the requested
-profile. This document <em class="rfc2119">MAY</em> be available in other RDF serialization
-formats, such as RDFa <a data-link-type="biblio" href="#biblio-rdfa-core" title="RDFa Core 1.1 - Third Edition">[RDFA-CORE]</a>, or <a data-link-type="biblio" href="#biblio-rdf-syntax-grammar" title="RDF Test Cases">[RDF-SYNTAX-GRAMMAR]</a> if so
-requested through content negotiation.</p>
+     <p>An RDF document that describes an Agent.</p>
+    <dt data-md><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="agent">Agent</dfn>
+    <dd data-md>
+     <p>An entity that performs or can perform an action, e.g., a person, an organization, a device.</p>
    </dl>
    <h3 class="heading settled" data-level="2.1" id="namespaces"><span class="secno">2.1. </span><span class="content">Namespaces</span><a class="self-link" href="#namespaces"></a></h3>
    <p>Examples assume the following namespace prefix bindings unless otherwise
@@ -738,7 +736,7 @@ WebID can be <code>https://bob.example.org/profile#me</code>.</p>
    </div>
    <h2 class="heading settled" data-level="4" id="overview"><span class="secno">4. </span><span class="content">Overview</span><a class="self-link" href="#overview"></a></h2>
    <p><em>This section is non-normative.</em></p>
-   <p>The relation between the <a data-link-type="dfn" href="#webid" id="ref-for-webid">WebID</a> URI and the <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document④">WebID Profile Document</a> is
+   <p>The relation between the <a data-link-type="dfn" href="#webid" id="ref-for-webid">WebID</a> URI and the <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑦">WebID Profile Document</a> is
 illustrated below.</p>
    <p><img alt="WebID overview" class="full-width" height="851" id="webid-diagram" src="img/WebID-overview.png" width="1311"></p>
    <p>The WebID URI — <em>"<a href="http://www.w3.org/People/Berners-Lee/card#i">http://www.w3.org/People/Berners-Lee/card<strong>#i</strong></a>"</em> (containing the <strong>#i</strong> hash tag) — is an identifier that denotes (refers to) a
@@ -759,9 +757,9 @@ authentication protocols. (More information on WebID and other authentication
 protocols can be found on the <a href="http://www.w3.org/2005/Incubator/webid/wiki/Identity_Interoperability">WebID Identity
 Interoperability</a> page).</p>
    <h2 class="heading settled" data-level="5" id="publishing-the-webid-profile-document"><span class="secno">5. </span><span class="content">Publishing the WebID Profile Document</span><a class="self-link" href="#publishing-the-webid-profile-document"></a></h2>
-   <p>WebID requires that servers <em class="rfc2119">MUST</em> at least be able to provide Turtle
-representation of WebID Profile Documents, but other serialization formats of
-the graph are allowed, provided that agents are able to parse that
+   <p>This specification requires that servers <em class="rfc2119">MUST</em> at least be able to provide a
+Turtle representation of WebID Profile Documents, but other serialization
+formats of the graph are allowed, provided that agents are able to parse that
 serialization and obtain the graph automatically. HTTP Content Negotiation can
 be employed to aid in publication and discovery of multiple distinct
 serializations of the same graph at the same URL, as explained in <a data-link-type="biblio" href="#biblio-cooluris" title="Cool URIs for the Semantic Web">[COOLURIS]</a></p>
@@ -773,12 +771,13 @@ understand what the information at that URI represents.</p>
 placed in subject, predicate or object position of the relations constituting
 the graph. The definition of each URI should be found at the namespace of the
 URI, by dereferencing it.</p>
-   <h4 class="heading settled" data-level="5.1.1" id="personal-information"><span class="secno">5.1.1. </span><span class="content">Personal Information</span><a class="self-link" href="#personal-information"></a></h4>
-   <p><em>This section is non-normative.</em></p>
+   <h4 class="heading settled" data-level="5.1.1" id="webid-profile-contents"><span class="secno">5.1.1. </span><span class="content">Contents of a WebID Profile Document</span><a class="self-link" href="#webid-profile-contents"></a></h4>
+   <p>A <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑧">WebID Profile Document</a> <em class="rfc2119">MUST</em> qualify the described Agent as the
+document’s <code>foaf:primaryTopic</code>. Furthermore, a <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑨">WebID Profile Document</a> <em class="rfc2119">SHOULD</em> also qualify the described Agent as having type <code>foaf:Agent</code>.</p>
    <p>Personal details are the most common requirement when registering an account
 with a website. Some of these pieces of information include an e-mail address,
 a name and perhaps an avatar image, expressed using the FOAF <a data-link-type="biblio" href="#biblio-foaf" title="FOAF Vocabulary Specification 0.99 (Paddington Edition)">[FOAF]</a> vocabulary. This section includes properties that <em class="rfc2119">SHOULD</em> be used when
-conveying key pieces of personal information but are <em class="rfc2119" title="NOT REQUIRED">NOT REQUIRED</em> to be present in a <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑤">WebID Profile
+conveying key pieces of personal information but are <em class="rfc2119" title="NOT REQUIRED">NOT REQUIRED</em> to be present in a <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document①⓪">WebID Profile
 Document</a>:</p>
    <dl>
     <dt data-md>foaf:name
@@ -847,7 +846,7 @@ here:</p>
    <h3 class="heading settled" data-level="5.4" id="privacy"><span class="secno">5.4. </span><span class="content">Privacy</span><a class="self-link" href="#privacy"></a></h3>
    <p><em>This section is non-normative.</em></p>
    <p>A WebID Profile Document may contain public as well as private information
-about the agent identified by the WebID. As some agents may not want to reveal
+about the agent named by the WebID. As some agents may not want to reveal
 a lot of information about themselves, RDF and Linked Data principles allows
 them to choose how much information they wish to make publicly available. This
 can be achieved by separating parts of the profile information into separate
@@ -898,11 +897,11 @@ example, Bob is limiting access to his list of friends, by placing all <em>foaf:
    </div>
    <h3 class="heading settled" data-level="5.5" id="security-considerations"><span class="secno">5.5. </span><span class="content">Security Considerations</span><a class="self-link" href="#security-considerations"></a></h3>
    <p><em>This section is non-normative.</em></p>
-   <p>A <a data-link-type="dfn" href="#webid" id="ref-for-webid①">WebID</a> identifies an agent via a description found in the associated <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑥">WebID Profile Document</a>. An agent that wishes to know what a WebID refers
+   <p>A <a data-link-type="dfn" href="#webid" id="ref-for-webid①">WebID</a> identifies an agent via a description found in the associated <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document①①">WebID Profile Document</a>. An agent that wishes to know what a WebID refers
 to, must rely on the description found in the WebID Profile. An attack on the
-relation between the <a data-link-type="dfn" href="#webid" id="ref-for-webid②">WebID</a> and the <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑦">WebID Profile Document</a> can thus be
+relation between the <a data-link-type="dfn" href="#webid" id="ref-for-webid②">WebID</a> and the <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document①②">WebID Profile Document</a> can thus be
 used to subvert the meaning of the WebID, and to make agents following links
-within the <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document⑧">WebID Profile Document</a> come to different conclusions from those
+within the <a data-link-type="dfn" href="#webid-profile-document" id="ref-for-webid-profile-document①③">WebID Profile Document</a> come to different conclusions from those
 intended by profile owners.</p>
    <p>The standard way of overcoming such attacks is to rely on the cryptographic
 security protocols within the HTTPS <a data-link-type="biblio" href="#biblio-http-tls" title="HTTP Semantics">[HTTP-TLS]</a> stack. HTTPS servers are
@@ -1167,11 +1166,12 @@ function parseHTML(markup) {
 "use strict";
 {
 let dfnPanelData = {
+"agent": {"dfnID":"agent","dfnText":"Agent","external":false,"refSections":[],"url":"#agent"},
 "requesting-agent": {"dfnID":"requesting-agent","dfnText":"Requesting Agent","external":false,"refSections":[{"refs":[{"id":"ref-for-requesting-agent"},{"id":"ref-for-requesting-agent\u2460"},{"id":"ref-for-requesting-agent\u2461"}],"title":"6. Processing the WebID Profile"}],"url":"#requesting-agent"},
 "server": {"dfnID":"server","dfnText":"Server","external":false,"refSections":[],"url":"#server"},
 "service": {"dfnID":"service","dfnText":"Service","external":false,"refSections":[{"refs":[{"id":"ref-for-service"}],"title":"1. Introduction"}],"url":"#service"},
 "webid": {"dfnID":"webid","dfnText":"WebID","external":false,"refSections":[{"refs":[{"id":"ref-for-webid"}],"title":"4. Overview"},{"refs":[{"id":"ref-for-webid\u2460"},{"id":"ref-for-webid\u2461"}],"title":"5.5. Security Considerations"}],"url":"#webid"},
-"webid-profile-document": {"dfnID":"webid-profile-document","dfnText":"WebID Profile Document","external":false,"refSections":[{"refs":[{"id":"ref-for-webid-profile-document"},{"id":"ref-for-webid-profile-document\u2460"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-webid-profile-document\u2461"},{"id":"ref-for-webid-profile-document\u2462"}],"title":"1.1. Outline"},{"refs":[{"id":"ref-for-webid-profile-document\u2463"}],"title":"4. Overview"},{"refs":[{"id":"ref-for-webid-profile-document\u2464"}],"title":"5.1.1. Personal Information"},{"refs":[{"id":"ref-for-webid-profile-document\u2465"},{"id":"ref-for-webid-profile-document\u2466"},{"id":"ref-for-webid-profile-document\u2467"}],"title":"5.5. Security Considerations"}],"url":"#webid-profile-document"},
+"webid-profile-document": {"dfnID":"webid-profile-document","dfnText":"WebID Profile Document","external":false,"refSections":[{"refs":[{"id":"ref-for-webid-profile-document"},{"id":"ref-for-webid-profile-document\u2460"}],"title":"1. Introduction"},{"refs":[{"id":"ref-for-webid-profile-document\u2461"},{"id":"ref-for-webid-profile-document\u2462"},{"id":"ref-for-webid-profile-document\u2463"},{"id":"ref-for-webid-profile-document\u2464"}],"title":"1.1. Outline"},{"refs":[{"id":"ref-for-webid-profile-document\u2465"}],"title":"2. Terminology"},{"refs":[{"id":"ref-for-webid-profile-document\u2466"}],"title":"4. Overview"},{"refs":[{"id":"ref-for-webid-profile-document\u2467"},{"id":"ref-for-webid-profile-document\u2468"},{"id":"ref-for-webid-profile-document\u2460\u24ea"}],"title":"5.1.1. Contents of a WebID Profile Document"},{"refs":[{"id":"ref-for-webid-profile-document\u2460\u2460"},{"id":"ref-for-webid-profile-document\u2460\u2461"},{"id":"ref-for-webid-profile-document\u2460\u2462"}],"title":"5.5. Security Considerations"}],"url":"#webid-profile-document"},
 };
 
 document.addEventListener("DOMContentLoaded", ()=>{
