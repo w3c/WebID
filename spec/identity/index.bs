@@ -278,16 +278,31 @@ page).
 
 # Publishing the WebID Profile Document # {#publishing-the-webid-profile-document}
 
-This specification requires that servers [MUST] at least be able to provide a
-Turtle representation of WebID Profile Documents, but other serialization
-formats of the graph are allowed, provided that agents are able to parse that
-serialization and obtain the graph automatically. HTTP Content Negotiation can
-be employed to aid in publication and discovery of multiple distinct
-serializations of the same graph at the same URL, as explained in [[!COOLURIS]]
+[=WebID Profile Documents=] [MUST] be served using RDF serialization formats. 
 
-It is particularly useful to have one of the representations be in HTML even if
-it is not marked up in RDFa, as this allows people using a web browser to
-understand what the information at that URI represents.
+[=WebID Profile Documents=] [SHOULD] be served using the [[!TURTLE]] format
+when the latter is requested by clients via the `Accept` HTTP header.
+
+[=WebID Profile Documents=] [MAY] additionally be served using any other format
+requested by a consumer via the `Accept` HTTP header.
+
+<div class="note" id="h_note_p1">
+
+  RDF serialization formats include, but are not limited to, [[!JSON-LD11]], 
+  [[!TURTLE]] and [[!RDFA-CORE]].
+  
+</div>
+
+<div class="note" id="h_note_p2">
+
+  This specification does not mandate support for any specific format, 
+  following the principle of 
+  [Orthogonality of Specifications](https://www.w3.org/blog/2009/orthogonality-of-specification/).
+  In the interest of interoperability, however, this specification warmly and
+  earnestly suggests supporting the [[!TURTLE]] format, whether in addition to
+  other formats or as the only supported one.
+
+</div>
 
 ## WebID Profile Document Vocabulary ## {#webid-profile-vocabulary}
 
