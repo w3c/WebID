@@ -119,10 +119,6 @@ A WebID is an HTTP URI that refers to an Agent (Person, Organization, Group,
 Device, etc.); a description of the Agent named by the WebID can be found in 
 the respective [=WebID Profile Document=].
 
-A [=WebID Profile Document=] is a Web resource that [MUST] be available as
-`text/turtle` [[!TURTLE]], but [MAY] be available in other RDF serialization
-formats (e.g., [[!RDFA-CORE]]) if requested through content negotiation.
-
 WebIDs can be used to build a Web of trust using vocabularies such as FOAF
 [[!FOAF]] by allowing people to link their profiles in a public or protected
 manner. Such a web of trust can then be used by a [=Service=] to make
