@@ -289,7 +289,7 @@ requested by a consumer via the `Accept` HTTP header.
 <div class="note" id="h_note_p1">
 
   RDF serialization formats include, but are not limited to, [[!JSON-LD11]], 
-  [[!TURTLE]] and [[!RDFA-CORE]].
+  [[!TURTLE]], and [[!RDFA-CORE]].
   
 </div>
 
