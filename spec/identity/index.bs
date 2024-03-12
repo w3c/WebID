@@ -278,13 +278,11 @@ page).
 
 # Publishing the WebID Profile Document # {#publishing-the-webid-profile-document}
 
-[=WebID Profile Documents=] [MUST] be served using RDF serialization formats. 
+The [=Server=] [MUST] offer at least one RDF representation for a 
+[=WebID Profile Document=].
 
-[=WebID Profile Documents=] [SHOULD] be served using the [[!TURTLE]] format
-when the latter is requested by clients via the `Accept` HTTP header.
-
-[=WebID Profile Documents=] [MAY] additionally be served using any other format
-requested by a consumer via the `Accept` HTTP header.
+The [=Server=] [SHOULD] offer [[!TURTLE]] as one of the representations for a
+[=WebID Profile Document=].
 
 <div class="note" id="h_note_p1">
 
