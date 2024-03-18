@@ -283,7 +283,7 @@ page).
 
 As example of a real-life WebID, consider that of Tim Berners-Lee, a real
 physical person who has a history, who invented the World Wide Web, and who
-directs the World Web Consortium: 
+directed the World Web Consortium: 
 [https://www.w3.org/People/Berners-Lee/card#i](https://www.w3.org/People/Berners-Lee/card#i) . 
 
 Tim's WebID can easily be dereferenced to its respective WebID Profile Document
