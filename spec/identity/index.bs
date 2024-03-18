@@ -276,12 +276,12 @@ the [=WebID Profile Document=] it resolves to and the agent it denotes.
 <img src="img/webid-overview-diagram.png" alt="WebID overview" id="webid-diagram">
 
 In the illustration above, the WebID IRI `https://example.org/ident#me`
-(containing the **#me** hash tag) is an identifier that denotes (refers to) an
-agent.
+(containing the **#me** fragment identifier) is an identifier that denotes
+(refers to) an [=Agent=].
 
 The WebID Profile Document IRI `https://example.org/ident` (without the **#me**
-hash tag) denotes the document describing the agent  who is the referent of the
-WebID IRI.
+fragment identifier) denotes the document describing the agent  who is the
+referent of the WebID IRI.
 
 <div class="note" id="h_note_2">
   As client HTTP libraries conforming to the HTTP standard automatically strip
