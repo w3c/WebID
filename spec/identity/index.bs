@@ -244,8 +244,8 @@ WebID can be `https://bob.example.org/profile#me`.
 
 [NO-NORM]
 
-The relation between the [=WebID=] URI and the [=WebID Profile Document=] is
-illustrated below.
+The following diagram exemplifies the the relationship between a [=WebID=] URI,
+the [=WebID Profile Document=] it resolves to and the agent it denotes.
 
 <img src="img/webid-overview-diagram.png" alt="WebID overview" id="webid-diagram">
 
@@ -268,6 +268,31 @@ authentication protocols. (More information on WebID and other authentication
 protocols can be found on the [WebID Identity
 Interoperability](http://www.w3.org/2005/Incubator/webid/wiki/Identity_Interoperability)
 page).
+
+As example of a real-life WebID, consider that of Tim Berners-Lee, a real
+physical person who has a history, who invented the World Wide Web, and who
+directs the World Web Consortium: 
+[https://www.w3.org/People/Berners-Lee/card#i](https://www.w3.org/People/Berners-Lee/card#i) . 
+This WebID can easily be dereferenced to its respective WebID Profile Document
+with a suitable HTTP client, such as [curl](https://curl.se/):
+
+```
+$ curl -H "Accept: text/turtle"
+```
+
+In doing so, we are presented with a document that includes the following
+statements:
+
+```turtle
+# About this document:
+# The <> (the empty URI) means "this document".
+
+    <>   a foaf:PersonalProfileDocument;
+         cc:license <http://creativecommons.org/licenses/by-nc/3.0/>;
+	 dc:title "Tim Berners-Lee's FOAF file";
+         foaf:maker card:i;
+         foaf:primaryTopic card:i.
+```
 
 # Publishing the WebID Profile Document # {#publishing-the-webid-profile-document}
 
