@@ -323,14 +323,16 @@ In doing so, we are presented with a document that includes the following
 statements:
 
 ```turtle
-# About this document:
-# The <> (the empty URI) means "this document".
+    @prefix : <http://xmlns.com/foaf/0.1/> .
+    @prefix card: <https://www.w3.org/People/Berners-Lee/card#> .
+    @prefix cc: <http://creativecommons.org/ns#> .
+    @prefix dc: <http://purl.org/dc/elements/1.1/> .
 
-    <>   a foaf:PersonalProfileDocument;
+    <>     rdf:type :PersonalProfileDocument;
          cc:license <http://creativecommons.org/licenses/by-nc/3.0/>;
-	 dc:title "Tim Berners-Lee's FOAF file";
-         foaf:maker card:i;
-         foaf:primaryTopic card:i.
+         dc:title "Tim Berners-Lee's FOAF file";
+         :maker card:i;
+         :primaryTopic card:i .
 ```
 
 # Publishing the WebID Profile Document # {#publishing-the-webid-profile-document}
