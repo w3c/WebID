@@ -262,7 +262,7 @@ generally be considered a WHATWG [[!URL]] with a HTTP(S) scheme. Implementers
 
 <div class="note" id="h_note_2">
   This specification defers to the procedures defined in
-  [Section 3](https://www.rfc-editor.org/rfc/rfc3987#section-3) of [[!rfc3987]]
+  [Section 3](https://www.rfc-editor.org/rfc/rfc3987#section-3) of [[!IRI]]
   in relation to the mapping and conversion between the IRI and URI spaces.
 </div>
 
