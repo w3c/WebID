@@ -123,7 +123,7 @@ Status Text:
 
 A WebID is an IRI with a HTTP(S) scheme that refers to an Agent (Person,
 Organization, Group, Device, etc.); a description of the Agent named by the
-WebID can be found in the respective [=WebID Profile Document=].
+WebID can be found in the respective [=WebID Document=].
 
 WebIDs can be used to build a Web of trust using vocabularies such as FOAF
 [[!FOAF]] by allowing people to link their profiles in a public or protected
@@ -154,16 +154,16 @@ used terms in this document.
 [[#the-webid-http-uri|Section 3]] describes what a WebID is.
 
 [[#overview|Section 4]] illustrates the relationship between a WebID, the Agent
-that is named by it, and the respective [=WebID Profile Document=].
+that is named by it, and the respective [=WebID Document=].
 
 [[#webid-profile-contents|Section 5]] defines the required and some suggested
-contents of a [=WebID Profile Document=] 
+contents of a [=WebID Document=] 
 
 [[#publishing-the-webid-profile-document|Section 6]] deals with the publishing
-of a [=WebID Profile Document=].
+of a [=WebID Document=].
 
 [[#processing-the-webid-profile|Section 7]] describes how a request for a
-[=WebID Profile Document=] should be handled.
+[=WebID Document=] should be handled.
 
 
 # Terminology # {#terminology}
@@ -190,10 +190,10 @@ document.
 
 :: An identifier in the form of an IRI with a HTTP(S) scheme that
     unambiguously names an Agent and, when dereferenced, always leads to a
-    [=WebID Profile Document=] which itself indicates that it describes the
+    [=WebID Document=] which itself indicates that it describes the
     Agent named by the WebID.
 
-: <dfn>WebID Profile Document</dfn>
+: <dfn>WebID Document</dfn>
 
 :: An RDF document that describes an Agent.
 
@@ -271,7 +271,7 @@ generally be considered a WHATWG [[!URL]] with a HTTP(S) scheme. Implementers
 [NO-NORM]
 
 The following diagram exemplifies the the relationship between a [=WebID=] IRI,
-the [=WebID Profile Document=] it resolves to and the agent it denotes.
+the [=WebID Document=] it resolves to and the agent it denotes.
 
 <img src="img/webid-overview-diagram.png" alt="WebID overview" id="webid-diagram">
 
@@ -279,7 +279,7 @@ In the illustration above, the WebID IRI `https://example.org/ident#me`
 (containing the **#me** fragment identifier) is an identifier that denotes
 (refers to) an [=Agent=].
 
-The WebID Profile Document IRI `https://example.org/ident` (without the **#me**
+The WebID Document IRI `https://example.org/ident` (without the **#me**
 fragment identifier) denotes the document describing the agent  who is the
 referent of the WebID IRI.
 
@@ -291,11 +291,11 @@ referent of the WebID IRI.
   `https://example.org/ident`.
 </div>
 
-The WebID Profile Document gives the meaning of the WebID: its RDF Graph
+The WebID Document gives the meaning of the WebID: its RDF Graph
 contains a [Concise Bounded Description](http://www.w3.org/Submission/CBD/) of
 the WebID such that this subgraph forms a definite description of the referent
 of the WebID, that is, a description that distinguishes the referent of that
-WebID from all other things in the world. The WebID Profile Document
+WebID from all other things in the world. The WebID Document
 can, for example, contain relations to other documents depicting the WebID
 referent, or it can relate the WebID to principals used by different
 authentication protocols. (More information on WebID and other authentication
@@ -335,13 +335,13 @@ statements:
          :primaryTopic card:i .
 ```
 
-# Publishing the WebID Profile Document # {#publishing-the-webid-profile-document}
+# Publishing the WebID Document # {#publishing-the-webid-profile-document}
 
 The [=Server=] [MUST] offer at least one RDF representation for a 
-[=WebID Profile Document=].
+[=WebID Document=].
 
 The [=Server=] [SHOULD] offer [[!TURTLE]] as one of the representations for a
-[=WebID Profile Document=].
+[=WebID Document=].
 
 <div class="note" id="h_note_p1">
 
@@ -361,17 +361,17 @@ The [=Server=] [SHOULD] offer [[!TURTLE]] as one of the representations for a
 
 </div>
 
-## WebID Profile Document Vocabulary ## {#webid-profile-vocabulary}
+## WebID Document Vocabulary ## {#webid-profile-vocabulary}
 
 WebID RDF graphs are built using vocabularies identified by URIs, that can be
 placed in subject, predicate or object position of the relations constituting
 the graph. The definition of each URI should be found at the namespace of the
 URI, by dereferencing it.
 
-### Contents of a WebID Profile Document ### {#webid-profile-contents}
+### Contents of a WebID Document ### {#webid-profile-contents}
 
-A [=WebID Profile Document=] [MUST] qualify the described Agent as the
-document's `foaf:primaryTopic`. Furthermore, a [=WebID Profile Document=]
+A [=WebID Document=] [MUST] qualify the described Agent as the
+document's `foaf:primaryTopic`. Furthermore, a [=WebID Document=]
 [SHOULD] also qualify the described Agent as having type `foaf:Agent`.
 
 Personal details are the most common requirement when registering an account
@@ -404,11 +404,11 @@ A widely used format for writing RDF graphs by hand is the
 [Turtle](http://www.w3.org/TR/turtle/) [[!TURTLE]] notation. It is easy to
 learn, and very handy for communicating over e-mail and on mailing lists. The
 syntax is very similar to the \[SPARQL](http://www.w3.org/TR/rdf-sparql-query/)
-query language. WebID Profile Documents in Turtle should be served with the
+query language. WebID Documents in Turtle should be served with the
 `text/turtle` content type.
 
 Take for example the WebID *https://bob.example.org/profile#me*, for which the
-WebID Profile Document contains the following Turtle representation:
+WebID Document contains the following Turtle representation:
 
 <div class="example" id="ex-webid-profile-turtle">
   <pre highlight="turtle">
@@ -426,14 +426,14 @@ WebID Profile Document contains the following Turtle representation:
 </div>
 
 
-## Publishing a WebID Profile Document using the RDFa HTML notation ## {#publishing-a-webid-profile-using-the-rdfa-html-notation}
+## Publishing a WebID Document using the RDFa HTML notation ## {#publishing-a-webid-profile-using-the-rdfa-html-notation}
 
 [NO-NORM]
 
 RDFa in HTML [[!RDFA-CORE]] is a way to markup HTML with relations that have a
 well defined semantics and mapping to an RDF graph. There are many ways of
 writing out the above graph using RDFa in HTML. Here is just one example of
-what a WebID Profile Document could look like.
+what a WebID Document could look like.
 
 <div class="example" id="ex-webid-profile-rdfa">
   <pre highlight="html">
@@ -447,7 +447,7 @@ what a WebID Profile Document could look like.
   </pre>
 </div>
 
-If a WebID provider would prefer not to mark up his WebID Profile Document in
+If a WebID provider would prefer not to mark up his WebID Document in
 HTML+RDFa, but just provide a human readable format for users in plain HTML and
 have the RDF graph appear in a machine readable format such as Turtle, then he
 [SHOULD] provide a link of type `alternate` to a machine readable format
@@ -470,7 +470,7 @@ here:
 
 [NO-NORM]
 
-A WebID Profile Document may contain public as well as private information
+A WebID Document may contain public as well as private information
 about the agent named by the WebID. As some agents may not want to reveal
 a lot of information about themselves, RDF and Linked Data principles allows
 them to choose how much information they wish to make publicly available. This
@@ -535,11 +535,11 @@ and having the following corresponding ACL rule, expressed using the
 [NO-NORM]
 
 A [=WebID=] identifies an agent via a description found in the associated
-[=WebID Profile Document=]. An agent that wishes to know what a WebID refers
+[=WebID Document=]. An agent that wishes to know what a WebID refers
 to, must rely on the description found in the WebID Profile. An attack on the
-relation between the [=WebID=] and the [=WebID Profile Document=] can thus be
+relation between the [=WebID=] and the [=WebID Document=] can thus be
 used to subvert the meaning of the WebID, and to make agents following links
-within the [=WebID Profile Document=] come to different conclusions from those
+within the [=WebID Document=] come to different conclusions from those
 intended by profile owners.
 
 The standard way of overcoming such attacks is to rely on the cryptographic
@@ -563,8 +563,8 @@ Wiki](http://www.w3.org/2005/Incubator/webid/wiki/Identity_Security).
 
 # Processing the WebID Profile # {#processing-the-webid-profile}
 
-The [=Requesting Agent=] needs to fetch the WebID Profile Document, if it does
-not have a valid one in cache. The Agent requesting the WebID Profile Document
+The [=Requesting Agent=] needs to fetch the WebID Document, if it does
+not have a valid one in cache. The Agent requesting the WebID Document
 [MUST] be able to parse documents in Turtle [[!TURTLE]], but [MAY] also be able
 to parse documents in RDF/XML [[!RDF-SYNTAX-GRAMMAR]] and RDFa [[!RDFA-CORE]].
 The result of this processing should be a graph of RDF relations that is
