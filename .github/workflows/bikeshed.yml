@@ -76,11 +76,12 @@ jobs:
         run: |
           bikeshed spec spec/identity/index.bs
 
-      - name: Commit changed files
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: 'chore: process Bikeshed to HTML (CI)'
-          file_pattern: 'spec/identity/index.html'
-          add_options: '-f'
-          disable_globbing: true
-          skip_dirty_check: true
+      - name: Checkout CI branch
+        run: |
+          git checkout -B "ci/$(git branch --show-current)"
+      
+      - name: Add, commit and push
+        run: | 
+          git add -f spec/identity/index.html \
+            && git -c user.name="webid-ci" -c user.email="webid-ci@noreply.github.com" commit -m "CI build" --author "WebID CI <webid-ci@noreply.github.com>" \
+            && git push -f origin "$(git branch --show-current)"
