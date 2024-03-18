@@ -239,7 +239,7 @@ WebID can be `https://bob.example.org/profile#me`.
 <div class="note" id="h_note_1">
 
   There are two solutions that meet our requirements for identifying real-world
-  objects: 303 redirects and hash IRIs. Which one to use depends on the
+  objects: 303 redirects and hash IRIs. Which one is best to use depends on the
   situation. Both have advantages and disadvantages, as presented in
   [[!COOLURIS]]. All examples in this specification will use such hash IRIs.
 
@@ -251,19 +251,19 @@ WebID can be `https://bob.example.org/profile#me`.
 
 While a WebID is technically an [[!IRI]] with a HTTP(S) scheme, it can also
 generally be considered a WHATWG [[!URL]] with a HTTP(S) scheme. Implementers
-[SHOULD], however, prepare for the entire [[!IRI]] space.
+[SHOULD] prepare for the entire [[!IRI]] space.
 
 <div class="note" id="h_note_2">
   This specification follows the definitions and constraints expressed in 
   [Section 3.2](https://www.w3.org/TR/rdf12-concepts/#section-IRIs) of
-  [[!rdf12-concepts]] in relation to the usage of IRIs within RDF syntax and
+  [[!rdf12-concepts]] regarding the use of IRIs within RDF syntax and
   their relationship with URIs and URLs.
 </div>
 
 <div class="note" id="h_note_2">
   This specification defers to the procedures defined in
   [Section 3](https://www.rfc-editor.org/rfc/rfc3987#section-3) of [[!IRI]]
-  in relation to the mapping and conversion between the IRI and URI spaces.
+  regarding mapping and conversion between the IRI and URI spaces.
 </div>
 
 # Overview # {#overview}
@@ -278,16 +278,16 @@ class="full-width">
 
 The WebID IRI — <em>"<a href="http://www.w3.org/People/Berners-Lee/card#i"
 >http://www.w3.org/People/Berners-Lee/card<strong>#i</strong></a>"</em>
-(containing the **#i** hash tag) — is an identifier that denotes (refers to) a
-person or more generally an agent. In the above illustration, the referent is
-Tim Berners Lee, a real physical person who has a history, who invented the
-World Wide Web, and who directs the World Web Consortium.
+(containing the **#i** fragment identifier) — is an identifier that denotes
+(refers to) a person or more generally an agent. In the above illustration,
+the referent is Tim Berners Lee, a real physical person who has a history,
+who invented the World Wide Web, and who directs the World Web Consortium.
 
 The WebID Profile Document IRI — <em>"<a 
 href="http://www.w3.org/People/Berners-Lee/card"
->http://www.w3.org/People/Berners-Lee/card</a>"</em> (without the **#i** hash
-tag) — denotes the document describing the person (or more generally any agent)
-who is the referent of the WebID IRI.
+>http://www.w3.org/People/Berners-Lee/card</a>"</em> (without the **#i**
+fragment identifier) — denotes the document describing the person (or more
+generally any agent) who is the referent of the WebID IRI.
 
 The WebID Profile Document gives the meaning of the WebID: its RDF Graph
 contains a [Concise Bounded Description](http://www.w3.org/Submission/CBD/) of
