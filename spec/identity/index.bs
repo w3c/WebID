@@ -247,34 +247,27 @@ WebID can be `https://bob.example.org/profile#me`.
 The relation between the [=WebID=] URI and the [=WebID Profile Document=] is
 illustrated below.
 
-<img src="img/WebID-overview.png" alt="WebID overview" id="webid-diagram"
-class="full-width">
+<img src="img/webid-overview-diagram.png" alt="WebID overview" id="webid-diagram">
 
-The WebID URI — <em>"<a href="http://www.w3.org/People/Berners-Lee/card#i"
->http://www.w3.org/People/Berners-Lee/card<strong>#i</strong></a>"</em>
-(containing the **#i** hash tag) — is an identifier that denotes (refers to) a
-person or more generally an agent. In the above illustration, the referent is
-Tim Berners Lee, a real physical person who has a history, who invented the
-World Wide Web, and who directs the World Web Consortium.
+In the illustration above, the WebID URI `https://example.org/ident#me`
+(containing the **#me** hash tag) is an identifier that denotes (refers to) an
+agent.
 
-The WebID Profile Document URI — <em>"<a 
-href="http://www.w3.org/People/Berners-Lee/card"
->http://www.w3.org/People/Berners-Lee/card</a>"</em> (without the **#i** hash
-tag) — denotes the document describing the person (or more generally any agent)
-who is the referent of the WebID URI.
+The WebID Profile Document URI `https://example.org/ident` (without the **#me**
+hash tag) denotes the document describing the agent  who is the referent of the
+WebID URI.
 
 The WebID Profile Document gives the meaning of the WebID: its RDF Graph
 contains a [Concise Bounded Description](http://www.w3.org/Submission/CBD/) of
 the WebID such that this subgraph forms a definite description of the referent
 of the WebID, that is, a description that distinguishes the referent of that
-WebID from all other things in the world. <br /> The WebID Profile Document
+WebID from all other things in the world. The WebID Profile Document
 can, for example, contain relations to other documents depicting the WebID
 referent, or it can relate the WebID to principals used by different
 authentication protocols. (More information on WebID and other authentication
 protocols can be found on the [WebID Identity
 Interoperability](http://www.w3.org/2005/Incubator/webid/wiki/Identity_Interoperability)
 page).
-
 
 # Publishing the WebID Profile Document # {#publishing-the-webid-profile-document}
 
