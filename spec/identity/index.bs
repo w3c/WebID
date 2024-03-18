@@ -257,6 +257,14 @@ The WebID Profile Document URI `https://example.org/ident` (without the **#me**
 hash tag) denotes the document describing the agent  who is the referent of the
 WebID URI.
 
+<div class="note" id="h_note_2">
+  As client HTTP libraries conforming to the HTTP standard automatically strip
+  the fragment before sending requests to the server, all requests made against
+  the WebID `https://example.org/ident#me` will implicitly be made against the
+  location of the corresponding WebID Profile Document
+  `https://example.org/ident`.
+</div>
+
 The WebID Profile Document gives the meaning of the WebID: its RDF Graph
 contains a [Concise Bounded Description](http://www.w3.org/Submission/CBD/) of
 the WebID such that this subgraph forms a definite description of the referent
@@ -269,15 +277,20 @@ protocols can be found on the [WebID Identity
 Interoperability](http://www.w3.org/2005/Incubator/webid/wiki/Identity_Interoperability)
 page).
 
+# Example # {#example}
+
+[NO-NORM]
+
 As example of a real-life WebID, consider that of Tim Berners-Lee, a real
 physical person who has a history, who invented the World Wide Web, and who
 directs the World Web Consortium: 
 [https://www.w3.org/People/Berners-Lee/card#i](https://www.w3.org/People/Berners-Lee/card#i) . 
-This WebID can easily be dereferenced to its respective WebID Profile Document
-with a suitable HTTP client, such as [curl](https://curl.se/):
+
+Tim's WebID can easily be dereferenced to its respective WebID Profile Document
+with any suitable HTTP client, such as [curl](https://curl.se/):
 
 ```
-$ curl -H "Accept: text/turtle"
+$ curl -H "Accept: text/turtle" https://www.w3.org/People/Berners-Lee/card#i
 ```
 
 In doing so, we are presented with a document that includes the following
