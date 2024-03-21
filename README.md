@@ -16,17 +16,31 @@ See the [contributing
 guide](https://github.com/w3c/WebID/blob/main/CONTRIBUTING.md) for detailed
 instructions on how to get started with our project.
 
-The work items are written using
-[Bikeshed](https://speced.github.io/bikeshed/), a preprocessor that automates a
-lot of modern spec-writing. 
-[BUILD.md](https://github.com/w3c/WebID/blob/main/BUILD.md) contains a short
-guide on its usage.
+Work items are written using either [BikeShed][bikeshed] or [ReSpec][respec].
+
+> [ReSpec][respec] is a JS library that unobtrusively allows editors to write a 
+> specification focusing on the actual features and correctness, while needing
+> to pay as little attention as possible to issues pertaining to styling,
+> referential integrity and W3C Publication Rules. 
+
+> [BikeShed][bikeshed] is a preprocessor that automates a lot of modern
+> spec-writing, taking in lightly-decorated Markdown and producing a full spec,
+> with cross-spec autolinking, automatic generation of indexes/ToC and many
+> other features. 
+
+Moving forward, all new work items and major revisions of existing work items
+should use [BikeShed][bikeshed]. [BUILD.md][BUILD.md] contains a short guide on
+its usage.
+
+An [automated CI workflow using GitHub Actions][workflow] takes care of
+maintaining up-to-date builds of work items written with [BikeShed][bikeshed].
+The resulting `.html` documents are tracked in separate branches with the `ci/`
+prefix prepended to the name of the originating branch.
 
 ## Code of Conduct
 
 All documentation, code and communication under this repository are covered by
-the [W3C Code of Ethics and Professional
-Conduct](https://www.w3.org/Consortium/cepc/).
+the [W3C Code of Ethics and Professional Conduct][cepc].
 
 ## Working items
 
@@ -46,3 +60,6 @@ Conduct](https://www.w3.org/Consortium/cepc/).
 [respec]: https://respec.org/docs/
 [bikeshed]: https://speced.github.io/bikeshed/
 [2014ED]: ./spec/drafts/ED-webid-20140305/identity/index.html
+[BUILD.md]: ./BUILD.md
+[workflow]: ./.github/workflows/bikeshed.yml
+[cepc]: https://www.w3.org/Consortium/cepc/
