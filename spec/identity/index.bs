@@ -447,7 +447,7 @@ what a WebID Document could look like.
   </pre>
 </div>
 
-If a WebID provider would prefer not to mark up his WebID Document in
+If a WebID provider would prefer not to mark up their WebID Document in
 HTML+RDFa, but just provide a human readable format for users in plain HTML and
 have the RDF graph appear in a machine readable format such as Turtle, then he
 [SHOULD] provide a link of type `alternate` to a machine readable format
