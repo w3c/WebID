@@ -335,7 +335,7 @@ statements:
          :primaryTopic card:i .
 ```
 
-# Publishing the WebID Document # {#publishing-the-webid-profile-document}
+# Publishing the WebID Document # {#publishing-the-webid-profile-document}{#publishing-the-webid-document}
 
 The [=Server=] [MUST] offer at least one RDF representation for a 
 [=WebID Document=].
@@ -361,14 +361,14 @@ The [=Server=] [SHOULD] offer [[!TURTLE]] as one of the representations for a
 
 </div>
 
-## WebID Document Vocabulary ## {#webid-profile-vocabulary}
+## WebID Document Vocabulary ## {#webid-profile-vocabulary}{#webid-document-vocabulary}
 
 WebID RDF graphs are built using vocabularies identified by URIs, that can be
 placed in subject, predicate or object position of the relations constituting
 the graph. The definition of each URI should be found at the namespace of the
 URI, by dereferencing it.
 
-### Contents of a WebID Document ### {#webid-profile-contents}
+### Contents of a WebID Document ### {#webid-profile-contents}{#webid-document-contents}
 
 A [=WebID Document=] [MUST] qualify the described Agent as the
 document's `foaf:primaryTopic`. Furthermore, a [=WebID Document=]
@@ -426,7 +426,7 @@ WebID Document contains the following Turtle representation:
 </div>
 
 
-## Publishing a WebID Document using the RDFa HTML notation ## {#publishing-a-webid-profile-using-the-rdfa-html-notation}
+## Publishing a WebID Document using the RDFa HTML notation ## {#publishing-a-webid-profile-using-the-rdfa-html-notation}{#publishing-a-webid-document-using-the-rdfa-html-notation}
 
 [NO-NORM]
 
@@ -561,7 +561,7 @@ available on the [WebID
 Wiki](http://www.w3.org/2005/Incubator/webid/wiki/Identity_Security).
 
 
-# Processing the WebID Profile # {#processing-the-webid-profile}
+# Processing the WebID Profile # {#processing-the-webid-profile}{#processing-the-webid-document}
 
 The [=Requesting Agent=] needs to fetch the WebID Document, if it does
 not have a valid one in cache. The Agent requesting the WebID Document
