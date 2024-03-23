@@ -3,7 +3,7 @@
 
 <pre class="metadata">
 
-Title: Web Identity and Discovery
+Title: Web Identity (WebID) 1.0
 Shortname: WebID
 
 !Authors: Henry Story
