@@ -119,10 +119,6 @@ A WebID is an HTTP URI that refers to an Agent (Person, Organization, Group,
 Device, etc.); a description of the Agent named by the WebID can be found in 
 the respective [=WebID Profile Document=].
 
-A [=WebID Profile Document=] is a Web resource that [MUST] be available as
-`text/turtle` [[!TURTLE]], but [MAY] be available in other RDF serialization
-formats (e.g., [[!RDFA-CORE]]) if requested through content negotiation.
-
 WebIDs can be used to build a Web of trust using vocabularies such as FOAF
 [[!FOAF]] by allowing people to link their profiles in a public or protected
 manner. Such a web of trust can then be used by a [=Service=] to make
@@ -282,16 +278,29 @@ page).
 
 # Publishing the WebID Profile Document # {#publishing-the-webid-profile-document}
 
-This specification requires that servers [MUST] at least be able to provide a
-Turtle representation of WebID Profile Documents, but other serialization
-formats of the graph are allowed, provided that agents are able to parse that
-serialization and obtain the graph automatically. HTTP Content Negotiation can
-be employed to aid in publication and discovery of multiple distinct
-serializations of the same graph at the same URL, as explained in [[!COOLURIS]]
+The [=Server=] [MUST] offer at least one RDF representation for a 
+[=WebID Profile Document=].
 
-It is particularly useful to have one of the representations be in HTML even if
-it is not marked up in RDFa, as this allows people using a web browser to
-understand what the information at that URI represents.
+The [=Server=] [SHOULD] offer [[!TURTLE]] as one of the representations for a
+[=WebID Profile Document=].
+
+<div class="note" id="h_note_p1">
+
+  RDF serialization formats include, but are not limited to, [[!JSON-LD11]], 
+  [[!TURTLE]], and [[!RDFA-CORE]].
+  
+</div>
+
+<div class="note" id="h_note_p2">
+
+  This specification does not mandate support for any specific format, 
+  following the principle of 
+  [Orthogonality of Specifications](https://www.w3.org/blog/2009/orthogonality-of-specification/).
+  In the interest of interoperability, however, this specification warmly and
+  earnestly suggests supporting the [[!TURTLE]] format, whether in addition to
+  other formats or as the only supported one.
+
+</div>
 
 ## WebID Profile Document Vocabulary ## {#webid-profile-vocabulary}
 
