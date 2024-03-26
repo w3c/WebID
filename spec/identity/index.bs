@@ -6,7 +6,13 @@
 Title: Web Identity and Discovery
 Shortname: WebID
 
+!Authors: Henry Story
+!Authors: <a class="p-name fn u-email email" href="mailto:timbl@w3.org">Tim Berners-Lee</a>
+!Authors: <a class="p-name fn u-email email" href="mailto:andrei@fcns.eu">Andrei Sambra</a>
+
 Editor: Jacopo Scazzosi, jacopo@scazzosi.com
+
+Former Editor: Henry Story
 Former Editor: Andrei Sambra, andrei@fcns.eu
 Former Editor: Stéphane Corlosquet, scorlosquet@gmail.com
 
@@ -532,6 +538,9 @@ latest versions.
 
 [NO-NORM]
 
+Thanks to Henry Story for leading the development of WebID, without which none
+of this would exist.
+
 The following people have been instrumental in providing thoughts, feedback,
 reviews, criticism and input in the creation of this specification: 
 
@@ -606,6 +615,7 @@ Boilerplate: table-of-contents no, conformance no, index no
 Max ToC Depth: 4
 Markup Shorthands: markdown yes
 Inline Github Issues: title
+Metadata Order: Title, Shortname, Authors, Editor, Former Editor, Group, Status, Revision, ED, TR, Previous Version, Repository, Abstract, Status Text
 
 </pre>
 
