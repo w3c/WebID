@@ -240,7 +240,7 @@ A WebID HTTP IRI must be one that dereferences to a document the user controls.
 For example, if a user Bob controls `https://bob.example.org/profile`, then his
 WebID can be `https://bob.example.org/profile#me`.
 
-<div class="note" id="h_note_1">
+<div class="note" id="note-cooluris">
 
   There are two solutions that meet our requirements for identifying real-world
   objects: 303 redirects and hash IRIs. Which one is best to use depends on the
@@ -257,17 +257,21 @@ While a WebID is technically an [[!IRI]] with a HTTP(S) scheme, it can also
 generally be considered a WHATWG [[!URL]] with a HTTP(S) scheme. Implementers
 [SHOULD] prepare for the entire [[!IRI]] space.
 
-<div class="note" id="h_note_2">
+<div class="note" id="note-iris-rdf12-concepts">
+
   This specification follows the definitions and constraints expressed in 
   [Section 3.2](https://www.w3.org/TR/rdf12-concepts/#section-IRIs) of
   [[!rdf12-concepts]] regarding the use of IRIs within RDF syntax and
   their relationship with URIs and URLs.
+
 </div>
 
-<div class="note" id="h_note_2">
+<div class="note" id="note-iri-rfc3987">
+
   This specification defers to the procedures defined in
   [Section 3](https://www.rfc-editor.org/rfc/rfc3987#section-3) of [[!IRI]]
   regarding mapping and conversion between the IRI and URI spaces.
+
 </div>
 
 # Overview # {#overview}
@@ -287,11 +291,13 @@ The WebID Document IRI `https://example.org/ident` (without the **#me**
 fragment identifier) denotes the document describing the agent  who is the
 referent of the WebID IRI.
 
-<div class="note" id="h_note_2">
+<div class="note" id="note-strip-http-frag">
+
   As client HTTP libraries conforming to the HTTP standard automatically strip
   the fragment before sending requests to the server, all requests made against
   the WebID `https://example.org/ident#me` will implicitly be made against the
   location of the corresponding [=WebID Document=] `https://example.org/ident`.
+
 </div>
 
 The WebID Document gives the meaning of the WebID: its RDF Graph
@@ -348,14 +354,14 @@ The [=Server=] [MUST] offer at least one RDF representation for a
 The [=Server=] [SHOULD] offer [[!TURTLE]] as one of the representations for a
 [=WebID Document=].
 
-<div class="note" id="h_note_p1">
+<div class="note" id="note-rdf-formats">
 
   RDF serialization formats include, but are not limited to, [[!JSON-LD11]], 
   [[!TURTLE]], and [[!RDFA-CORE]].
   
 </div>
 
-<div class="note" id="h_note_p2">
+<div class="note" id="note-turtle-interop">
 
   This specification does not mandate support for any specific format, 
   following the principle of 
@@ -584,6 +590,7 @@ queryable, as explained in the next section.
   following would be a reasonable Accept header:
   <br />
   `Accept: text/turtle,application/rdf+xml,application/xhtml+xml;q=0.8,text/html;q=0.7`
+
 </div>
 
 If the [=Requesting Agent=] wishes to have the most up-to-date WebID Profile
