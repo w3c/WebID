@@ -151,18 +151,22 @@ conventions used throughout this document.
 [[#terminology|Section 2]] provides a short description for the most commonly
 used terms in this document.
 
-[[#the-webid-http-uri|Section 3]] describes what a WebID is.
+[[#the-webid-http-iri|Section 3]] describes what a [=WebID=] is.
 
-[[#overview|Section 4]] illustrates the relationship between a WebID, the Agent
-that is named by it, and the respective [=WebID Document=].
+[[#webid-as-url-iri|Section 4]] expands on the use of IRI, URI and URL
+throughout this document.
 
-[[#webid-document-contents|Section 5]] defines the required and some suggested
-contents of a [=WebID Document=] 
+[[#overview|Section 5]] illustrates the relationship between a [=WebID=], the
+[=Agent=] that is named by it, and the respective [=WebID Document=].
 
-[[#publishing-the-webid-document|Section 6]] deals with the publishing
-of a [=WebID Document=].
+[[#example|Section 6]] provides an example of an actual [=WebID=] and the related
+[=WebID Document=].
 
-[[#processing-the-webid-document|Section 7]] describes how a request for a
+[[#publishing-the-webid-document|Section 7]] describes how a [=WebID Document=]
+should be published, which format should be used in doing so and what it may 
+contain.
+
+[[#processing-the-webid-document|Section 8]] describes how a request for a
 [=WebID Document=] should be handled.
 
 
@@ -222,7 +226,7 @@ stated:
 </table>
 
 
-# The WebID HTTP IRI # {#the-webid-http-uri}
+# The WebID HTTP IRI # {#the-webid-http-iri}
 
 When using IRIs with a HTTP(s) scheme, it is possible to identify both a thing
 (which may exist outside of the Web) and a Web document describing the thing.
@@ -287,8 +291,7 @@ referent of the WebID IRI.
   As client HTTP libraries conforming to the HTTP standard automatically strip
   the fragment before sending requests to the server, all requests made against
   the WebID `https://example.org/ident#me` will implicitly be made against the
-  location of the corresponding WebID Profile Document
-  `https://example.org/ident`.
+  location of the corresponding [=WebID Document=] `https://example.org/ident`.
 </div>
 
 The WebID Document gives the meaning of the WebID: its RDF Graph
@@ -312,7 +315,7 @@ physical person who has a history, who invented the World Wide Web, and who
 directed the World Web Consortium: 
 [https://www.w3.org/People/Berners-Lee/card#i](https://www.w3.org/People/Berners-Lee/card#i) . 
 
-Tim's WebID can easily be dereferenced to its respective WebID Profile Document
+Tim's WebID can easily be dereferenced to its respective [=WebID Document=]
 with any suitable HTTP client, such as [curl](https://curl.se/):
 
 ```
@@ -335,7 +338,9 @@ statements:
          :primaryTopic card:i .
 ```
 
-# Publishing the WebID Document # {#publishing-the-webid-profile-document}{#publishing-the-webid-document}
+# Publishing the WebID Document # {#publishing-the-webid-document}
+
+## Format of a WebID Document ## {#webid-document-format}
 
 The [=Server=] [MUST] offer at least one RDF representation for a 
 [=WebID Document=].
@@ -361,14 +366,14 @@ The [=Server=] [SHOULD] offer [[!TURTLE]] as one of the representations for a
 
 </div>
 
-## WebID Document Vocabulary ## {#webid-profile-vocabulary}{#webid-document-vocabulary}
+## Vocabulary of a WebID Document ## {#webid-document-vocabulary}
 
 WebID RDF graphs are built using vocabularies identified by URIs, that can be
 placed in subject, predicate or object position of the relations constituting
 the graph. The definition of each URI should be found at the namespace of the
 URI, by dereferencing it.
 
-### Contents of a WebID Document ### {#webid-profile-contents}{#webid-document-contents}
+## Contents of a WebID Document ## {#webid-document-contents}
 
 A [=WebID Document=] [MUST] qualify the described Agent as the
 document's `foaf:primaryTopic`. Furthermore, a [=WebID Document=]
@@ -395,8 +400,7 @@ Document=]:
 :: An image representing a person.
 
 
-## Publishing a WebID Profile using Turtle ## 
-{#publishing-a-webid-profile-using-turtle}
+## Publishing a WebID Document using Turtle ## {#publishing-a-webid-document-using-turtle}
 
 [NO-NORM]
 
@@ -426,7 +430,7 @@ WebID Document contains the following Turtle representation:
 </div>
 
 
-## Publishing a WebID Document using the RDFa HTML notation ## {#publishing-a-webid-profile-using-the-rdfa-html-notation}{#publishing-a-webid-document-using-the-rdfa-html-notation}
+## Publishing a WebID Document using the RDFa HTML notation ## {#publishing-a-webid-document-using-the-rdfa-html-notation}
 
 [NO-NORM]
 
@@ -561,7 +565,7 @@ available on the [WebID
 Wiki](http://www.w3.org/2005/Incubator/webid/wiki/Identity_Security).
 
 
-# Processing the WebID Profile # {#processing-the-webid-profile}{#processing-the-webid-document}
+# Processing the WebID Document # {#processing-the-webid-document}
 
 The [=Requesting Agent=] needs to fetch the WebID Document, if it does
 not have a valid one in cache. The Agent requesting the WebID Document
