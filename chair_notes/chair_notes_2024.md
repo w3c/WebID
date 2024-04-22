@@ -74,3 +74,28 @@ adequately.
 [20240221_4]: https://github.com/w3c/WebID/pull/60/files#diff-274f5e91238718e44b429797b66dcdc21e2d576ae2e0e769f0279840e5196945R195
 [20240221_5]: https://github.com/w3c/WebID/issues/58#issuecomment-1925809369
 [20240221_6]: https://github.com/w3c/WebID/issues/41#issue-2079076941
+
+## 2024-04-22
+
+My (Jacopo's) final note as today I formally resign from chairing the WebID
+group.
+
+I've taken the time to merge PRs that are currently open ([#67][20240422_1],
+[#68][20240422_2], [#69][20240422_3] and [#71][20240422_4]) into a new working
+document (see [`.bs` source][20240422_5] and [rendered `.html`][20240422_6]).
+
+As discussed on the list, I’ve also put Henry, Andrei and Tim back in the spec
+as authors, something that had inadvertently got lost in the ReSpec-to-BikeShed
+transition, and added a paragraph dedicated to Henry in the "acknowledgments"
+section.
+
+I hope that the next chair and/or other CGs / WGs will find value in it as,
+though it still needs more minor work, I believe it accurately reflects where
+the greatest consensus lies.
+
+[20240422_1]: https://github.com/w3c/WebID/pull/67
+[20240422_2]: https://github.com/w3c/WebID/pull/68
+[20240422_3]: https://github.com/w3c/WebID/pull/69
+[20240422_4]: https://github.com/w3c/WebID/pull/71
+[20240422_5]: ../working_documents/webid-core-jacopo-20240422.bs
+[20240422_6]: ../working_documents/webid-core-jacopo-20240422.html
