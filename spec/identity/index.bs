@@ -17,13 +17,12 @@ Former Editor: Andrei Sambra, andrei@fcns.eu
 Former Editor: Stéphane Corlosquet, scorlosquet@gmail.com
 
 Group: w3c
-Status: w3c/ED
+Status: w3c/CG-DRAFT
 Revision: 1
 
-ED: https://www.w3.org/2005/Incubator/webid/spec/identity/
-TR: http://www.w3.org/TR/webid/
+ED: https://w3c.github.io/WebID/spec/identity/
 
-Previous Version: http://www.w3.org/2005/Incubator/webid/spec/drafts/
+Previous Version: http://www.w3.org/2005/Incubator/webid/spec/identity/
 
 Repository: https://github.com/w3c/WebID/
 
@@ -58,59 +57,21 @@ Abstract:
 
 Status Text:
 
-  <em>This section describes the status of this document at the time of its
-  publication. Other documents may supersede this document. A list of current
-  <abbr title="World Wide Web Consortium">W3C</abbr> publications and the
-  latest revision of this technical report can be found in the <a
-  href="http://www.w3.org/TR/"><abbr title="World Wide Web
-  Consortium">W3C</abbr> technical reports index</a> at
-  http://www.w3.org/TR/.</em>
+  This specification was published by the
+  [WebID Community Group](https://www.w3.org/groups/cg/webid). It is not a
+  W3C Standard nor is it on the W3C Standards Track. Please note that under the
+  [W3C Community Contributor License Agreement (CLA)](https://www.w3.org/community/about/agreements/cla/)
+  there is a limited opt-out and other conditions apply. Learn more about 
+  [W3C Community and Business Groups](https://www.w3.org/community/).
 
-  <!-- This document has been reviewed by W3C Members, by software developers,
-  and by other W3C groups and interested parties, and is endorsed by the
-  Director as a W3C Recommendation. It is a stable document and may be used as
-  reference material or cited from another document. W3C's role in making the
-  Recommendation is to draw attention to the specification and to promote its
-  widespread deployment. This enhances the functionality and interoperability
-  of the Web. -->
-
-  This document is produced from work by the <a
-  href="http://www.w3.org/community/webid/"><abbr title="World Wide Web
-  Consortium">W3C</abbr> WebID Community Group</a>. This is an internal draft
-  document and may not even end up being officially published. It may also be
-  updated, replaced or obsoleted by other documents at any time. It is
-  inappropriate to cite this document as other than work in progress. The
-  source code for this document is available at the following URI:
-  https://dvcs.w3.org/hg/WebID
-
-  This document was published by the <a
-  href="http://www.w3.org/community/webid/">WebID CG</a> as an Editor's Draft.
-  If you wish to make comments regarding this document, please send them to
-  public-webid@w3.org <a
-  href="mailto:public-webid-request@w3.org?subject=subscribe">subscribe</a>, <a
-  href="http://lists.w3.org/Archives/Public/public-webid/">archives</a>. All
-  comments are welcome.
-
-  Publication as an Editor's Draft does not imply endorsement by the <abbr
-  title="World Wide Web Consortium">W3C</abbr> Membership. This is a draft
-  document and may be updated, replaced or obsoleted by other documents at any
-  time. It is inappropriate to cite this document as other than work in
+  This is an internal draft document and may not even end up being officially
+  published. It may also be updated, replaced or obsoleted by other documents
+  at any time. It is inappropriate to cite this document as other than work in
   progress.
 
-  This document was produced by a group operating under the <a
-  href="http://www.w3.org/Consortium/Patent-Policy-20040205/"
-  rel="w3p:patentRules" about="" id="sotd_patent">5 February 2004 <abbr
-  title="World Wide Web Consortium">W3C</abbr> Patent Policy</a>. <abbr
-  title="World Wide Web Consortium">W3C</abbr> maintains a <a rel="disclosure"
-  href="http://www.w3.org/2004/01/pp-impl/46065/status">public list of any
-  patent disclosures</a> made in connection with the deliverables of the group;
-  that page also includes instructions for disclosing a patent. An individual
-  who has actual knowledge of a patent which the individual believes contains <a 
-  href="http://www.w3.org/Consortium/Patent-Policy-20040205/#def-essential">Essential
-  Claim(s)</a> must disclose the information in accordance with <a
-  href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-Disclosure">section
-  6 of the <abbr title="World Wide Web Consortium">W3C</abbr> Patent 
-  Policy</a>.
+  If you wish to make comments regarding this document, please send them to 
+  [public-webid@w3.org](mailto:public-webid@w3.org)
+  ([archives](https://lists.w3.org/Archives/Public/public-webid/)).
 
 </pre>
 
@@ -675,7 +636,7 @@ External Infotrees: link-defaults.infotree no
 <pre class="metadata">
 
 Dark Mode: no
-Boilerplate: table-of-contents no, conformance no, index no
+Boilerplate: conformance no, index no
 Max ToC Depth: 4
 Markup Shorthands: markdown yes
 Inline Github Issues: title
@@ -683,66 +644,5 @@ Metadata Order: Title, Shortname, Authors, Editor, Former Editor, Group, Status,
 
 </pre>
 
-<style>
 
-    /* Reset base counters and additional ones */
-    body { counter-reset: example note issue assertion advisement figure !important; }
-
-    /* Configure increments for additional counters */
-    .note { counter-increment: note; }
-    .assertion { counter-increment: assertion; }
-    .advisement { counter-increment: advisement; }
-
-    /* Configure display of additional counters */
-    .note:not(.no-marker)::before { content: "Note " counter(note); }
-    .assertion:not(.no-marker)::before { content: "Assertion" counter(assertion); }
-    .advisement:not(.no-marker)::before { content: "Advisement" counter(advisement); }
-
-    /* Reduce font size of boxes and preformatted blocks */
-    .note,
-    .issue,
-    .example,
-    .assertion,
-    .advisement { font-size: .9em; }
-    pre { font-size: .8em; }
-
-    /* Style prefix tables */
-    .prefixes {
-      text-align: left;
-      border-collapse: collapse;
-    }
-    .prefixes th, .prefixes td {
-      padding: 5px;
-      border: 1px solid black;
-    }
-
-    /* Style RFC2119 conformance terms */
-    em.rfc2119 {
-      text-transform: lowercase;
-      font-variant: small-caps;
-      font-style: normal;
-      font-size: 1.1em;
-      color: darkred;
-    }
-
-    /* Style <code> as in old WebID drafts */
-    code {
-      color: orangered;
-      font-size: .8em;
-    }
-
-    /* Resize the full-width diagram */
-    .full-width {
-      width: 100%;
-    }
-
-    /* Some temporary style to render without toc */
-    body { 
-      padding-left: 24px !important ;
-      margin: 0 50px;
-      width: 85% !important;
-      max-width: 85% !important;
-    }
-
-</style>
  
