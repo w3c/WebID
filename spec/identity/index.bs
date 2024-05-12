@@ -75,6 +75,16 @@ Status Text:
 
 </pre>
 
+<p boilerplate="copyright">
+  [Copyright](https://www.w3.org/policies/#copyright) © 2010-[YEAR]
+  the Contributors to the WebID 1.0 Specification, published by the
+  [WebID Community Group](https://www.w3.org/groups/cg/webid) under the
+  [W3C Community Contributor License Agreement (CLA)](https://www.w3.org/community/about/agreements/cla/).
+  A human-readable
+  [summary](https://www.w3.org/community/about/agreements/cla-deed/)
+  is available.
+</p>
+
 
 <!---- MAIN CONTENT ---------------------------------------------------------->
 
